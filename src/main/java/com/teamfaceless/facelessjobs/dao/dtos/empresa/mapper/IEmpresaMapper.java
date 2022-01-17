@@ -1,6 +1,6 @@
-package com.teamfaceless.facelessjobs.dtos.empresa.mapper;
+package com.teamfaceless.facelessjobs.dao.dtos.empresa.mapper;
 
-import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
+import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaRegistroDto;
 import com.teamfaceless.facelessjobs.model.Empresa;
 
 public interface IEmpresaMapper {

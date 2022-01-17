@@ -2,9 +2,9 @@ package com.teamfaceless.facelessjobs.controller;
 
 import javax.validation.Valid;
 
-import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaListadoDto;
-import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
-import com.teamfaceless.facelessjobs.dtos.empresa.mapper.IEmpresaMapper;
+import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaListadoDto;
+import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaRegistroDto;
+import com.teamfaceless.facelessjobs.dao.dtos.empresa.mapper.IEmpresaMapper;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;

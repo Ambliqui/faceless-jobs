@@ -11,7 +11,7 @@ import com.teamfaceless.facelessjobs.model.Candidato;
 public interface ICandidatoRepository extends JpaRepository<Candidato, Integer> {
 
 	List<Candidato> findByNombreCandidato(String nombreCandidato);
-	
+
 	@Query("FROM Candidato WHERE credencial.email = :emailCandidato")
 	Optional<Candidato> findByEmail(String emailCandidato);
 }
