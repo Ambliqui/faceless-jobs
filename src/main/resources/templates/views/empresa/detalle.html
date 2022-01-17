@@ -9,9 +9,9 @@
 	<h2 th:text="${titulo}">Sutitulo</h2>
 	<hr>
 
-	<div class="row">
+	<main class="row">
 		<div class="col-2"></div>
-		<div class="col-8">
+		<formulario class="col-8">
 			<form class="container row g-3" th:action="@{/empresa/modificar}" th:object="${empresa}" method="post">
 				<h5>Datos Empresa</h5>
 
@@ -21,7 +21,7 @@
 					<input id="credencial" type="hidden" th:field="*{credencial}"
 						class="form-control">
 						
-				<div class="col-md-5">
+				<nombre class="col-md-5">
 					<label for="nombreEmpresa">Nombre </label>
 					<input id="nombreEmpresa"
 						type="text" th:field="*{nombreEmpresa}" class="form-control"
@@ -31,8 +31,8 @@
 						th:if="${#fields.hasErrors('nombreEmpresa')}"
 						th:errors="*{nombreEmpresa}" class="form-text text-danger">
 					</label>
-				</div>
-				<div class="col-md-7">
+				</nombre>
+				<campo class="col-md-7">
 					<label for="nombreJuridicoEmpresa">Nombre Juridico</label>
 					<input
 						id="nombreJuridicoEmpresa" type="text"
@@ -43,8 +43,8 @@
 						class="form-text text-danger"
 						th:if="${#fields.hasErrors('nombreJuridicoEmpresa')}"
 						th:errors="*{nombreJuridicoEmpresa}"></label>
-				</div>
-				<div class="col-md-4">
+				</campo>
+				<campo class="col-md-4">
 					<label for="CIFEmpresa">CIF </label>
 					<input id="CIFEmpresa"
 						type="text" th:field="*{cIFempresa}" class="form-control"
@@ -53,8 +53,8 @@
 						for="CIFEmpresa" class="form-text text-danger"
 						th:if="${#fields.hasErrors('cIFempresa')}"
 						th:errors="*{cIFempresa}"></label>
-				</div>
-				<div class="col-md-5">
+				</campo>
+				<campo class="col-md-5">
 					<label for="sectorLaboralEmpresa">Sector Laboral </label>
 					<select id="sectorLaboralEmpresa" th:field="*{sectorEmpresa}"
 						class="form-select">
@@ -68,8 +68,8 @@
 						th:if="${#fields.hasErrors('provinciaEmpresa')}"
 						th:errors="*{provinciaEmpresa}" class="form-text text-danger">
 					</label>
-				</div>
-				<div class="col-md-3">
+				</campo>
+				<campo class="col-md-3">
 					<label for="empleadosEmpresa">Empleados Empresa</label>
 					<input
 						id="empleadosEmpresa" type="number" th:field="*{empleadosEmpresa}"
@@ -81,24 +81,24 @@
 						th:if="${#fields.hasErrors('empleadosEmpresa')}"
 						th:errors="*{empleadosEmpresa}">
 					</label>
-				</div>
+				</campo>
 				<hr>
 				<h5>Formas de contacto</h5>
-				<div class="col-md-6">
+				<campo class="col-md-6">
 					<label for="telefonoEmpresa">Telefono </label>
 					<input
-						id="telefonoEmpresa" type="number" th:field="*{telefonoEmpresa}"
-						class="form-control" placeholder="Telefono de contacto">
+						id="telefonoEmpresa" type="text" th:field="*{telefonoEmpresa}"
+						class="form-control" placeholder="+34-687654321">
 					<label
 						id="errorTelefonoEmpresa" for="telefonoEmpresa"
 						th:if="${#fields.hasErrors('telefonoEmpresa')}"
 						th:errors="*{telefonoEmpresa}" class="form-text text-danger">
 					</label>
-				</div>
-				<div class="col-md-6">
+				</campo>
+				<campo class="col-md-6">
 					<label for="whatsappEmpresa">Whatsapp </label>
 					<input
-						id="whatsappEmpresa" type="number" th:field="*{whatsappEmpresa}"
+						id="whatsappEmpresa" type="text" th:field="*{whatsappEmpresa}"
 						class="form-control"
 						placeholder="Whatsapp de contacto">
 					<label
@@ -107,9 +107,9 @@
 						th:errors="*{whatsappEmpresa}"
 						class="form-text text-danger">
 					</label>
-				</div>
+				</campo>
 
-				<div class="col-md-4">
+				<campo class="col-md-4">
 					<label for="provinciaEmpresa">Provincia </label>
 					<!-- <input id="provinciaEmpresa" type="text"
 						th:field="*{provinciaEmpresa}"
@@ -126,8 +126,8 @@
 						th:if="${#fields.hasErrors('provinciaEmpresa')}"
 						th:errors="*{provinciaEmpresa}" class="form-text text-danger">
 					</label>
-				</div>
-				<div class="col-md-8">
+				</campo>
+				<campo class="col-md-8">
 					<label for="localidadEmpresa">Localidad </label>
 					<input
 						id="localidadEmpresa" type="text" th:field="*{localidadEmpresa}"
@@ -139,8 +139,8 @@
 						th:errors="*{localidadEmpresa}"
 						class="form-text text-danger">
 					</label>
-				</div>
-				<div class="col-md-12">
+				</campo>
+				<campo class="col-md-12">
 					<label for="direccionEmpresa">Direccion </label>
 					<input
 						id="direccionEmpresa" type="text" th:field="*{direccionEmpresa}"
@@ -151,25 +151,25 @@
 						th:errors="*{direccionEmpresa}"
 						class="form-text text-danger">
 					</label>
-				</div>
+				</campo>
 				<hr>
-				<div class="col-md-12 text-center align-middle">
+				<campo class="col-md-12 text-center align-middle">
 					<button type="submit" class="btn btn-warning">Modificar</button>
 					<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 					
-					<div th:switch="${botonera}" class="form-group col-md-6 text-center">
+					<conmutador th:switch="${botonera}" class="form-group col-md-6 text-center">
 						<button type="submit" th:case="alta" th:value="Alta"
 							class="btn btn-warning" th:formaction="@{/empresa/guardar}">Alta</button>
 						<button type="submit" th:case="editar" th:value="Editar"
 							class="btn btn-warning" th:formaction="@{/empresa/editar}">Editar</button>
 						<button type="submit" th:case="modificar"th:value="Modificar"
 							class="btn btn-warning" th:formaction="@{/empresa/modificar}" >Modificar</button>
-					</div>
-				</div>
+					</conmutador>
+				</campo>
 				<hr>
 			</form>
-		</div>
-	</div>
+		</formulario>
+	</main>
   <footer th:replace="fragments/base :: footer"></footer>
   <th:block th:replace="fragments/base :: script"></th:block>
 </body>

@@ -110,12 +110,12 @@ INSERT INTO empresa (cif_empresa,logo_empresa,nombre_empresa,nombre_juridico_emp
 	 ('666666',NULL,'Nombre empresa','nombre kuridico',7,6666,13,'6','Locallidad empresa','C/ de la empresa','698745123','',NULL),
 	 ('7777777',NULL,'Septima Empresa','Septima Empresa S.A.',6,4000,11,'7','Chipiona','dfasdfasfasf','78906543','987654321',NULL),
 	 ('88888',NULL,'88888','88888',13,88888,12,'8','888888888','88888888','888888888','88888888',NULL),
-	 ('99999',NULL,'99999','Empresa 9',14,99999,35,'9','999999999','99999999','999999999','99999999',19),
+	 ('99999',NULL,'99999','Empresa 9',14,99999,35,'9','999999999','99999999','999999999','99999999',NULL),
 	 ('S4280108D',NULL,'Pruebas Validation','asdfasdf',1,10000,2,NULL,'La mia propia','En un lugar de la Mancha','+34-687654321','+34-687654321',NULL);
 INSERT INTO empresa (cif_empresa,logo_empresa,nombre_empresa,nombre_juridico_empresa,sector_empresa,empleados_empresa,provincia_empresa,provincia_empresa_e,localidad_empresa,direccion_empresa,telefono_empresa,whatsapp_empresa,credencial_id_credencial) VALUES
-	 ('987456132',NULL,'imprenta beltran sl','beltransl',4,14,21,NULL,'sna juan del puerto','poligono indutec nave 2','959356454','685416128',28),
-	 ('1254255',NULL,'Isi el guapo SL','Isi el guapo sociedad limitada',10,5,41,NULL,'Fuentes de andalucia','calle granada nº9','684279534','',30),
-	 ('333',NULL,'Perfido Doofenshmirtz SL','Perry el Ornitorrinco',5,1,38,NULL,'Area de los Tres Estados','En el medio, idk','123456','123456',31);
+	 ('987456132',NULL,'imprenta beltran sl','beltransl',4,14,21,NULL,'sna juan del puerto','poligono indutec nave 2','959356454','685416128',NULL),
+	 ('1254255',NULL,'Isi el guapo SL','Isi el guapo sociedad limitada',10,5,41,NULL,'Fuentes de andalucia','calle granada nº9','684279534','',NULL),
+	 ('333',NULL,'Perfido Doofenshmirtz SL','Perry el Ornitorrinco',5,1,38,NULL,'Area de los Tres Estados','En el medio, idk','123456','123456',NULL);
 
 INSERT INTO habilidad (nombre_habilidad,descripcion_habilidad,categoria_habilidad) VALUES
 	 ('Nombre 1','Descripcion 1','0'),

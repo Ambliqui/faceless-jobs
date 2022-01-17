@@ -1,7 +1,7 @@
 package com.teamfaceless.facelessjobs.model;
+
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.teamfaceless.facelessjobs.enums.Provincias;
@@ -21,7 +24,6 @@ import com.teamfaceless.facelessjobs.enums.Provincias;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
@@ -29,7 +31,6 @@ import lombok.Singular;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {
@@ -45,27 +46,31 @@ public class Empresa implements Serializable {
     @Column(name = "logo_empresa")
     private String logoEmpresa;
     
-    @Size(max = 45)
+    @NotEmpty
+    @Pattern(regexp = "[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}")
     @Column(name = "CIF_empresa", nullable = false, unique = true)
     private String cIFempresa;
     
     @NotEmpty
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "nombre_empresa" , nullable = false)
     private String nombreEmpresa;
     
+    @NotEmpty
     @Size(max = 45)
     @Column(name = "nombre_juridico_empresa" , nullable = false)
     private String nombreJuridicoEmpresa;
     
-    @Size(max = 14)
+    @NotEmpty
+    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
     @Column(name = "telefono_empresa")
     private String telefonoEmpresa;
     
-    @Size(max = 45)
+    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
     @Column(name = "whatsapp_empresa")
     private String whatsappEmpresa;
     
+    @NotEmpty
     @Size(max = 200)
     @Column(name = "direccion_empresa")
     private String direccionEmpresa;
@@ -73,10 +78,13 @@ public class Empresa implements Serializable {
     @Column(name = "provincia_empresa_e")
     private Provincias provinciaEmpresaE;
     
+    @NotEmpty
     @Size(max = 200)
     @Column(name = "localidad_empresa")
     private String localidadEmpresa;
     
+    @Positive
+    @Min(value = 1)
     @Column(name = "empleados_empresa")
     private Integer empleadosEmpresa;
     
