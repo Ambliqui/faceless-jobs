@@ -2,10 +2,6 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO categoria_habilidad (nombre_categoria_habilidad) VALUES
-	 ('Dura'),
-	 ('Blanda');
-
 INSERT INTO provincia (nombre_provincia) VALUES
 	 ('Albacete'),
 	 ('Alicante'),
@@ -118,10 +114,10 @@ INSERT INTO empresa (cif_empresa,logo_empresa,nombre_empresa,nombre_juridico_emp
 	 ('333',NULL,'Perfido Doofenshmirtz SL','Perry el Ornitorrinco',5,1,38,NULL,'Area de los Tres Estados','En el medio, idk','123456','123456',31);
 
 INSERT INTO habilidad (nombre_habilidad,descripcion_habilidad,categoria_habilidad) VALUES
-	 ('Nombre 1','Descripcion 1','0'),
-	 ('Nombre 3','Descripcion 3','0'),
-	 ('Habilida terta','asdg','1'),
-	 ('Bladding','Use of ...','1');
+	 ('Nombre 1','Descripcion 1',0),
+	 ('Nombre 3','Descripcion 3',0),
+	 ('Habilida terta','asdg',1),
+	 ('Bladding','Use of ...',1);
 
 INSERT INTO oferta_empleo (titulo_oferta,descripcion_oferta,sector_oferta,salario_oferta,numero_vacantes_oferta,provincia_oferta,localidad_oferta,fecha_inicio_oferta,fecha_fin_oferta,id_empresa_oferta) VALUES
 	 ('Catador estilo Agustin','Programador Kotlin en sevilla.',10,1231,23,41,'Los corrales','2022-01-23','2022-01-30',1),

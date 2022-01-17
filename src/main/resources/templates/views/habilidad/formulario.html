@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="plantilla/template :: head">
+	</head>
+	<body>
+		<!-- <header th:replace="plantilla/template :: header"></header> -->
+		<nav th:replace="fragments/base :: navbar"></nav>
+		
+		<h1 class="text-center" th:text="${titulo}"></h1>
+		
+		<hr>
+		<div class="row">
+			<div class="col-5"></div>
+			<div class="col-7">
+				<form th:action="@{/habilidad/guardar}" th:object="${habilidad}" method="POST">
+					<div class="col-md-5">
+						<input type="hidden" th:field="*{idHabilidad}"
+								class="form-control" />
+						
+						<label for="nombreHabilidadInput">Nombre de Habilidad: </label>
+						
+						<input id="nombreHabilidadInput" type="text"
+							th:field="*{nombreHabilidad}"
+							class="form-control"
+							th:placeholder="${nombrePlaceholder}"
+							required>	
+							
+						<label for="descripcionHabilidadInput">Descripci&oacute;n de Habilidad: </label>
+						
+						<input id="descripcionHabilidadInput" type="text"
+						th:field="*{descripcionHabilidad}"
+						class="form-control"
+						th:placeholder="${descripcionPlaceholder}"
+						required>
+						
+						<label for="categoriaHabilidadInput">Categor&iacute;a de Habilidad: </label>
+						
+						<select th:field="*{categoriaHabilidad}" class="form-control">
+							<option th:each="categoria:${categorias}"
+							th:value="${{categoria}}"
+							th:text="${categoria.getNombre()}">
+						</select>
+						
+						<input type="submit" th:value="${submitValue}"
+								class="btn btn-primary" />
+						
+						<a th:href="@{/habilidad/listado}" >
+							<button class="btn btn-warning" th:formaction="@{/habilidad/listado}" formNoValidate>Volver</button>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<footer th:replace="fragments/base :: footer"></footer>
+  		
+  		<th:block th:replace="fragments/base :: script"></th:block>
+	</body>
+</html>
