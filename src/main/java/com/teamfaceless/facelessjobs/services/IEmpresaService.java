@@ -3,7 +3,6 @@ package com.teamfaceless.facelessjobs.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 

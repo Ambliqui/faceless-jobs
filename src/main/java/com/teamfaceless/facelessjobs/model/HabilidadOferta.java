@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -12,10 +13,21 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author Mefisto
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
 @Entity
 @Table(name = "habilidad_oferta")
 @XmlRootElement
@@ -42,8 +54,6 @@ public class HabilidadOferta implements Serializable {
     @ManyToOne(optional = false)
     private OfertaEmpleo ofertaEmpleo;
 
-    public HabilidadOferta() {
-    }
 
     public HabilidadOferta(HabilidadOfertaPK habilidadOfertaPK) {
         this.habilidadOfertaPK = habilidadOfertaPK;
@@ -56,71 +66,6 @@ public class HabilidadOferta implements Serializable {
 
     public HabilidadOferta(int ofertaIdHabilidad, int habilidadIdHabilidad) {
         this.habilidadOfertaPK = new HabilidadOfertaPK(ofertaIdHabilidad, habilidadIdHabilidad);
-    }
-
-    public HabilidadOfertaPK getHabilidadOfertaPK() {
-        return habilidadOfertaPK;
-    }
-
-    public void setHabilidadOfertaPK(HabilidadOfertaPK habilidadOfertaPK) {
-        this.habilidadOfertaPK = habilidadOfertaPK;
-    }
-
-    public int getHabilidadOfertaId() {
-        return habilidadOfertaId;
-    }
-
-    public void setHabilidadOfertaId(int habilidadOfertaId) {
-        this.habilidadOfertaId = habilidadOfertaId;
-    }
-
-    public Integer getExperienciaOferta() {
-        return experienciaOferta;
-    }
-
-    public void setExperienciaOferta(Integer experienciaOferta) {
-        this.experienciaOferta = experienciaOferta;
-    }
-
-    public Habilidad getHabilidad() {
-        return habilidad;
-    }
-
-    public void setHabilidad(Habilidad habilidad) {
-        this.habilidad = habilidad;
-    }
-
-    public OfertaEmpleo getOfertaEmpleo() {
-        return ofertaEmpleo;
-    }
-
-    public void setOfertaEmpleo(OfertaEmpleo ofertaEmpleo) {
-        this.ofertaEmpleo = ofertaEmpleo;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (habilidadOfertaPK != null ? habilidadOfertaPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HabilidadOferta)) {
-            return false;
-        }
-        HabilidadOferta other = (HabilidadOferta) object;
-        if ((this.habilidadOfertaPK == null && other.habilidadOfertaPK != null) || (this.habilidadOfertaPK != null && !this.habilidadOfertaPK.equals(other.habilidadOfertaPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mycompany.pruebasentidades.modelo.HabilidadOferta[ habilidadOfertaPK=" + habilidadOfertaPK + " ]";
     }
     
 }

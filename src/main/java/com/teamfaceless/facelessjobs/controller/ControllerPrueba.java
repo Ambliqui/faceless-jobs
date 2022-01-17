@@ -2,11 +2,6 @@ package com.teamfaceless.facelessjobs.controller;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
@@ -20,6 +15,11 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 //controller ejemplo
 @Controller

@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.model;
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ import com.teamfaceless.facelessjobs.enums.Provincias;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
@@ -27,6 +29,7 @@ import lombok.Singular;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {

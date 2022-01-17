@@ -3,15 +3,14 @@ package com.teamfaceless.facelessjobs.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.teamfaceless.facelessjobs.dao.IOfertaRepository;
+import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
+import com.teamfaceless.facelessjobs.services.IOfertaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.teamfaceless.facelessjobs.dao.IOfertaRepository;
-import com.teamfaceless.facelessjobs.model.Empresa;
-import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
-import com.teamfaceless.facelessjobs.services.IOfertaService;
 
 @Service
 public class OfertaService implements IOfertaService {

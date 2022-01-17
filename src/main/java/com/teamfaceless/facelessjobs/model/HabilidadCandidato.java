@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -12,19 +13,30 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author Mefisto
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
 @Entity
 @Table(name = "habilidad_candidato")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "HabilidadCandidato.findAll", query = "SELECT h FROM HabilidadCandidato h"),
-    @NamedQuery(name = "HabilidadCandidato.findByHabilidadCandidatoId", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoId = :habilidadCandidatoId"),
-    @NamedQuery(name = "HabilidadCandidato.findByCandidatoIdHabilidad", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoPK.candidatoIdHabilidad = :candidatoIdHabilidad"),
-    @NamedQuery(name = "HabilidadCandidato.findByHabilidadIdHabilidad", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoPK.habilidadIdHabilidad = :habilidadIdHabilidad"),
-    @NamedQuery(name = "HabilidadCandidato.findByExperienciaCandidato", query = "SELECT h FROM HabilidadCandidato h WHERE h.experienciaCandidato = :experienciaCandidato")})
+        @NamedQuery(name = "HabilidadCandidato.findAll", query = "SELECT h FROM HabilidadCandidato h"),
+        @NamedQuery(name = "HabilidadCandidato.findByHabilidadCandidatoId", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoId = :habilidadCandidatoId"),
+        @NamedQuery(name = "HabilidadCandidato.findByCandidatoIdHabilidad", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoPK.candidatoIdHabilidad = :candidatoIdHabilidad"),
+        @NamedQuery(name = "HabilidadCandidato.findByHabilidadIdHabilidad", query = "SELECT h FROM HabilidadCandidato h WHERE h.habilidadCandidatoPK.habilidadIdHabilidad = :habilidadIdHabilidad"),
+        @NamedQuery(name = "HabilidadCandidato.findByExperienciaCandidato", query = "SELECT h FROM HabilidadCandidato h WHERE h.experienciaCandidato = :experienciaCandidato") })
 public class HabilidadCandidato implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,9 +53,6 @@ public class HabilidadCandidato implements Serializable {
     @JoinColumn(name = "habilidad_id_habilidad", referencedColumnName = "id_habilidad", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Habilidad habilidad;
-
-    public HabilidadCandidato() {
-    }
 
     public HabilidadCandidato(HabilidadCandidatoPK habilidadCandidatoPK) {
         this.habilidadCandidatoPK = habilidadCandidatoPK;
@@ -62,65 +71,4 @@ public class HabilidadCandidato implements Serializable {
         return habilidadCandidatoPK;
     }
 
-    public void setHabilidadCandidatoPK(HabilidadCandidatoPK habilidadCandidatoPK) {
-        this.habilidadCandidatoPK = habilidadCandidatoPK;
-    }
-
-    public int getHabilidadCandidatoId() {
-        return habilidadCandidatoId;
-    }
-
-    public void setHabilidadCandidatoId(int habilidadCandidatoId) {
-        this.habilidadCandidatoId = habilidadCandidatoId;
-    }
-
-    public Integer getExperienciaCandidato() {
-        return experienciaCandidato;
-    }
-
-    public void setExperienciaCandidato(Integer experienciaCandidato) {
-        this.experienciaCandidato = experienciaCandidato;
-    }
-
-    public Candidato getCandidato() {
-        return candidato;
-    }
-
-    public void setCandidato(Candidato candidato) {
-        this.candidato = candidato;
-    }
-
-    public Habilidad getHabilidad() {
-        return habilidad;
-    }
-
-    public void setHabilidad(Habilidad habilidad) {
-        this.habilidad = habilidad;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (habilidadCandidatoPK != null ? habilidadCandidatoPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HabilidadCandidato)) {
-            return false;
-        }
-        HabilidadCandidato other = (HabilidadCandidato) object;
-        if ((this.habilidadCandidatoPK == null && other.habilidadCandidatoPK != null) || (this.habilidadCandidatoPK != null && !this.habilidadCandidatoPK.equals(other.habilidadCandidatoPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mycompany.pruebasentidades.modelo.HabilidadCandidato[ habilidadCandidatoPK=" + habilidadCandidatoPK + " ]";
-    }
-    
 }
