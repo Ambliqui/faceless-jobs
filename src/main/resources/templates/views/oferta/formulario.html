@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+
+<body>
+	<header th:replace="plantilla/template :: header"> </header>
+
+	<div class="container">
+		<h1 th:text="${titulo}" class="text-secondary"></h1>
+		<form th:action="@{/oferta/guardar}" th:object="${oferta}"
+			method="post">
+			<table>
+				<tr>
+					<!--  	<td>idOfertaEmpleo</td>-->
+					<td><input type="hidden" th:field="*{idOfertaEmpleo}"
+						class="form-control" /></td>
+				</tr>
+				<!-- 
+ 		<tr>
+					<td>empresaIdOferta</td>
+					<td><input type="number" th:field="*{empresa.idEmpresa}"
+						class="form-control" /></td>
+				</tr>
+				-->
+				<tr>
+					<td>Título</td>
+					<td><input id="tituloOferta" type="text"
+						th:field="*{tituloOferta}" class="form-control" /> <label
+						id="errortituloOferta" for="tituloOferta"
+						th:if="${#fields.hasErrors('tituloOferta')}"
+						th:errors="*{tituloOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+
+				<tr>
+					<td>Descripción</td>
+					<td><input type="text" id="descripcionOferta"
+						th:field="*{descripcionOferta}" class="form-control" /> <label
+						id="errordescripcionOferta" for="descripcionOferta"
+						th:if="${#fields.hasErrors('descripcionOferta')}"
+						th:errors="*{descripcionOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Salario</td>
+					<td><input type="number" id="salarioOferta"
+						th:field="*{salarioOferta}" class="form-control" /> <label
+						id="errorsalarioOferta" for="salarioOferta"
+						th:if="${#fields.hasErrors('salarioOferta')}"
+						th:errors="*{salarioOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Sector</td>
+					<td><select th:field="*{sectorOferta.idSectorLaboral}" class="form-control"
+						id="idSectorLaboral">
+							<option th:each="sector:${sectores}"
+								th:value="${sector.idSectorLaboral}"
+								th:text="${sector.nombreSectorLaboral}"></option>
+					</select> <label id="errorsectorOferta" for="sectorOferta"
+						th:if="${#fields.hasErrors('sectorOferta')}"
+						th:errors="*{sectorOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Número de vacantes</td>
+					<td><input type="number" id="numeroVacantesOferta"
+						th:field="*{numeroVacantesOferta}" class="form-control" /> <label
+						id="errornumeroVacantesOferta" for="numeroVacantesOferta"
+						th:if="${#fields.hasErrors('numeroVacantesOferta')}"
+						th:errors="*{numeroVacantesOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Provincia</td>
+					<td><select th:field="*{provinciaOferta.idProvincia}" class="form-control"
+						id="idProvincia">
+							<option th:each="provincia:${provincias}"
+								th:value="${provincia.idProvincia}"
+								th:text="${provincia.nombreProvincia}"></option>
+					</select> <label id="errorprovinciaOferta" for="provinciaOferta"
+						th:if="${#fields.hasErrors('provinciaOferta')}"
+						th:errors="*{provinciaOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Localidad</td>
+					<td><input id="localidadOferta" type="text"
+						th:field="*{localidadOferta}" class="form-control" /> <label
+						id="errorlocalidadOferta" for="localidadOferta"
+						th:if="${#fields.hasErrors('localidadOferta')}"
+						th:errors="*{localidadOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Fecha de incicio</td>
+					<td><input type="date" id="fechaInicioOferta"
+						th:field="*{fechaInicioOferta}" class="form-control" /> <label
+						id="errorfechaInicioOferta" for="fechaInicioOferta"
+						th:if="${#fields.hasErrors('fechaInicioOferta')}"
+						th:errors="*{fechaInicioOferta}" class="form-text text-danger">
+					</label></td>
+				</tr>
+				<tr>
+					<td>Fecha de cierre</td>
+					<td><input type="date" th:field="*{fechaFinOferta}"
+						class="form-control" /> <label id="errorfechaFinOferta"
+						for="fechaFinOferta"
+						th:if="${#fields.hasErrors('fechaFinOferta')}"
+						th:errors="*{fechaFinOferta}" class="form-text text-danger">
+					</label> <label id="errorfechaFinOfertaMenor" for="fechaFinOferta"
+						class="form-text text-danger" th:text="${msgFecha}"></label></td>
+				</tr>
+				 <!--  
+				<tr>
+					<td><input type="number" th:field="*{empresa.idEmpresa}" 
+						class="form-control"/></td>
+				</tr>
+				-->
+				<tr>
+					<td><input type="submit" th:value="${value}"
+						class="btn btn-primary" />
+					<a th:href="@{/oferta/listado}"  th:text="${'Volver'}" class="btn btn-secondary">Button</a>
+						</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<footer th:replace="plantilla/template :: footer"></footer>
+
+</body>
+
+</html>

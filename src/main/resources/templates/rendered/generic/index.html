@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base :: head">
+
+
+</head>
+
+<body>
+  <nav th:replace="fragments/base :: navbar"></nav>
+  <main class="container content">
+    <div class="row m-3">
+      <div th:each="oferta:${ofertas}" class="col-md-6 col-xxl-3 my-3">
+        <div class="card text-center">
+          <div class="card-header"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
+          <div class="card-body">
+            <h5 class="card-title" th:text="${oferta.tituloOferta}">Special title treatment</h5>
+            <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}" th:text="${'Detalle'}" class="btn btn-primary">Button</a>
+          </div>
+          <div class="card-footer text-muted" th:text="${oferta.fechaInicioOferta}">2 days ago</div>
+        </div>
+      </div>
+        <!-- 
+      <div class="col-md-6 col-xxl-3 my-3">
+        <div class="card text-center">
+          <div class="card-header">Featured</div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a href="#" class="btn btn-primary">Button</a>
+          </div>
+          <div class="card-footer text-muted">2 days ago</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xxl-3 my-3">
+        <div class="card text-center">
+          <div class="card-header">Featured</div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a href="#" class="btn btn-primary">Button</a>
+          </div>
+          <div class="card-footer text-muted">2 days ago</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xxl-3 my-3">
+        <div class="card text-center">
+          <div class="card-header">Featured</div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a href="#" class="btn btn-primary">Button</a>
+          </div>
+          <div class="card-footer text-muted">2 days ago</div>
+        </div>
+      </div>
+      --> 
+    </div>
+  </main>
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+
+</html>

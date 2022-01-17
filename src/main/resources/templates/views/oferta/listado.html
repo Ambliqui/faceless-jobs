@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base :: head">
+
+
+</head>
+
+<body>
+  <nav th:replace="fragments/base :: navbar"></nav>
+  <h1 th:text="${titulo}" class="text-secondary" style="text-align: center;"></h1>
+  <main class="container content">
+    <div class="row m-3">
+      <div th:each="oferta:${ofertas}" class="container">
+        <div class="card text-center">
+          <div class="card-header bg-info"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
+          <div class="card-body">
+            <h5 class="card-title" th:text="${oferta.tituloOferta}">Special title treatment</h5>
+            <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a th:href="@{'/oferta/formulario/' + ${oferta.idOfertaEmpleo}}" th:text="${'Editar'}" class="btn btn-warning">Button</a>
+            <a th:href="@{'/oferta/confirmar/' + ${oferta.idOfertaEmpleo}}"  th:text="${'Eliminar'}" class="btn btn-danger">Button</a>
+          </div>
+          <div class="card-footer text-muted bg-light" th:text="${oferta.fechaInicioOferta}">2 days ago</div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </main>
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>

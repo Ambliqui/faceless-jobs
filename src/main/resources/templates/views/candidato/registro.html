@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template-registro-login :: head">
+
+</head>
+
+<body>
+	<header th:replace="plantilla/template-registro-login :: header">
+
+	</header>
+
+	<div class="container wrapper">
+
+		<div class="row g-5 justify-content-center p-5">
+
+			<div class="col-md bg-light p-5">
+				<h4 class="mb-3 text-center">Registro Usuario</h4>
+				<form class="form " th:action="@{/candidato/registro}"
+					th:object="${candidato}" method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md mb-3">
+								<div class="form-group mb-3">
+
+									<label class="form-label" for="nombre">Nombre</label> <input
+										th:field="*{nombreCandidato}" type="text" class="form-control"
+										id="nombre" placeholder="Nombre" required>
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('nombreCandidato')}"
+										th:errors="*{nombreCandidato}"></div>
+
+
+								</div>
+								<div class="form-group mb-3">
+									<label class="form-label" for="telefono">Teléfono</label> <input
+										th:field="*{telefonoCandidato}" type="text"
+										class="form-control" id="telefono" placeholder="Teléfono"
+										required>
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('telefonoCandidato')}"
+										th:errors="*{telefonoCandidato}"></div>
+
+								</div>
+
+								<div class=" form-group mb-3">
+									<label for="email" class="form-label">Correo</label> <input
+										type="email" class="form-control" id="email"
+										th:field="*{emailCandidato}" placeholder="correo@gmail.com">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('emailCandidato')}"
+										th:errors="*{emailCandidato}"></div>
+									<div class="alert-danger"
+										th:if="${error}"
+										th:text="${error}"></div>
+										<div class="alert-danger"
+										th:if="${errorEmail}"
+										th:text="${errorEmail}"></div>
+								</div>
+								<div class=" form-group mb-3">
+									<label for="confEmail" class="form-label">Confirmar
+										Correo </label> <input type="email" class="form-control"
+										id="confEmail" placeholder="correo@gmail.com"
+										th:field="*{emailConfirmCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('emailConfirmCandidato')}"
+										th:errors="*{emailConfirmCandidato}"></div>
+								</div>
+
+								<div class="form-group mb-3">
+									<label for="pass" class="form-label">Contraseña</label> <input
+										type="password" class="form-control" id="pass"
+										placeholder="Contraseña" required th:field="*{passCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('passCandidato')}"
+										th:errors="*{passCandidato}"></div>
+										<div class="alert-danger"
+										th:if="${errorPass}"
+										th:text="${errorPass}"></div>
+
+								</div>
+
+								<div class="form-group mb-3">
+									<label for="confirmPass" class="form-label">Confirmar
+										Contraseña</label> <input type="password" class="form-control"
+										id="confirmPass" placeholder="Contraseña" required
+										th:field="*{passConfirmCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('passConfirmCandidato')}"
+										th:errors="*{passConfirmCandidato}"></div>
+
+								</div>
+
+							</div>
+
+							<div class="col-md mb-3">
+								<div class="form-group mb-3">
+									<label class="form-label" for="apellidos">Apellidos</label> <input
+										type="text" class="form-control" id="apellidos"
+										placeholder="Apellidos" required
+										th:field="*{apellidosCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('apellidosCandidato')}"
+										th:errors="*{apellidosCandidato}"></div>
+								</div>
+
+								<div class="form-group mb-3">
+
+									<label class="form-label" for="cp">Código Postal</label> <input
+										type="text" class="form-control " id="cp" placeholder="CP"
+										required th:field="*{cpCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('cpCandidato')}"
+										th:errors="*{cpCandidato}"></div>
+								</div>
+
+								<div class=" form-group mb-3">
+									<label class="form-label" for="fecha">Fecha de
+										nacimiento</label> <input id="fecha" type="date" class="form-control"
+										th:field="*{fechaNacimientoCandidato}">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('fechaNacimientoCandidato')}"
+										th:errors="*{fechaNacimientoCandidato}"></div>
+
+								</div>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<input type="submit" class="btn btn-primary" value="Registrar">
+						</div>
+						<div class="row">
+							<p>Tiene cuenta, <a th:href="@{/candidato/login}" >inicie sesión</a></p>
+						</div>
+
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="plantilla/template-registro-login :: footer">
+
+	</footer>
+	<div th:replace="plantilla/template-registro-login :: boostrap-js"></div>
+
+</body>
+
+</html>

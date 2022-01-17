@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head"></head>
+<body>
+<body>
+	<nav th:replace="fragments/base :: navbar"></nav>
+	Pruebas de validacion
+	<form class="container row g-3" th:action="@{/empresa/pruebasValidation}" th:object="${empresa}" method="post">
+
+		<input id="idEmpresa" type="text" th:field="*{nombreEmpresa}" placeholder="Nombre Empresa" class="form-control">
+		<input id="njempresa" type="text" th:field="*{nombreJuridicoEmpresa}" placeholder="Nombre juridico" class="form-control">
+		<button type="submit">Registrar</button>
+	</form>
+</body>
+</html>

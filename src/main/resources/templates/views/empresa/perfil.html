@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head" />
+
+<body>
+	<header th:replace="plantilla/template :: header" />
+	<main class="row">
+		<hr>
+		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
+		<h2 class="text-center">En pruebas</h2>
+		<hr>
+		<nav class="col-2 border border-dark">Esto seria un nav</nav>
+		<section class="col-8 border border-dark text-center">
+			<section class="row inline-block">
+				<figure class="col">
+					<a href="/empresa/formulario/0"><img width="200" alt="Datos Empresa"
+						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+					<figcaption>Datos Empresariales</figcaption>
+					</a>
+				</figure>
+
+				<figure class="col">
+					<a href="/oferta/listado/"><img width="200" alt="Ofertas"
+						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+					<figcaption>Mis Ofertas</figcaption>
+					</a>
+				</figure>			
+				<figure class="col">
+					<a href="/test/listado/"><img width="200" alt="Ofertas"
+						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+					<figcaption>Mis test</figcaption>
+					</a>
+				</figure>
+			</section>
+			<section class="row">
+				<figure class="col">
+					<img width="200" alt="Habilidades"
+						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+					<figcaption>Mis Habilidades</figcaption>
+				</figure>
+				<figure class="col">
+					<img width="200" alt="Datos personales"
+						src="/images/candidato/datos_personales.jpg" role="button">
+					<figcaption>Datos Personales</figcaption>
+				</figure>
+				<figure class="col">
+					<img width="200" alt="Datos personales"
+						src="/images/candidato/datos_personales.jpg" role="button">
+					<figcaption>Datos Personales</figcaption>
+				</figure>
+			</section>
+		</section>
+		<aside class="col border border-dark">Esto es el aside</aside>
+	</main>
+	<footer th:replace="plantilla/template :: footer" />
+</body>
+</html>

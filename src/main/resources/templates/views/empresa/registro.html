@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head"></head>
+<body>
+  	<nav th:replace="fragments/base :: navbar"></nav>
+<!-- 	<header th:replace="plantilla/template :: header"></header> -->
+	<h1 class="text-center">Alta de empresas</h1>
+	<h2 th:text="${titulo}">Sutitulo</h2>
+	<hr>
+	<div class="row">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form class="container row g-3" th:action="@{/empresa/registro}" th:object="${empresaregistrodto}" autocomplete="off" method="post">
+				<h5>Credenciales de entrada</h5>
+				<div class="col-md-6">
+					<label for="emailEmpresa">Email </label>
+					<input id="emailEmpresa"
+						type="email" th:field="*{emailEmpresa}" class="form-control"
+						placeholder="Email de la empresa">
+					<label
+						id="errorEmailEmpresa" for="emailEmpresa"
+						th:if="${#fields.hasErrors('emailEmpresa')}"
+						th:errors="*{emailEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-6">
+					<label for="confirmEmailEmpresa">Repetir Email </label>
+					<input id="confirmEmailEmpresa"
+						type="email" th:field="*{confirmEmailEmpresa}" class="form-control"
+						placeholder="Email de la empresa">
+					<label
+						id="errorConfirmEmailEmpresa" for="confirmEmailEmpresa"
+						th:if="${#fields.hasErrors('emailEmpresa')}"
+						th:errors="*{confirmEmailEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-6">
+					<label for="passwordEmpresa">Password</label>
+					<input
+						id="passwordEmpresa" type="password" th:field="*{passEmpresa}"
+						class="form-control" placeholder="Password">
+					<label
+						id="errorPasswordEmpresa" for="passwordEmpresa"
+						th:if="${#fields.hasErrors('passEmpresa')}"
+						th:errors="*{passEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-6">
+					<label for="confirmPassEmpresa">Repite Password</label>
+					<input
+						id="confirmPassEmpresa" type="password" th:field="*{confirmPassEmpresa}"
+						class="form-control" placeholder="Password">
+					<label
+						id="errorConfirmPassEmpresa" for="confirmPassEmpresa"
+						th:if="${#fields.hasErrors('confirmPassEmpresa')}"
+						th:errors="*{confirmPassEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<hr>
+				<h5>Datos Empresa</h5>
+				<div class="col-md-5">
+					<label for="nombreEmpresa">Nombre </label>
+					<input id="nombreEmpresa"
+						type="text" th:field="*{nombreEmpresa}" class="form-control"
+						placeholder="Nombre de la empresa">
+					<label
+						id="errorNombreEmpresa" for="nombreEmpresa"
+						th:if="${#fields.hasErrors('nombreEmpresa')}"
+						th:errors="*{nombreEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-7">
+					<label for="nombreJuridicoEmpresa">Nombre Juridico</label>
+					<input
+						id="nombreJuridicoEmpresa" type="text"
+						th:field="*{nombreJuridicoEmpresa}" class="form-control"
+						placeholder="Introduce el nombre juridico">
+					<label
+						id="errorNombreJuridicoEmpresa" for="nombreJuridicoEmpresa"
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombreJuridicoEmpresa')}"
+						th:errors="*{nombreJuridicoEmpresa}"></label>
+				</div>
+				<div class="col-md-4">
+					<label for="CIFEmpresa">CIF </label>
+					<input id="CIFEmpresa"
+						type="text" th:field="*{cIFempresa}" class="form-control"
+						placeholder="CIF de la empresa">
+					<label id="errorCIF"
+						for="CIFEmpresa" class="form-text text-danger"
+						th:if="${#fields.hasErrors('cIFempresa')}"
+						th:errors="*{cIFempresa}"></label>
+				</div>
+				<div class="col-md-5">
+					<label for="sectorLaboralEmpresa">Sector Laboral </label>
+					<select id="sectorLaboralEmpresa" th:field="*{sectorEmpresa}"
+						class="form-select">
+						<option th:each="prov : ${sectores}"
+							th:value="${prov.idSectorLaboral}"
+							th:text="${prov.nombreSectorLaboral}"
+							th:selected="(${prov.idSectorLaboral} == 11)">
+						</option>
+					</select>
+					<label id="errorProvinciaEmpresa" for="provinciaEmpresa"
+						th:if="${#fields.hasErrors('provinciaEmpresa')}"
+						th:errors="*{provinciaEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-3">
+					<label for="empleadosEmpresa">Empleados Empresa</label>
+					<input
+						id="empleadosEmpresa" type="number" th:field="*{empleadosEmpresa}"
+						class="form-control"
+						placeholder="Numero de empleados de la empresa">
+					<label
+						id="errorEmpleadosEmpresa" for="empleadosEmpresa"
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('empleadosEmpresa')}"
+						th:errors="*{empleadosEmpresa}">
+					</label>
+				</div>
+				<hr>
+				<h5>Formas de contacto</h5>
+				<div class="col-md-6">
+					<label for="telefonoEmpresa">Telefono </label>
+					<input
+						id="telefonoEmpresa" type="number" th:field="*{telefonoEmpresa}"
+						class="form-control" placeholder="Telefono de contacto">
+					<label
+						id="errorTelefonoEmpresa" for="telefonoEmpresa"
+						th:if="${#fields.hasErrors('telefonoEmpresa')}"
+						th:errors="*{telefonoEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-6">
+					<label for="whatsappEmpresa">Whatsapp </label>
+					<input
+						id="whatsappEmpresa" type="number" th:field="*{whatsappEmpresa}"
+						class="form-control"
+						placeholder="Whatsapp de contacto">
+					<label
+						id="errorWhatsappEmpresa" for="whatsappEmpresa"
+						th:if="${#fields.hasErrors('whatsappEmpresa')}"
+						th:errors="*{whatsappEmpresa}"
+						class="form-text text-danger">
+					</label>
+				</div>
+
+				<div class="col-md-3">
+					<label for="provinciaEmpresa">Provincia </label>
+					<!-- <input id="provinciaEmpresa" type="text"
+						th:field="*{provinciaEmpresa}"
+						class="form-control"
+						placeholder="Provincia"> -->
+					<select id="provinciaEmpresa" th:field="*{provinciaEmpresa}"
+						class="form-select">
+						<option th:each="prov : ${provincias}"
+							th:value="${prov.idProvincia}" th:text="${prov.nombreProvincia}"
+							th:selected="(${prov.idProvincia} == 11)">
+						</option>
+					</select>
+					<label id="errorProvinciaEmpresa" for="provinciaEmpresa"
+						th:if="${#fields.hasErrors('provinciaEmpresa')}"
+						th:errors="*{provinciaEmpresa}" class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-9">
+					<label for="localidadEmpresa">Localidad </label>
+					<input
+						id="localidadEmpresa" type="text" th:field="*{localidadEmpresa}"
+						class="form-control"
+						placeholder="Localidad">
+					<label
+						id="errorLocalidadEmpresa" for="localidadEmpresa"
+						th:if="${#fields.hasErrors('localidadEmpresa')}"
+						th:errors="*{localidadEmpresa}"
+						class="form-text text-danger">
+					</label>
+				</div>
+				<div class="col-md-12">
+					<label for="direccionEmpresa">Direccion </label>
+					<input
+						id="direccionEmpresa" type="text" th:field="*{direccionEmpresa}"
+						class="form-control"
+						placeholder="Dirección de empresa">
+					<label id="errorDireccionEmpresa" for="direccionEmpresa"
+						th:if="${#fields.hasErrors('direccionEmpresa')}"
+						th:errors="*{direccionEmpresa}"
+						class="form-text text-danger">
+					</label>
+				</div>
+				<hr>
+				<div class="col-md-12  text-center align-middle">
+					<button role="submit" class="btn btn-success">Registro</button>
+					<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
+				</div>
+				<hr>
+			</form>
+		</div>
+	</div>
+	
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>

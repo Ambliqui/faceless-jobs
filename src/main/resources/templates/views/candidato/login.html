@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template-registro-login :: head">
+
+</head>
+
+<body>
+	<header th:replace="plantilla/template-registro-login :: header">
+
+	</header>
+
+	<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
+
+	<div class="container wrapper-login">
+
+		<div class="row g-5 justify-content-center p-5">
+
+			<div class="col-md bg-light p-5">
+				<h4 class="mb-3 text-center">Login Candidato</h4>
+				<form class="form " th:action="@{/candidato/login}"
+					 method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md mb-3">
+
+ 	  
+								<div class=" form-group mb-3">
+									<label for="email" class="form-label">Correo</label> <input
+										type="email" class="form-control" id="email" name="username"
+										th:value="${username}" placeholder="correo@gmail.com" required>
+
+								</div>
+
+
+								<div class="form-group mb-3">
+									<label for="pass" class="form-label">Contraseña</label> <input
+										type="password" class="form-control" id="pass" name="password"
+										placeholder="Contraseña" required th:value="${password}" >
+
+								</div>
+
+
+							</div>
+
+
+						</div>
+						<div class="row">
+							<input type="submit" class="btn btn-primary" value="Login">
+						</div>
+						<div class="row">
+							<p>No tiene cuenta, <a th:href="@{/candidato/registro}" >regístrese</a></p>
+						</div>
+						<div class="row alert-danger text-center" th:if="${msgError}">
+							<p th:text="${msgError}"></p>
+						</div>
+
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="plantilla/template-registro-login :: footer">
+
+	</footer>
+	<div th:replace="plantilla/template-registro-login :: boostrap-js"></div>
+
+</body>
+
+</html>
