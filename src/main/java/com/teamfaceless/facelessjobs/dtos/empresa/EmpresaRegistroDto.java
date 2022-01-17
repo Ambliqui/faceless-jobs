@@ -9,6 +9,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.teamfaceless.facelessjobs.validations.CifRepetido.CIFExist;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +40,7 @@ public class EmpresaRegistroDto implements Serializable {
     
     @Size(max = 45)
     @Pattern(regexp = "[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}")
+    @CIFExist
     private String cIFempresa;
     
     @Size(max = 45)

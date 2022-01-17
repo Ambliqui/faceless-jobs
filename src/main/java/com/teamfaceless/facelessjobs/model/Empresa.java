@@ -20,6 +20,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.teamfaceless.facelessjobs.enums.Provincias;
+import com.teamfaceless.facelessjobs.validations.CifRepetido.CIFExist;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,6 +49,7 @@ public class Empresa implements Serializable {
     
     @NotEmpty
     @Pattern(regexp = "[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}")
+    @CIFExist
     @Column(name = "CIF_empresa", nullable = false, unique = true)
     private String cIFempresa;
     
