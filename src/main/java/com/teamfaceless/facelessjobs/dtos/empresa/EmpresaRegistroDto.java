@@ -52,7 +52,7 @@ public class EmpresaRegistroDto implements Serializable {
     @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
     private String telefonoEmpresa;
     
-    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
+    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}|^$")//Numero o Empty
     private String whatsappEmpresa;
     
     @NotEmpty

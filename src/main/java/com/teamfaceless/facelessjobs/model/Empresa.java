@@ -66,7 +66,7 @@ public class Empresa implements Serializable {
     @Column(name = "telefono_empresa")
     private String telefonoEmpresa;
     
-    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
+    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}|^$")//Numero o Empty
     @Column(name = "whatsapp_empresa")
     private String whatsappEmpresa;
     
