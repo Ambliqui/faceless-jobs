@@ -1,5 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaListadoDto;
@@ -11,6 +13,7 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
+import com.teamfaceless.facelessjobs.validations.IValidations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +44,9 @@ public class ControllerEmpresa {
 	
 	@Autowired
 	private IEmpresaMapper iEmpresaMapper;
+	
+	@Autowired
+	private IValidations iValidations;
 	
 	@GetMapping("/pruebas/{idEmpresa}")
 	public String goPruebas(@PathVariable Integer idEmpresa, Model model) {
@@ -92,8 +98,12 @@ public class ControllerEmpresa {
 	
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
+		//Crear validador personalizado para esta vista y devolver un mapa de errores a la vista
+//		validaciones.longitudCampo("Nombre: ", request.getParameter("nombre"), 4).ifPresent((error) -> exceptions.add(error));
+		Map<String, Exception> mapaErrores = null;
+		iValidations.cifExistente(empresaRegistroDto.getCIFempresa()).ifPresent((error) -> mapaErrores.put("CIF", error)); 
+		model.addAttribute("errorCIF", "Esta chungo");
 		if (result.hasErrors()) {
-			//Validacion lambda
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());

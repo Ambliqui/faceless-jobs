@@ -13,4 +13,5 @@ public interface IValidations{
 	Optional<EmailExisteException> emailExistente(String email);
 	Optional<CamposNoCoincidentesException> camposCoincidentes(String nombreCampo1, String nombreCampo2, String campo1, String campo2);
 	Optional<CIFExisteException> cifExistente(String cif);
+	Optional<CIFExisteException> cifPreExistente(String cifActual, String nuevoCif);
 }
