@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head"></head>
+<head th:replace="fragments/base :: head"></head>
 <body>
   	<nav th:replace="fragments/base :: navbar"></nav>
 <!-- 	<header th:replace="plantilla/template :: header"></header> -->
@@ -10,7 +10,7 @@
 	<div class="row">
 		<div class="col-2"></div>
 		<div class="col-8">
-			<form class="container row g-3" th:action="@{/empresa/registro}" th:object="${empresaregistrodto}" autocomplete="off" method="post">
+			<form class="container row g-3" th:action="@{/empresa/registro}" th:object="${empresaRegistroDto}" autocomplete="off" method="post">
 				<h5>Credenciales de entrada</h5>
 				<div class="col-md-6">
 					<label for="emailEmpresa">Email </label>
@@ -26,12 +26,14 @@
 				<div class="col-md-6">
 					<label for="confirmEmailEmpresa">Repetir Email </label>
 					<input id="confirmEmailEmpresa"
-						type="email" th:field="*{confirmEmailEmpresa}" class="form-control"
-						placeholder="Email de la empresa">
+						type="email" th:field="*{confirmEmailEmpresa}"
+						placeholder="Repetir Email"
+						class="form-control">
 					<label
 						id="errorConfirmEmailEmpresa" for="confirmEmailEmpresa"
-						th:if="${#fields.hasErrors('emailEmpresa')}"
-						th:errors="*{confirmEmailEmpresa}" class="form-text text-danger">
+						th:if="${#fields.hasErrors('confirmEmailEmpresa')}"
+						th:errors="*{confirmEmailEmpresa}"
+						class="form-text text-danger">
 					</label>
 				</div>
 				<div class="col-md-6">

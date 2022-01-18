@@ -84,7 +84,7 @@ public class ControllerEmpresa {
 	
 	@GetMapping("/registro")
 	public String formRegistro(Model model, EmpresaRegistroDto empresaRegistroDto) {
-			model.addAttribute("empresaregistrodto", empresaRegistroDto);
+			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());
 		return "views/empresa/registro";
@@ -93,13 +93,13 @@ public class ControllerEmpresa {
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
 		if (result.hasErrors()) {
-			model.addAttribute("empresaregistrodto", empresaRegistroDto);
+			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/empresa/registro";
 		}
 		
-//		iEmpresaService.create(iEmpresaMapper.empresaEmpresaDtoToEmpresa(empresaRegistroDto));
+		iEmpresaService.create(iEmpresaMapper.empresaEmpresaDtoToEmpresa(empresaRegistroDto));
 		return "redirect:/empresa/listado";
 	}
 	
@@ -140,7 +140,7 @@ public class ControllerEmpresa {
 	}
 	
 	@PostMapping("/modificar")
-	public String modificarEmpresa(Empresa empresa, Model model, BindingResult result) {
+	public String modificarEmpresa(Model model, @Valid Empresa empresa, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("empresa", empresa);
 			model.addAttribute("provincias", iProvinciaService.findAll());
