@@ -1,5 +1,6 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -90,21 +91,35 @@ public class ControllerEmpresa {
 	
 	@GetMapping("/registro")
 	public String formRegistro(Model model, EmpresaRegistroDto empresaRegistroDto) {
-			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
-			model.addAttribute("provincias", iProvinciaService.findAll());
-			model.addAttribute("sectores", iSectorService.findAll());
+		
+		Map<String, String> mapaErrores = new HashMap<>();
+		model.addAttribute("empresaRegistroDto", empresaRegistroDto);
+		model.addAttribute("mapaErrores", mapaErrores);
+		model.addAttribute("provincias", iProvinciaService.findAll());
+		model.addAttribute("sectores", iSectorService.findAll());
 		return "views/empresa/registro";
 	}
 	
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
 		//Crear validador personalizado para esta vista y devolver un mapa de errores a la vista
-//		validaciones.longitudCampo("Nombre: ", request.getParameter("nombre"), 4).ifPresent((error) -> exceptions.add(error));
-		Map<String, Exception> mapaErrores = null;
-		iValidations.cifExistente(empresaRegistroDto.getCIFempresa()).ifPresent((error) -> mapaErrores.put("CIF", error)); 
-		model.addAttribute("errorCIF", "Esta chungo");
+		Map<String, String> mapaErrores = new HashMap<>();
+		
+		iValidations.emailExistente(empresaRegistroDto.getEmailEmpresa())
+			.ifPresent((error) -> mapaErrores.put("ErrorEmailExist", error.getMessage()));
+
+		iValidations.camposCoincidentes(empresaRegistroDto.getConfirmEmailEmpresa(), empresaRegistroDto.getEmailEmpresa(), "Email", "Repite Email")
+			.ifPresent((error) -> mapaErrores.put("errorEmailNoDuplicate", error.getMessage()));
+		
+		iValidations.camposCoincidentes(empresaRegistroDto.getPassEmpresa(), empresaRegistroDto.getConfirmPassEmpresa(), "Password", "Repite Password")
+			.ifPresent((error) -> mapaErrores.put("errorPassNoDuplicate", error.getMessage()));
+//		
+//		iValidations.cifExistente(empresaRegistroDto.getCIFempresa())
+//			.ifPresent((error) -> mapaErrores.put("errorCIFExist", error.getMessage()));
+		
 		if (result.hasErrors()) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
+			model.addAttribute("mapaErrores", mapaErrores);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/empresa/registro";

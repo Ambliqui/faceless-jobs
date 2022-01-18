@@ -62,7 +62,7 @@ public class ValidationsImpl implements IValidations{
      * @return Devuelve una excepcion personalizada envuelta en un Optional
      */
 	@Override
-	public Optional<CamposNoCoincidentesException> camposCoincidentes(String nombreCampo1, String nombreCampo2, String campo1, String campo2) {
+	public Optional<CamposNoCoincidentesException> camposCoincidentes(String campo1, String campo2, String nombreCampo1, String nombreCampo2) {
         if (campo1.equals(campo2)) {
             return Optional.empty();
         }

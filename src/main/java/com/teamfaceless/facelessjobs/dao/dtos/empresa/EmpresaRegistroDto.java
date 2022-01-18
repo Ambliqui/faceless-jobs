@@ -67,7 +67,6 @@ public class EmpresaRegistroDto implements Serializable {
     private String localidadEmpresa;
     
     @NotNull
-    @Positive
     @Min(1)
     private Integer empleadosEmpresa;
     
