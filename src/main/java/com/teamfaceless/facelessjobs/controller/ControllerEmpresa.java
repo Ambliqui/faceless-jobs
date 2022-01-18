@@ -136,6 +136,7 @@ public class ControllerEmpresa {
 		model.addAttribute("empresaregistrodto", new EmpresaRegistroDto());
 		model.addAttribute("provincias", iProvinciaService.findAll());
 		model.addAttribute("sectores", iSectorService.findAll());
+		model.addAttribute("sectores", iSectorService.findAll());
 		return "/views/empresa/detalle";
 	}
 	
