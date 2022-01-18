@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.PatternSyntaxException;
@@ -31,10 +32,21 @@ import org.hibernate.annotations.Target;
 
 import com.teamfaceless.facelessjobs.enums.Categoria;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author Mefisto
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode
 @Entity
 @Table(name = "habilidad")
 
@@ -61,69 +73,4 @@ public class Habilidad implements Serializable {
     private List<HabilidadOferta> habilidadOfertaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "habilidad")
     private List<HabilidadCandidato> habilidadCandidatoList;
-    
-    public Habilidad() {
-    }
-
-    public Habilidad(Integer idHabilidad) {
-        this.idHabilidad = idHabilidad;
-    }
-
-    public Integer getIdHabilidad() {
-        return idHabilidad;
-    }
-
-    public void setIdHabilidad(Integer idHabilidad) {
-        this.idHabilidad = idHabilidad;
-    }
-
-    public String getDescripcionHabilidad() {
-        return descripcionHabilidad;
-    }
-
-    public void setDescripcionHabilidad(String descripcionHabilidad) {
-        this.descripcionHabilidad = descripcionHabilidad;
-    }
-    
-    public String getNombreHabilidad() {
-		return nombreHabilidad;
-	}
-
-	public void setNombreHabilidad(String nombreHabilidad) {
-		this.nombreHabilidad = nombreHabilidad;
-	}
-
-	public Categoria getCategoriaHabilidad() {
-		return categoriaHabilidad;
-	}
-
-	public void setCategoriaHabilidad(Categoria categoriaHabilidad) {
-		this.categoriaHabilidad = categoriaHabilidad;
-	}    
-
-	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idHabilidad != null ? idHabilidad.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Habilidad)) {
-            return false;
-        }
-        Habilidad other = (Habilidad) object;
-        if ((this.idHabilidad == null && other.idHabilidad != null) || (this.idHabilidad != null && !this.idHabilidad.equals(other.idHabilidad))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mycompany.pruebasentidades.modelo.Habilidad[ idHabilidad=" + idHabilidad + " ]";
-    }
-    
 }
