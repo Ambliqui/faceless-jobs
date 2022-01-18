@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.ICandidatoRepository;
@@ -16,6 +17,9 @@ public class CandidatoService implements ICandidatoService {
 
 	@Autowired
 	private ICandidatoRepository repository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public List<Candidato> findAll() {
@@ -27,6 +31,10 @@ public class CandidatoService implements ICandidatoService {
 		if(isPresent(candidato)) {
 			throw  new EmailExisteException("Email en uso");
 		}
+
+		String password = candidato.getCredencial().getPass();
+		password = passwordEncoder.encode(password);
+		candidato.getCredencial().setPass(password);
 		repository.save(candidato);
 	}
 
