@@ -113,9 +113,9 @@ public class ControllerEmpresa {
 		
 		iValidations.camposCoincidentes(empresaRegistroDto.getPassEmpresa(), empresaRegistroDto.getConfirmPassEmpresa(), "Password", "Repite Password")
 			.ifPresent((error) -> mapaErrores.put("errorPassNoDuplicate", error.getMessage()));
-//		
-//		iValidations.cifExistente(empresaRegistroDto.getCIFempresa())
-//			.ifPresent((error) -> mapaErrores.put("errorCIFExist", error.getMessage()));
+		
+		iValidations.cifExistente(empresaRegistroDto.getCIFempresa())
+			.ifPresent((error) -> mapaErrores.put("errorCIFExist", error.getMessage()));
 		
 		if (result.hasErrors()) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
