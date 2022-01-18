@@ -25,6 +25,6 @@ public interface IOfertaService {
 	List<OfertaEmpleo> findOfertaByEmpresa(
 			  @Param("idEmpresa") Integer idEmpresa);
 	
-	Page<OfertaEmpleo> findAllPageable(Pageable page);
+	Page<OfertaEmpleo> findAllPageable(Pageable pageable);
 	
 }
