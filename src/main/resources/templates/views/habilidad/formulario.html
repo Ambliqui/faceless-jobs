@@ -17,29 +17,41 @@
 						<input type="hidden" th:field="*{idHabilidad}"
 								class="form-control" />
 						
-						<label for="nombreHabilidadInput">Nombre de Habilidad: </label>
-						
-						<input id="nombreHabilidadInput" type="text"
+						<label for="nombreHabilidad">Nombre de Habilidad: </label>
+						<input id="nombreHabilidad" type="text"
 							th:field="*{nombreHabilidad}"
 							class="form-control"
 							th:placeholder="${nombrePlaceholder}"
-							required>	
+							required>
+						<label
+							id="errorNombreHabilidad" for="nombreHabilidad"
+							th:if="${#fields.hasErrors('nombreHabilidad')}"
+							th:errors="*{nombreHabilidad}" class="form-text text-danger">
+						</label>
 							
-						<label for="descripcionHabilidadInput">Descripci&oacute;n de Habilidad: </label>
+						<label for="descripcionHabilidad">Descripci&oacute;n de Habilidad: </label>
+						<input id="descripcionHabilidad" type="text"
+							th:field="*{descripcionHabilidad}"
+							class="form-control"
+							th:placeholder="${descripcionPlaceholder}"
+							required>
+						<label
+							id="errorfDescripcionHabilidad" for="descripcionHabilidad"
+							th:if="${#fields.hasErrors('descripcionHabilidad')}"
+							th:errors="*{descripcionHabilidad}" class="form-text text-danger">
+						</label>
 						
-						<input id="descripcionHabilidadInput" type="text"
-						th:field="*{descripcionHabilidad}"
-						class="form-control"
-						th:placeholder="${descripcionPlaceholder}"
-						required>
-						
-						<label for="categoriaHabilidadInput">Categor&iacute;a de Habilidad: </label>
-						
-						<select th:field="*{categoriaHabilidad}" class="form-control">
+						<label for="categoriaHabilidad">Categor&iacute;a de Habilidad: </label>
+						<select id="categoriaHabilidad" th:field="*{categoriaHabilidad}" class="form-control">
 							<option th:each="categoria:${categorias}"
 							th:value="${{categoria}}"
 							th:text="${categoria.getNombre()}">
 						</select>
+						<label
+							id="errorCategoriaHabilidad" for="categoriaHabilidad"
+							th:if="${#fields.hasErrors('categoriaHabilidad')}"
+							th:errors="*{categoriaHabilidad}" class="form-text text-danger">
+						</label>
 						
 						<input type="submit" th:value="${submitValue}"
 								class="btn btn-primary" />

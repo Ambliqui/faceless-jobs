@@ -64,11 +64,7 @@ public class ControllerHabilidad {
 			model.addAttribute("submitValue", "Editar");
 		}
 		else {
-			model.addAttribute("habilidad", new Habilidad());
-			model.addAttribute("nombrePlaceholder", "Nombre...");
-			model.addAttribute("descripcionPlaceholder", "DescripciÃ³n...");
-			model.addAttribute("categoriaPlaceholder", "DURA/BLANDA");
-			model.addAttribute("submitValue", "AÃ±adir");
+			return "redirect:/habilidad/formulario";
 		}
 		return "/views/habilidad/formulario";
 	}
@@ -78,10 +74,23 @@ public class ControllerHabilidad {
 		if(result.hasErrors()) {
 			Integer idHabilidad = habilidad.getIdHabilidad();
 			if(idHabilidad!=null) {
-				return "redirect:/habilidad/formulario/"+idHabilidad;
+				model.addAttribute("categorias", Categoria.values());
+				model.addAttribute("habilidad", habilidad);
+				model.addAttribute("nombrePlaceholder", habilidad.getNombreHabilidad());
+				model.addAttribute("descripcionPlaceholder", habilidad.getDescripcionHabilidad());
+				model.addAttribute("categoriaPlaceholder", habilidad.getCategoriaHabilidad());
+				model.addAttribute("titulo", "Editar Habilidad");
+				model.addAttribute("submitValue", "Editar");
+				return "/views/habilidad/formulario";				
 			}
 			else {
-				return "redirect:/habilidad/formulario";
+				model.addAttribute("habilidad", habilidad);
+				model.addAttribute("nombrePlaceholder", "Nombre...");
+				model.addAttribute("descripcionPlaceholder", "Descripción...");
+				model.addAttribute("submitValue", "Añadir");
+				model.addAttribute("categorias", Categoria.values());
+				model.addAttribute("titulo", "Crear Habilidad");
+				return "/views/habilidad/formulario";
 			}
 		}
 		
