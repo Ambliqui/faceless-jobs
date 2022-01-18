@@ -1,4 +1,4 @@
-package com.teamfaceless.facelessjobs.dtos.candidato;
+package com.teamfaceless.facelessjobs.dao.dtos.candidato;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

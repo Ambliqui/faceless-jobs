@@ -1,4 +1,4 @@
-package com.teamfaceless.facelessjobs.dtos.empresa;
+package com.teamfaceless.facelessjobs.dao.dtos.empresa;
 
 import java.io.Serializable;
 

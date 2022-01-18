@@ -1,6 +1,6 @@
-package com.teamfaceless.facelessjobs.dtos.candidato.mapper;
+package com.teamfaceless.facelessjobs.dao.dtos.candidato.mapper;
 
-import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
+import com.teamfaceless.facelessjobs.dao.dtos.candidato.CandidatoRegistroDto;
 import com.teamfaceless.facelessjobs.model.Candidato;
 
 public interface ICandidatoMapper {
