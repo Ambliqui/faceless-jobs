@@ -93,6 +93,7 @@ public class ControllerEmpresa {
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
 		if (result.hasErrors()) {
+			//Validacion lambda
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());
