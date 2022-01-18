@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
-	<nav th:fragment="paginator">
+
+	<nav  th:fragment="paginator">
 		<ul class="pagination">
 			<li class="page-item"
 				th:class="${page.first? 'page-item disabled': 'page-item'}"><span
