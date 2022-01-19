@@ -73,4 +73,6 @@ public class CandidatoRegistroDto implements Serializable{
 	public boolean passEquals() {
 		return passCandidato.equals(passConfirmCandidato);
 	}
+
+	private Boolean enable = true;
 }

@@ -50,7 +50,7 @@ public class Credencial implements Serializable {
     private String pass;
     
     @NotNull
-    @Column(name = "activo_credencial", nullable = false, columnDefinition = "bit(1) default true")
+    @Column(name = "activo_credencial", nullable = false, columnDefinition = "bit(1) default 1")
     private boolean enable;
     
     @ManyToMany
