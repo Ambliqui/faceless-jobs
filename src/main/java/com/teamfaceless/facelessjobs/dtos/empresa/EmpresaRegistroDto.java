@@ -1,6 +1,8 @@
 package com.teamfaceless.facelessjobs.dtos.empresa;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.teamfaceless.facelessjobs.model.Rol;
 import com.teamfaceless.facelessjobs.validations.CifRepetido.CIFExist;
 
 import lombok.AllArgsConstructor;
@@ -76,5 +79,7 @@ public class EmpresaRegistroDto implements Serializable {
  
     @NotNull
     private Integer sectorEmpresa;
+
+    private Set<Rol> roles = new HashSet<>();
     
 }

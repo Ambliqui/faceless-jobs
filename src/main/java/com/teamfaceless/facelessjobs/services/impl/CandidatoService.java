@@ -3,20 +3,25 @@ package com.teamfaceless.facelessjobs.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.teamfaceless.facelessjobs.dao.ICandidatoRepository;
+import com.teamfaceless.facelessjobs.dao.IRolRepository;
+import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
+import com.teamfaceless.facelessjobs.model.Candidato;
+import com.teamfaceless.facelessjobs.model.Rol;
+import com.teamfaceless.facelessjobs.services.ICandidatoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.teamfaceless.facelessjobs.dao.ICandidatoRepository;
-import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
-import com.teamfaceless.facelessjobs.model.Candidato;
-import com.teamfaceless.facelessjobs.services.ICandidatoService;
 
 @Service
 public class CandidatoService implements ICandidatoService {
 
 	@Autowired
 	private ICandidatoRepository repository;
+
+	@Autowired
+	private IRolRepository rolRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -32,10 +37,15 @@ public class CandidatoService implements ICandidatoService {
 			throw  new EmailExisteException("Email en uso");
 		}
 
+		
+		Rol rol = rolRepository.findById(1).get();
+		candidato.getCredencial().addRole(rol);
+
 		String password = candidato.getCredencial().getPass();
 		password = passwordEncoder.encode(password);
 		candidato.getCredencial().setPass(password);
 		repository.save(candidato);
+
 	}
 
 	@Override

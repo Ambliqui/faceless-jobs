@@ -76,15 +76,15 @@ public class ControllerCandidato {
 		return"views/candidato/login";
 	}
 	
-	@PostMapping("/login")
-	public String login(Model model, @Valid @ModelAttribute("candidatoLogin") CandidatoLoginDto candidato,
-			BindingResult result) {
-		if(result.hasErrors()) {
-			return"views/candidato/login";
-		}
+	// @PostMapping("/login")
+	// public String login(Model model, @Valid @ModelAttribute("candidatoLogin") CandidatoLoginDto candidato,
+	// 		BindingResult result) {
+	// 	if(result.hasErrors()) {
+	// 		return"views/candidato/login";
+	// 	}
 		
-		//loguear
-		return"views/app/candidato/home";
-	}
+	// 	//loguear
+	// 	return"views/app/candidato/home";
+	// }
 
 }

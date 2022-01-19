@@ -35,6 +35,7 @@ public class EmpresaMapper implements IEmpresaMapper{
 				.credencial(Credencial.builder()
 						.email(empresaRegistroDto.getEmailEmpresa())
 						.pass(empresaRegistroDto.getPassEmpresa())
+						.roles(empresaRegistroDto.getRoles())
 						.build())
 				.build();
 	}

@@ -87,15 +87,16 @@ INSERT INTO sector_laboral (nombre_sector_laboral) VALUES
 
 -- Datos dinámicos, pueden haber o no.
 
-INSERT INTO candidato (apellidos_candidato,fecha_nacimiento_candidato,nombre_candidato,telefono_candidato,credencial_id_credencial,provincia_candidato) VALUES
-	 ('Pérez García','3920-02-20','Pepe','666555444',1,NULL),
-	 ('Muñoz Sanchez','3921-03-10','Maria','654321987',2,NULL),
-	 ('Mios','2021-12-27','Security','+34999999999',20,NULL);
+insert into candidato (id_candidato, nombre_candidato, apellidos_candidato, fecha_nacimiento_candidato, telefono_candidato, credencial_id_credencial, provincia_candidato) values
+(1, 'candidato', 'candidato', '1994-01-01', '666999333', 1, NULL);
 
-INSERT INTO credencial_roles (credencial_id_credencial,roles_id_rol) VALUES
-	 (1,1),
-	 (2,1),
-	 (3,2);
+
+insert into credencial (id_credencial, email_credencial, activo_credencial, pass_credencial) values
+(1, 'candidato@mail.com', 'TRUE', '$2a$10$YZwPP/ggLPMG.a4CcqFag.WfHFJxBbCcZj7z/OlS/yE79Vj6glCnK');
+
+
+insert into credencial_roles (credencial_id_credencial, roles_id_rol) values
+(1, 1);
 
 INSERT INTO empresa (cif_empresa,logo_empresa,nombre_empresa,nombre_juridico_empresa,sector_empresa,empleados_empresa,provincia_empresa,provincia_empresa_e,localidad_empresa,direccion_empresa,telefono_empresa,whatsapp_empresa,credencial_id_credencial) VALUES
 	 ('J20698098',NULL,'Nombre empresa 1','Nombre empresa 1',1,12,9,'1','Locallidad empresa','C/ de la empresa','698745123','',NULL),

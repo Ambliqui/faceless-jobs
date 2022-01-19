@@ -18,6 +18,7 @@ public class CandidatoMapper implements ICandidatoMapper {
 				.credencial(Credencial.builder()
 						.email(candidatoRegistroDto.getEmailCandidato().trim())
 						.pass(candidatoRegistroDto.getPassCandidato().trim())
+						.roles(candidatoRegistroDto.getRoles())
 						.build())
 				.fechaNacimientoCandidato(candidatoRegistroDto.getFechaNacimientoCandidato())
 				.telefonoCandidato(candidatoRegistroDto.getTelefonoCandidato().trim())		

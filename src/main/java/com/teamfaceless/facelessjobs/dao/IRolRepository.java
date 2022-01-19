@@ -1,13 +1,9 @@
 package com.teamfaceless.facelessjobs.dao;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.teamfaceless.facelessjobs.model.Rol;
 
-public interface IRolRepository extends JpaRepository<Rol, Integer> {
+import org.springframework.data.repository.CrudRepository;
 
-	Optional<Rol> findByNombre(String nombre);
-	
+public interface IRolRepository extends CrudRepository<Rol, Integer> {
+
 }

@@ -1,12 +1,17 @@
 package com.teamfaceless.facelessjobs.dtos.candidato;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.teamfaceless.facelessjobs.model.Rol;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -15,8 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
@@ -60,6 +63,8 @@ public class CandidatoRegistroDto implements Serializable{
 	
 	@Pattern (regexp = "^(\\+34|0034|34)?[ -]*(6|9)[ -]*([0-9][ -]*){8}$")
 	private String telefonoCandidato;
+
+	private Set<Rol> roles = new HashSet<>();
 	
 	public boolean emailsEquals() {
 		return emailCandidato.equals(emailConfirmCandidato);

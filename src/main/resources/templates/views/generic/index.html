@@ -7,7 +7,12 @@
 </head>
 
 <body>
+
   <nav th:replace="fragments/base :: navbar"></nav>
+
+
+
+  
   <main class="container content">
     <div class="row m-3">
       <div th:each="oferta:${ofertas}" class="col-md-6 col-xxl-3 my-3">
@@ -26,9 +31,30 @@
       </div>
     </div>
   </main>
+
+  
+  <div sec:authorize="isAuthenticated()">
+    <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
+    <a th:href="@{/logout}">Salir</a>
+</div>    
+
+<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')">
+  hola, eres un candidato
+</li>
+
+<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')">
+  hola, eres una empresa
+</li>
+
+
+
+
   <div class="d-flex justify-content-center">
     <nav class="margin-auto" th:replace="fragments/paginator-nav :: paginator"></nav>
   </div>
+
+
+
   <footer th:replace="fragments/base :: footer"></footer>
   <th:block th:replace="fragments/base :: script"></th:block>
 </body>

@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template-registro-login :: head">
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base :: head">
+
 
 </head>
-
 <body>
-	<header th:replace="plantilla/template-registro-login :: header">
+	<nav th:replace="fragments/base :: navbar"></nav>
 
 	</header>
 
@@ -30,7 +31,7 @@
 								<div class="form-group mb-3">
 									<label for="pass" class="form-label">Contrase√±a</label> <input
 										type="password" class="form-control" id="pass" name="password"
-										placeholder="ContraseÒa"  th:field="*{pass}" required>
+										placeholder="ContraseÔøΩa"  th:field="*{pass}" required>
 								</div>
 							</div>
 						</div>
@@ -48,11 +49,9 @@
 			</div>
 		</div>
 
-	</div>
-	<footer th:replace="plantilla/template-registro-login :: footer">
-
-	</footer>
-	<div th:replace="plantilla/template-registro-login :: boostrap-js"></div>
+		<footer th:replace="fragments/base :: footer"></footer>
+		<th:block th:replace="fragments/base :: script"></th:block>
+	
 
 </body>
 

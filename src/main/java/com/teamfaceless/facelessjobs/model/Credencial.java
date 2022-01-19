@@ -1,14 +1,16 @@
 package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,7 +21,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +28,7 @@ import lombok.Singular;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "credencial")
 public class Credencial implements Serializable {
 
@@ -51,10 +53,18 @@ public class Credencial implements Serializable {
     @Column(name = "activo_credencial", nullable = false, columnDefinition = "bit(1) default true")
     private boolean enable;
     
-    @ManyToMany(fetch = FetchType.EAGER)
-	@Singular
-	@Column(name = "rol",nullable = false)
-	private List<Rol> roles;
+    @ManyToMany
+    private Set<Rol> roles = new HashSet<>();
+
+    public void addRole(Rol rol) {
+        this.roles.add(rol);
+    }
+
+    public Credencial(String email, String pass, Set<Rol> roles) {
+        this.email = email;
+        this.pass = pass;
+        this.roles = roles;
+    }
     
     
 }
