@@ -1,7 +1,5 @@
 package com.teamfaceless.facelessjobs.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,16 +19,16 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 @Controller("main")
 @RequestMapping("/")
 public class MainController {
-	@Autowired
-	private IOfertaService ofertaService;
+    @Autowired
+    private IOfertaService ofertaService;
 
     @GetMapping("/")
-    public String goToIndex(Model model,@RequestParam(name ="page",defaultValue ="0") int page) {
-    	Pageable pageRequest=PageRequest.of(page,6);
-    	Page<OfertaEmpleo>ofertas= ofertaService.findAllPageable(pageRequest);
-    	PageRender<OfertaEmpleo>pageRender=new PageRender<>("/",ofertas);
+    public String goToIndex(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Pageable pageRequest = PageRequest.of(page, 6);
+        Page<OfertaEmpleo> ofertas = ofertaService.findAllPageable(pageRequest);
+        PageRender<OfertaEmpleo> pageRender = new PageRender<>("/", ofertas);
         model.addAttribute("pageTitle", "Inicio");
-        model.addAttribute("ofertas",ofertas);
+        model.addAttribute("ofertas", ofertas);
         model.addAttribute("page", pageRender);
         return "/rendered/generic/index";
     }
@@ -60,6 +58,4 @@ public class MainController {
         return "/rendered/generic/contact";
     }
 
-
-    
 }

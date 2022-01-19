@@ -1,4 +1,4 @@
-package com.teamfaceless.facelessjobs.dao.dtos.candidato;
+package com.teamfaceless.facelessjobs.dtos.candidato;
 
 import java.util.Date;
 

@@ -1,9 +1,9 @@
-package com.teamfaceless.facelessjobs.dao.dtos.empresa.mapper;
+package com.teamfaceless.facelessjobs.dtos.empresa.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaRegistroDto;
+import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;

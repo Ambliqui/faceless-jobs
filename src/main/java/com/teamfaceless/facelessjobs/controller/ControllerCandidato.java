@@ -2,9 +2,9 @@ package com.teamfaceless.facelessjobs.controller;
 
 import javax.validation.Valid;
 
-import com.teamfaceless.facelessjobs.dao.dtos.candidato.CandidatoLoginDto;
-import com.teamfaceless.facelessjobs.dao.dtos.candidato.CandidatoRegistroDto;
-import com.teamfaceless.facelessjobs.dao.dtos.candidato.mapper.ICandidatoMapper;
+import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoLoginDto;
+import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
+import com.teamfaceless.facelessjobs.dtos.candidato.mapper.ICandidatoMapper;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/candidato")
-public class ControllerCandidatoPublico {
+public class ControllerCandidato {
 	
 	@Autowired
 	private ICandidatoService candidatoService;
