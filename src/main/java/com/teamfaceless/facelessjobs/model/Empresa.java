@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -99,9 +101,9 @@ public class Empresa implements Serializable {
     @JoinColumn(name = "credencial_id_credencial", referencedColumnName = "id_credencial")
     private Credencial credencial;
     
-    @JoinColumn(name = "provincia_empresa", referencedColumnName = "id_provincia")
-    @ManyToOne
-    private Provincia provinciaEmpresa;
+    @Enumerated
+    @Column(name = "provincia_empresa")
+    private Provincias provinciaEmpresa;
     
     @JoinColumn(name = "sector_empresa", referencedColumnName = "id_sector_laboral")
     @ManyToOne

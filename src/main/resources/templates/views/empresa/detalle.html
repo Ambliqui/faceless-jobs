@@ -110,17 +110,13 @@
 
 				<campo class="col-md-4">
 					<label for="provinciaEmpresa">Provincia </label>
-					<!-- <input id="provinciaEmpresa" type="text"
-						th:field="*{provinciaEmpresa}"
-						class="form-control"
-						placeholder="Provincia"> -->
 					<select id="provinciaEmpresa" th:field="*{provinciaEmpresa}"
 						class="form-select">
 						<option th:each="prov : ${provincias}"
-							th:value="${prov.idProvincia}" th:text="${prov.nombreProvincia}"
-							th:selected="(${prov.idProvincia} == 11)">
-						</option>
-					</select>
+					th:value="${prov}"
+					th:text="${prov.nombreProvincia}"
+					></option>
+			</select>
 					<label id="errorProvinciaEmpresa" for="provinciaEmpresa"
 						th:if="${#fields.hasErrors('provinciaEmpresa')}"
 						th:errors="*{provinciaEmpresa}" class="form-text text-danger">

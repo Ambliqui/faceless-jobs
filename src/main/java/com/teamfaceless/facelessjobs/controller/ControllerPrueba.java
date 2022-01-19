@@ -2,17 +2,16 @@ package com.teamfaceless.facelessjobs.controller;
 
 import java.util.Date;
 
+import com.teamfaceless.facelessjobs.enums.Provincias;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.model.Empresa;
-import com.teamfaceless.facelessjobs.model.Provincia;
 import com.teamfaceless.facelessjobs.model.Rol;
 import com.teamfaceless.facelessjobs.model.SectorLaboral;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
-import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
 
@@ -35,9 +34,7 @@ public class ControllerPrueba {
 	
 	@Autowired
 	private IRolService rolservice;
-	
-	@Autowired
-	private IProvinciaService provinciaService;
+
 	
 @Autowired
 private ISectorService sectorService;
@@ -63,7 +60,7 @@ private ISectorService sectorService;
 			try {
 				rolservice.create(Rol.builder().nombre("ROLE_CANDIDATO").build());
 				rolservice.create(Rol.builder().nombre("ROLE_EMPRESA").build());
-				provinciaService.create(Provincia.builder().nombreProvincia("Córdoba").build());
+				
 				sectorService.create(SectorLaboral.builder().nombreSectorLaboral("Metal").build());
 				candidatoService.create(Candidato.builder()
 						.credencial(Credencial.builder()
@@ -110,7 +107,7 @@ private ISectorService sectorService;
 					.localidadEmpresa("Locallidad empresa")
 					.nombreEmpresa("Nombre empresa")
 					.nombreJuridicoEmpresa("nombre kuridico")
-					.provinciaEmpresa(provinciaService.findByNombre("Córdoba").get())
+					.provinciaEmpresa(Provincias.ALBACETE)
 					.telefonoEmpresa("698745123")
 					.sectorEmpresa(sectorService.findByNombreSector("Metal").get())
 					.build()

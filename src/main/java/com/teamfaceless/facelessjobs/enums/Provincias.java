@@ -1,5 +1,7 @@
 package com.teamfaceless.facelessjobs.enums;
 
+import java.util.stream.Stream;
+
 public enum Provincias {
 	ÁLAVA(1,"Araba/Álava"),
 	ALBACETE(2,"Albacete"),
@@ -69,4 +71,11 @@ public enum Provincias {
 	public String getNombreProvincia() {
 		return nombreProvincia;
 	}
+	
+	public static Provincias get(String nombre) {
+		
+		return Stream.of(Provincias.values()).filter(prov->prov.nombreProvincia.equals(nombre)).findAny().get(); 
+		
+	}
+	
 }

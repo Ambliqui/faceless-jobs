@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+
+import com.teamfaceless.facelessjobs.enums.Provincias;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -67,9 +71,9 @@ public class Candidato implements Serializable {
     @JoinColumn(name = "credencial_id_credencial", referencedColumnName = "id_credencial")
     private Credencial credencial;
 
-    @JoinColumn(name = "provincia_candidato", referencedColumnName = "id_provincia")
-    @ManyToOne
-    private Provincia provinciaCandidato;
+   @Enumerated
+   @Column(name = "provincia_candidato")
+    private Provincias provinciaCandidato;
 
     public HabilidadCandidato addHabilidadCandidato(HabilidadCandidato habilidadCandidato) {
         getHabilidadCandidatoList().add(habilidadCandidato);

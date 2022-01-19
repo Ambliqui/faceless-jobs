@@ -1,7 +1,7 @@
 -- Datos ya existentes. No dinámicos.
 
 SET FOREIGN_KEY_CHECKS=0;
-
+/*
 INSERT INTO provincia (nombre_provincia) VALUES
 	 ('Albacete'),
 	 ('Alicante'),
@@ -60,7 +60,7 @@ INSERT INTO provincia (nombre_provincia) VALUES
 INSERT INTO provincia (nombre_provincia) VALUES
 	 ('Zamora'),
 	 ('Zaragoza');
-
+*/
 INSERT INTO rol (nombre_rol) VALUES
 	 ('ROLE_CANDIDATO'),
 	 ('ROLE_EMPRESA');

@@ -9,6 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.teamfaceless.facelessjobs.enums.Provincias;
 import com.teamfaceless.facelessjobs.validations.CifRepetido.CIFExist;
 
 import lombok.AllArgsConstructor;
@@ -72,7 +73,7 @@ public class EmpresaRegistroDto implements Serializable {
     private Integer empleadosEmpresa;
     
     @NotNull
-    private Integer provinciaEmpresa;
+    private Provincias provinciaEmpresa;
  
     @NotNull
     private Integer sectorEmpresa;

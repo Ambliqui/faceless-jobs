@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.teamfaceless.facelessjobs.enums.Provincias;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
-import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
 
 @Controller
@@ -29,8 +29,6 @@ public class ControllerOferta {
 	private IOfertaService ofertaService;
 	@Autowired
 	private IEmpresaService empresaService;
-	@Autowired
-	private IProvinciaService provinciaService;
 	@Autowired
 	private ISectorService sectorService;
 
@@ -64,7 +62,7 @@ public class ControllerOferta {
 		model.addAttribute("empresa", emp);
 		model.addAttribute("titulo", "Formulario de ofertas");
 		model.addAttribute("value", "Añadir");
-		model.addAttribute("provincias", provinciaService.findAll());
+		model.addAttribute("provincias", Provincias.values());
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
 		return "views/oferta/formulario";
@@ -78,7 +76,7 @@ public class ControllerOferta {
 		} else {
 			return "redirect:oferta/listado";
 		}
-		model.addAttribute("provincias", provinciaService.findAll());
+		model.addAttribute("provincias", Provincias.values());
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
 		model.addAttribute("value", "Añadir");
@@ -92,12 +90,12 @@ public class ControllerOferta {
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("value", "Añadir");
-			model.addAttribute("provincias", provinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
 			model.addAttribute("sectores", sectorService.findAll());
 			return "views/oferta/formulario";
 		} else if (oferta.getFechaFinOferta().before(oferta.getFechaInicioOferta())) {
 			model.addAttribute("titulo", "Formulario de ofertas");
-			model.addAttribute("provincias", provinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("value", "Añadir");
 			model.addAttribute("msgFecha", "La fecha de finalización no puede ser anterior a la inicial.");

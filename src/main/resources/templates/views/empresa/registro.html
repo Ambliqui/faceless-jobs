@@ -148,6 +148,8 @@
 					</label>
 				</div>
 
+
+
 				<div class="col-md-3">
 					<label for="provinciaEmpresa">Provincia </label>
 					<!-- <input id="provinciaEmpresa" type="text"
@@ -157,9 +159,9 @@
 					<select id="provinciaEmpresa" th:field="*{provinciaEmpresa}"
 						class="form-select">
 						<option th:each="prov : ${provincias}"
-							th:value="${prov.idProvincia}" th:text="${prov.nombreProvincia}"
-							th:selected="(${prov.idProvincia} == 11)">
-						</option>
+											th:value="${prov}"
+											th:text="${prov.nombreProvincia}"
+											></option>
 					</select>
 					<label id="errorProvinciaEmpresa" for="provinciaEmpresa"
 						th:if="${#fields.hasErrors('provinciaEmpresa')}"

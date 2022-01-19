@@ -17,11 +17,10 @@ public class CIFRepetidoValidator implements ConstraintValidator<CIFExist, Strin
 	
 	@Override
     public boolean isValid(String cif, ConstraintValidatorContext context) {
-		
-		if(Objects.isNull(empresaRepository.findBycIFempresa(cif))){
+//		if(Objects.isNull(empresaRepository.findBycIFempresa(cif))){
 //		if(cif.equals("S4280108D")){
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 }

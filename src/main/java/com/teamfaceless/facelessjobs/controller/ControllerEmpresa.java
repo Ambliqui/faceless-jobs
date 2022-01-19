@@ -5,10 +5,10 @@ import javax.validation.Valid;
 import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaListadoDto;
 import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaRegistroDto;
 import com.teamfaceless.facelessjobs.dao.dtos.empresa.mapper.IEmpresaMapper;
+import com.teamfaceless.facelessjobs.enums.Provincias;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
-import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
 
@@ -32,9 +32,6 @@ public class ControllerEmpresa {
 	
 	@Autowired
 	private IRolService rolservice;
-
-	@Autowired
-	private IProvinciaService iProvinciaService;
 	
 	@Autowired
 	private ISectorService iSectorService;
@@ -44,7 +41,7 @@ public class ControllerEmpresa {
 	
 	@GetMapping("/pruebas/{idEmpresa}")
 	public String goPruebas(@PathVariable Integer idEmpresa, Model model) {
-		model.addAttribute("provincias", iProvinciaService.findAll());
+		model.addAttribute("provincias", Provincias.values());
 		model.addAttribute("sectores", iSectorService.findAll());
 		model.addAttribute("empresa", iEmpresaService.findById(idEmpresa));
 		return "views/empresa/pruebas";
@@ -54,7 +51,7 @@ public class ControllerEmpresa {
 	public String postPruebas(Empresa empresa, Model model, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("empresa", empresa);
-			model.addAttribute("provincias", iProvinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "views/empresa/pruebas";
 		}
@@ -85,7 +82,8 @@ public class ControllerEmpresa {
 	@GetMapping("/registro")
 	public String formRegistro(Model model, EmpresaRegistroDto empresaRegistroDto) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
-			model.addAttribute("provincias", iProvinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
+			model.addAttribute("provSeleccionada", Provincias.ALBACETE);
 			model.addAttribute("sectores", iSectorService.findAll());
 		return "views/empresa/registro";
 	}
@@ -94,7 +92,7 @@ public class ControllerEmpresa {
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
-			model.addAttribute("provincias", iProvinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/empresa/registro";
 		}
@@ -132,9 +130,10 @@ public class ControllerEmpresa {
 	
 	@GetMapping("/modificar/{idEmpresa}")
 	public String goModificar(@PathVariable Integer idEmpresa, Model model) {
-		model.addAttribute("empresa", iEmpresaService.findById(idEmpresa));
-		model.addAttribute("empresaregistrodto", new EmpresaRegistroDto());
-		model.addAttribute("provincias", iProvinciaService.findAll());
+		Empresa emp=iEmpresaService.findById(idEmpresa).get();
+
+		model.addAttribute("empresa", emp);
+		model.addAttribute("provincias", Provincias.values());
 		model.addAttribute("sectores", iSectorService.findAll());
 		return "/views/empresa/detalle";
 	}
@@ -143,7 +142,7 @@ public class ControllerEmpresa {
 	public String modificarEmpresa(Model model, @Valid Empresa empresa, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("empresa", empresa);
-			model.addAttribute("provincias", iProvinciaService.findAll());
+			model.addAttribute("provincias", Provincias.values());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/empresa/detalle";
 		}

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.teamfaceless.facelessjobs.enums.Provincias;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -83,10 +87,9 @@ public class OfertaEmpleo implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ofertaEmpleo")
 	private List<HabilidadOferta> habilidadOfertaList;
 
-	@JoinColumn(name = "provincia_oferta", referencedColumnName = "id_provincia")
-	@ManyToOne
-	@NotNull
-	private Provincia provinciaOferta;
+	@Enumerated
+	 @Column(name = "provincia_oferta")
+    private Provincias provinciaOferta;
 
 	@JoinColumn(name = "sector_oferta", referencedColumnName = "id_sector_laboral")
 	@ManyToOne

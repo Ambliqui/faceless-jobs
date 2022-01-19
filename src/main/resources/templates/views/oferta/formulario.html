@@ -25,7 +25,7 @@
 				</tr>
 				-->
 				<tr>
-					<td>Título</td>
+					<td>TÃ­tulo</td>
 					<td><input id="tituloOferta" type="text"
 						th:field="*{tituloOferta}" class="form-control" /> <label
 						id="errortituloOferta" for="tituloOferta"
@@ -35,7 +35,7 @@
 				</tr>
 
 				<tr>
-					<td>Descripción</td>
+					<td>DescripciÃ³n</td>
 					<td><input type="text" id="descripcionOferta"
 						th:field="*{descripcionOferta}" class="form-control" /> <label
 						id="errordescripcionOferta" for="descripcionOferta"
@@ -65,7 +65,7 @@
 					</label></td>
 				</tr>
 				<tr>
-					<td>Número de vacantes</td>
+					<td>NÃºmero de vacantes</td>
 					<td><input type="number" id="numeroVacantesOferta"
 						th:field="*{numeroVacantesOferta}" class="form-control" /> <label
 						id="errornumeroVacantesOferta" for="numeroVacantesOferta"
@@ -75,10 +75,10 @@
 				</tr>
 				<tr>
 					<td>Provincia</td>
-					<td><select th:field="*{provinciaOferta.idProvincia}" class="form-control"
+					<td><select th:field="*{provinciaOferta}" class="form-control"
 						id="idProvincia">
 							<option th:each="provincia:${provincias}"
-								th:value="${provincia.idProvincia}"
+								th:value="${provincia}"
 								th:text="${provincia.nombreProvincia}"></option>
 					</select> <label id="errorprovinciaOferta" for="provinciaOferta"
 						th:if="${#fields.hasErrors('provinciaOferta')}"

@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.teamfaceless.facelessjobs.enums.Provincias;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +39,9 @@ public class CandidatoRegistroDto implements Serializable{
 	
 	@Email
 	private String emailConfirmCandidato;
+	
+	@NotNull	//TODO mensaje en properties
+	 private Provincias provinciaCandidato;
 	
 	@NotBlank
 	@Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")

@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.teamfaceless.facelessjobs.dao.dtos.candidato.CandidatoLoginDto;
 import com.teamfaceless.facelessjobs.dao.dtos.candidato.CandidatoRegistroDto;
 import com.teamfaceless.facelessjobs.dao.dtos.candidato.mapper.ICandidatoMapper;
+import com.teamfaceless.facelessjobs.enums.Provincias;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
@@ -32,6 +33,7 @@ public class ControllerCandidatoPublico {
 	@GetMapping("/registro")
 	public String formRegistro(Model model,CandidatoRegistroDto candidatoRegistroDto) {
 			model.addAttribute("candidato", candidatoRegistroDto);
+			model.addAttribute("provincias", Provincias.values());
 		return "views/candidato/registro";
 	}
 	
@@ -40,22 +42,28 @@ public class ControllerCandidatoPublico {
 			BindingResult result, Model model, RedirectAttributes redirect) {
 			if(result.hasErrors()) {
 				System.out.println("HAY ERRORES");
+				model.addAttribute("provincias", Provincias.values());
+				
 				return "views/candidato/registro";
 			}
 			//validacion pass coinciden y email coincide
 			if(!candidatoRegistroDto.emailsEquals()) {
 				model.addAttribute("errorEmail", "Los email no coinciden");//Preparar mensaje para internacionalizar
+				model.addAttribute("provincias", Provincias.values());
+				
 				return "views/candidato/registro";
 			}
 			if(!candidatoRegistroDto.passEquals()) {
 				model.addAttribute("errorPass", "Las contraseñas no coinciden");//Preparar mensaje para internacionalizar
+				model.addAttribute("provincias", Provincias.values());
+				
 				return "views/candidato/registro";
 			}
 			
 		//registrar
 			System.out.println("NO HAY ERRORES");
 			Candidato candidato=candidatoMapper.candidatoRegistroDtoToCandidato(candidatoRegistroDto);
-			//encriptar pass con security
+			
 			try {
 				candidatoService.create(candidato);
 				redirect.addFlashAttribute("msg", "Registrado correctamente");//Preparar mensaje para internacionalizar
