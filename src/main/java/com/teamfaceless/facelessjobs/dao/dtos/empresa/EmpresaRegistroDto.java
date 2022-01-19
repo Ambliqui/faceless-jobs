@@ -2,6 +2,7 @@ package com.teamfaceless.facelessjobs.dao.dtos.empresa;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -24,12 +25,10 @@ public class EmpresaRegistroDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotEmpty
-    @Pattern(regexp = "^(.+)@(.+)$")
+    @Email
     private String emailEmpresa;
     
-    @NotEmpty
-    @Pattern(regexp = "^(.+)@(.+)$")
+    @Email
     private String confirmEmailEmpresa;
     
     @NotEmpty
@@ -40,7 +39,6 @@ public class EmpresaRegistroDto implements Serializable {
     
     @Size(max = 45)
     @Pattern(regexp = "[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}")
-    @CIFExist
     private String cIFempresa;
     
     @Size(max = 45)
@@ -51,7 +49,6 @@ public class EmpresaRegistroDto implements Serializable {
     @Size(max = 45)
     private String nombreJuridicoEmpresa;
     
-    @NotEmpty
     @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}")
     private String telefonoEmpresa;
     
@@ -67,7 +64,6 @@ public class EmpresaRegistroDto implements Serializable {
     private String localidadEmpresa;
     
     @NotNull
-    @Positive
     @Min(1)
     private Integer empleadosEmpresa;
     

@@ -1,5 +1,8 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import com.teamfaceless.facelessjobs.dao.dtos.empresa.EmpresaListadoDto;
@@ -11,6 +14,7 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
+import com.teamfaceless.facelessjobs.validations.IValidations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +33,6 @@ public class ControllerEmpresa {
 
 	@Autowired
 	private IEmpresaService iEmpresaService;
-	
-	@Autowired
-	private IRolService rolservice;
 
 	@Autowired
 	private IProvinciaService iProvinciaService;
@@ -41,6 +42,9 @@ public class ControllerEmpresa {
 	
 	@Autowired
 	private IEmpresaMapper iEmpresaMapper;
+	
+	@Autowired
+	private IValidations iValidations;
 	
 	@GetMapping("/pruebas/{idEmpresa}")
 	public String goPruebas(@PathVariable Integer idEmpresa, Model model) {
@@ -74,26 +78,37 @@ public class ControllerEmpresa {
 		return "/views/empresa/listado";
 	}
 	
-//	@GetMapping("/formulario/{idEmpresa}")
-//	public String goFormulario(@PathVariable Integer idEmpresa, Model model) {
-//		model.addAttribute("empresa", iEmpresaService.findById(idEmpresa));
-//		model.addAttribute("empresaregistrodto", new EmpresaRegistroDto());
-//		model.addAttribute("provincias", iProvinciaService.findAll());
-//		return "/views/empresa/formulario";
-//	}
-	
 	@GetMapping("/registro")
 	public String formRegistro(Model model, EmpresaRegistroDto empresaRegistroDto) {
-			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
-			model.addAttribute("provincias", iProvinciaService.findAll());
-			model.addAttribute("sectores", iSectorService.findAll());
+		
+		Map<String, String> mapaErrores = new HashMap<>();
+		model.addAttribute("empresaRegistroDto", empresaRegistroDto);
+		model.addAttribute("mapaErrores", mapaErrores);
+		model.addAttribute("provincias", iProvinciaService.findAll());
+		model.addAttribute("sectores", iSectorService.findAll());
 		return "views/empresa/registro";
 	}
 	
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
+		//Crear validador personalizado para esta vista y devolver un mapa de errores a la vista
+		Map<String, String> mapaErrores = new HashMap<>();
+		
+		iValidations.emailExistente(empresaRegistroDto.getEmailEmpresa())
+			.ifPresent((error) -> mapaErrores.put("ErrorEmailExist", error.getMessage()));
+
+		iValidations.camposCoincidentes(empresaRegistroDto.getConfirmEmailEmpresa(), empresaRegistroDto.getEmailEmpresa(), "Email", "Repite Email")
+			.ifPresent((error) -> mapaErrores.put("errorEmailNoDuplicate", error.getMessage()));
+		
+		iValidations.camposCoincidentes(empresaRegistroDto.getPassEmpresa(), empresaRegistroDto.getConfirmPassEmpresa(), "Password", "Repite Password")
+			.ifPresent((error) -> mapaErrores.put("errorPassNoDuplicate", error.getMessage()));
+		
+		iValidations.cifExistente(empresaRegistroDto.getCIFempresa())
+			.ifPresent((error) -> mapaErrores.put("errorCIFExist", error.getMessage()));
+		
 		if (result.hasErrors()) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
+			model.addAttribute("mapaErrores", mapaErrores);
 			model.addAttribute("provincias", iProvinciaService.findAll());
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/empresa/registro";
@@ -102,33 +117,6 @@ public class ControllerEmpresa {
 		iEmpresaService.create(iEmpresaMapper.empresaEmpresaDtoToEmpresa(empresaRegistroDto));
 		return "redirect:/empresa/listado";
 	}
-	
-//	@PostMapping("/guardar")
-//	public String altaEmpresa(@Valid Empresa empresa, BindingResult result) {
-//		if (result.hasErrors()) {
-//			return "/views/empresa/formulario";
-//		}
-//		
-//		iEmpresaService.create(Empresa.builder()
-//				.cIFempresa(empresa.getCIFempresa())
-//				.credencial(Credencial.builder()
-//						.email(empresa.getCredencial().getEmail())
-//						.pass(empresa.getCredencial().getPass())
-//						.role(rolservice.findByNombre("ROLE_EMPRESA"))
-//						.enable(true)
-//						.build())
-//				.direccionEmpresa(empresa.getDireccionEmpresa())
-//				.empleadosEmpresa(empresa.getEmpleadosEmpresa())
-//				.localidadEmpresa(empresa.getLocalidadEmpresa())
-//				.nombreEmpresa(empresa.getNombreEmpresa())
-//				.nombreJuridicoEmpresa(empresa.getNombreJuridicoEmpresa())
-//				.provinciaEmpresa(empresa.getProvinciaEmpresa())
-//				.sectorEmpresa(empresa.getSectorEmpresa())
-//				.telefonoEmpresa(empresa.getTelefonoEmpresa())
-//				.whatsappEmpresa(empresa.getWhatsappEmpresa())
-//				.build());
-//		return "/views/empresa/perfil";
-//	}
 	
 	@GetMapping("/modificar/{idEmpresa}")
 	public String goModificar(@PathVariable Integer idEmpresa, Model model) {
@@ -196,6 +184,5 @@ public class ControllerEmpresa {
 		}
 		return "redirect:/empresa/listado";
 	}
-	
 	
 }
