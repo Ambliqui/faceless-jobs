@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="plantilla/template :: head">
+	</head>
+	
+	<body>
+		<!-- <header th:replace="plantilla/template :: header"></header> -->
+		<nav th:replace="fragments/base :: navbar"></nav>
+		
+		<hr>
+		
+		<h1 class="text-center" th:text="${titulo}"></h1>
+		
+		<hr>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-2 text-center">
+					<a th:href="@{/habilidad/formulario}" class="btn btn-primary btn-block" role="button">Añadir Habilidad</a>
+				</div>
+				
+				<div class="col">
+					<table class="table table-hover table-bordered">
+						<thead class="table-dark">
+							<tr>
+								<th>Nombre</th>
+								
+								<th>Descripción</th>
+								
+								<th>Categor&iacute;a</th>
+								
+								<th>Gestión</th>
+							</tr>
+						</thead>
+						<tr th:each="habilidad:${habilidades}">
+							<td class="align-middle" th:text="${habilidad.nombreHabilidad}"></td>
+								
+							<td class="align-middle" th:text="${habilidad.descripcionHabilidad}"></td>
+							
+							<td class="align-middle" th:text="${habilidad.categoriaHabilidad.nombre}"></td>
+							
+							<td class="align-middle">
+								<a th:href="@{'/habilidad/formulario/'+ ${habilidad.idHabilidad}}"
+									class="btn btn-success btn-sm"
+									role="button"
+									title="Editar Habilidad">
+									<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+								</a>
+								<a th:href="@{'/habilidad/eliminar/' + ${habilidad.idHabilidad}}"
+									onclick="return confirm('�Estas seguro?')"
+									class="btn btn-danger btn-sm"
+									role="button"
+									title="Eliminar Habilidad">
+									<i class="fas fa-trash" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<footer th:replace="fragments/base :: footer"></footer>
+  		
+  		<th:block th:replace="fragments/base :: script"></th:block>
+	</body>
+</html>
