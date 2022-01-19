@@ -34,3 +34,4 @@ build/
 
 ### Other ###
 db/
+src/main/resources/application.properties
