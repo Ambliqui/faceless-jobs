@@ -13,9 +13,10 @@
 	<h1 class="text-center">Alta de empresas</h1>
 	<h2 th:text="${titulo}">Sutitulo</h2>
 	<hr>
+	
 	<div class="row">
-		<div class="col-2"></div>
-		<div class="col-8">
+		<section class="col-2"></section>
+		<section class="col-8">
 			<form class="container row g-3" th:action="@{/empresa/registro}" th:object="${empresaRegistroDto}" autocomplete="off" method="post">
 				<h5>Credenciales de entrada</h5>
 				<div class="col-md-6">
@@ -27,6 +28,18 @@
 						id="errorEmailEmpresa" for="emailEmpresa"
 						th:if="${#fields.hasErrors('emailEmpresa')}"
 						th:errors="*{emailEmpresa}" class="form-text text-danger">
+					</label>
+<!-- Validacion personalizada de campo comprueba Email existente (ErrorEmailExist) -->
+					<label
+						for="emailEmpresa"
+						th:text="${mapaErrores.get('ErrorEmailExist')} ? ${mapaErrores.get('ErrorEmailExist')} : ''" 
+						class="form-text text-danger">
+					</label>
+<!-- Validacion personalizada de campo comprueba Email repetido (errorEmailNoDuplicate)-->
+					<label
+						for="emailEmpresa"
+						th:text="${mapaErrores.get('errorEmailNoDuplicate')} ? ${mapaErrores.get('errorEmailNoDuplicate')} : ''" 
+						class="form-text text-danger">
 					</label>
 				</div>
 				<div class="col-md-6">
@@ -41,6 +54,12 @@
 						th:errors="*{confirmEmailEmpresa}"
 						class="form-text text-danger">
 					</label>
+<!-- Validacion personalizada de campo comprueba Email repetido (errorEmailNoDuplicate)-->
+					<label
+						for="confirmEmailEmpresa"
+						th:text="${mapaErrores.get('errorEmailNoDuplicate')} ? ${mapaErrores.get('errorEmailNoDuplicate')} : ''" 
+						class="form-text text-danger">
+					</label>
 				</div>
 				<div class="col-md-6">
 					<label for="passwordEmpresa">Password</label>
@@ -52,6 +71,12 @@
 						th:if="${#fields.hasErrors('passEmpresa')}"
 						th:errors="*{passEmpresa}" class="form-text text-danger">
 					</label>
+<!-- Validacion personalizada de campo Email no coincidente (errorPassNoDuplicate)-->
+					<label
+						for="passwordEmpresa"
+						th:text="${mapaErrores.get('errorPassNoDuplicate')} ? ${mapaErrores.get('errorPassNoDuplicate')} : ''" 
+						class="form-text text-danger">
+					</label>
 				</div>
 				<div class="col-md-6">
 					<label for="confirmPassEmpresa">Repite Password</label>
@@ -62,6 +87,12 @@
 						id="errorConfirmPassEmpresa" for="confirmPassEmpresa"
 						th:if="${#fields.hasErrors('confirmPassEmpresa')}"
 						th:errors="*{confirmPassEmpresa}" class="form-text text-danger">
+					</label>
+<!-- Validacion personalizada de campo no coincidente (errorPassNoDuplicate)-->
+					<label
+						for="confirmPassEmpresa"
+						th:text="${mapaErrores.get('errorPassNoDuplicate')} ? ${mapaErrores.get('errorPassNoDuplicate')} : ''" 
+						class="form-text text-danger">
 					</label>
 				</div>
 				<hr>
@@ -87,7 +118,8 @@
 						id="errorNombreJuridicoEmpresa" for="nombreJuridicoEmpresa"
 						class="form-text text-danger"
 						th:if="${#fields.hasErrors('nombreJuridicoEmpresa')}"
-						th:errors="*{nombreJuridicoEmpresa}"></label>
+						th:errors="*{nombreJuridicoEmpresa}">
+					</label>
 				</div>
 				<div class="col-md-4">
 					<label for="CIFEmpresa">CIF </label>
@@ -97,7 +129,14 @@
 					<label id="errorCIF"
 						for="CIFEmpresa" class="form-text text-danger"
 						th:if="${#fields.hasErrors('cIFempresa')}"
-						th:errors="*{cIFempresa}"></label>
+						th:errors="*{cIFempresa}">
+					</label>
+<!-- Validacion personalizada de campo comprueba que no exista el CIF con anterioridad (errorCIFExist) -->
+					<label
+						for="CIFEmpresa"
+						th:text="${mapaErrores.get('errorCIFExist')} ? ${mapaErrores.get('errorCIFExist')} : ''" 
+						class="form-text text-danger">
+					</label>
 				</div>
 				<div class="col-md-5">
 					<label for="sectorLaboralEmpresa">Sector Laboral </label>
@@ -204,7 +243,7 @@
 				</div>
 				<hr>
 			</form>
-		</div>
+		</section>
 	</div>
 	
   <footer th:replace="fragments/base :: footer"></footer>
