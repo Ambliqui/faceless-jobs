@@ -49,7 +49,6 @@ public class Empresa implements Serializable {
     
     @NotEmpty
     @Pattern(regexp = "[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}")
-    @CIFExist
     @Column(name = "CIF_empresa", nullable = false, unique = true)
     private String cIFempresa;
     

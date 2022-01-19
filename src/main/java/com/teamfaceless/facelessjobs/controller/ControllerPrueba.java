@@ -27,6 +27,7 @@ public class ControllerPrueba {
 
 	@Autowired
 	private ICandidatoService candidatoService;
+	
 	@Autowired
 	private IOfertaService iOfertaService;
 	

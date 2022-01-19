@@ -33,7 +33,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "inscripcion_oferta")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "InscripcionOferta.findAll", query = "SELECT i FROM InscripcionOferta i"),
         @NamedQuery(name = "InscripcionOferta.findByIdInscripcion", query = "SELECT i FROM InscripcionOferta i WHERE i.idInscripcion = :idInscripcion"),
@@ -43,17 +42,22 @@ import lombok.NoArgsConstructor;
 public class InscripcionOferta implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected InscripcionOfertaPK inscripcionOfertaPK;
+    
     @Basic(optional = false)
     @Column(name = "id_inscripcion")
     private int idInscripcion;
+    
     @Column(name = "fecha_inscripcion")
     @Temporal(TemporalType.DATE)
     private Date fechaInscripcion;
+    
     @JoinColumn(name = "candidato_id_inscripcion", referencedColumnName = "id_candidato", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Candidato candidato;
+    
     @JoinColumn(name = "oferta_id_inscripcion", referencedColumnName = "id_oferta_empleo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private OfertaEmpleo ofertaEmpleo;
