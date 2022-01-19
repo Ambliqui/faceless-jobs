@@ -7,11 +7,11 @@
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 	<main class="container content">
-	<h1 th:text="${titulo}"></h1>
-	<h3 th:text="${desc}"></h3>
-	<p th:text="${descOferta}"></p>
-	<form th:action="@{/inscription/save}" method="post">	
-		<input th:value="${idOfertaEmpleo}" name="idOferta">
+<!-- 	<h1 th:text="${titulo}"></h1> -->
+<!-- 	<h3 th:text="${desc}"></h3> -->
+<!-- 	<p th:text="${descOferta}"></p> -->
+	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
+		<input th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
 		<button type="submit" class="btn btn-success">Inscribete</button>
 		<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 	</form>

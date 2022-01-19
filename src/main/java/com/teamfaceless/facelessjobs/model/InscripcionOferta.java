@@ -33,12 +33,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "inscripcion_oferta")
-@NamedQueries({
-        @NamedQuery(name = "InscripcionOferta.findAll", query = "SELECT i FROM InscripcionOferta i"),
-        @NamedQuery(name = "InscripcionOferta.findByIdInscripcion", query = "SELECT i FROM InscripcionOferta i WHERE i.idInscripcion = :idInscripcion"),
-        @NamedQuery(name = "InscripcionOferta.findByOfertaIdInscripcion", query = "SELECT i FROM InscripcionOferta i WHERE i.inscripcionOfertaPK.ofertaIdInscripcion = :ofertaIdInscripcion"),
-        @NamedQuery(name = "InscripcionOferta.findByCandidatoIdInscripcion", query = "SELECT i FROM InscripcionOferta i WHERE i.inscripcionOfertaPK.candidatoIdInscripcion = :candidatoIdInscripcion"),
-        @NamedQuery(name = "InscripcionOferta.findByFechaInscripcion", query = "SELECT i FROM InscripcionOferta i WHERE i.fechaInscripcion = :fechaInscripcion") })
 public class InscripcionOferta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,9 +40,9 @@ public class InscripcionOferta implements Serializable {
     @EmbeddedId
     protected InscripcionOfertaPK inscripcionOfertaPK;
     
-    @Basic(optional = false)
-    @Column(name = "id_inscripcion")
-    private int idInscripcion;
+//    @Basic(optional = false)
+//    @Column(name = "id_inscripcion")
+//    private int idInscripcion;
     
     @Column(name = "fecha_inscripcion")
     @Temporal(TemporalType.DATE)
@@ -66,10 +60,10 @@ public class InscripcionOferta implements Serializable {
         this.inscripcionOfertaPK = inscripcionOfertaPK;
     }
 
-    public InscripcionOferta(InscripcionOfertaPK inscripcionOfertaPK, int idInscripcion) {
-        this.inscripcionOfertaPK = inscripcionOfertaPK;
-        this.idInscripcion = idInscripcion;
-    }
+//    public InscripcionOferta(InscripcionOfertaPK inscripcionOfertaPK, int idInscripcion) {
+//        this.inscripcionOfertaPK = inscripcionOfertaPK;
+//        this.idInscripcion = idInscripcion;
+//    }
 
     public InscripcionOferta(int ofertaIdInscripcion, int candidatoIdInscripcion) {
         this.inscripcionOfertaPK = new InscripcionOfertaPK(ofertaIdInscripcion, candidatoIdInscripcion);
