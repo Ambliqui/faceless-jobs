@@ -33,9 +33,6 @@ public class ControllerEmpresa {
 
 	@Autowired
 	private IEmpresaService iEmpresaService;
-	
-	@Autowired
-	private IRolService rolservice;
 
 	@Autowired
 	private IProvinciaService iProvinciaService;
@@ -81,14 +78,6 @@ public class ControllerEmpresa {
 		return "/views/empresa/listado";
 	}
 	
-//	@GetMapping("/formulario/{idEmpresa}")
-//	public String goFormulario(@PathVariable Integer idEmpresa, Model model) {
-//		model.addAttribute("empresa", iEmpresaService.findById(idEmpresa));
-//		model.addAttribute("empresaregistrodto", new EmpresaRegistroDto());
-//		model.addAttribute("provincias", iProvinciaService.findAll());
-//		return "/views/empresa/formulario";
-//	}
-	
 	@GetMapping("/registro")
 	public String formRegistro(Model model, EmpresaRegistroDto empresaRegistroDto) {
 		
@@ -128,33 +117,6 @@ public class ControllerEmpresa {
 		iEmpresaService.create(iEmpresaMapper.empresaEmpresaDtoToEmpresa(empresaRegistroDto));
 		return "redirect:/empresa/listado";
 	}
-	
-//	@PostMapping("/guardar")
-//	public String altaEmpresa(@Valid Empresa empresa, BindingResult result) {
-//		if (result.hasErrors()) {
-//			return "/views/empresa/formulario";
-//		}
-//		
-//		iEmpresaService.create(Empresa.builder()
-//				.cIFempresa(empresa.getCIFempresa())
-//				.credencial(Credencial.builder()
-//						.email(empresa.getCredencial().getEmail())
-//						.pass(empresa.getCredencial().getPass())
-//						.role(rolservice.findByNombre("ROLE_EMPRESA"))
-//						.enable(true)
-//						.build())
-//				.direccionEmpresa(empresa.getDireccionEmpresa())
-//				.empleadosEmpresa(empresa.getEmpleadosEmpresa())
-//				.localidadEmpresa(empresa.getLocalidadEmpresa())
-//				.nombreEmpresa(empresa.getNombreEmpresa())
-//				.nombreJuridicoEmpresa(empresa.getNombreJuridicoEmpresa())
-//				.provinciaEmpresa(empresa.getProvinciaEmpresa())
-//				.sectorEmpresa(empresa.getSectorEmpresa())
-//				.telefonoEmpresa(empresa.getTelefonoEmpresa())
-//				.whatsappEmpresa(empresa.getWhatsappEmpresa())
-//				.build());
-//		return "/views/empresa/perfil";
-//	}
 	
 	@GetMapping("/modificar/{idEmpresa}")
 	public String goModificar(@PathVariable Integer idEmpresa, Model model) {
@@ -222,6 +184,5 @@ public class ControllerEmpresa {
 		}
 		return "redirect:/empresa/listado";
 	}
-	
 	
 }
