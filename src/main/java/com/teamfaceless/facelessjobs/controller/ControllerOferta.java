@@ -52,7 +52,7 @@ public class ControllerOferta {
 			model.addAttribute("desc", "Descripción");
 			model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
 			model.addAttribute("empresa", empresaService.findEmpresa(oferta.get()));
-
+			model.addAttribute("idOferta", oferta.get().getIdOfertaEmpleo());
 		}
 		return "views/oferta/detalle";
 	}
