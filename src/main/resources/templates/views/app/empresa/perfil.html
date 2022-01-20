@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head" />
-
+<head th:replace="fragments/base :: head"></head>
 <body>
-	<header th:replace="plantilla/template :: header" />
+	<nav th:replace="fragments/base :: navbar"></nav>
 	<main class="row">
 		<hr>
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
@@ -52,6 +51,7 @@
 		</section>
 		<aside class="col border border-dark">Esto es el aside</aside>
 	</main>
-	<footer th:replace="plantilla/template :: footer" />
+	<footer th:replace="fragments/base :: footer"></footer>
+  	<th:block th:replace="fragments/base :: script"></th:block>
 </body>
 </html>
