@@ -2,14 +2,16 @@ package com.teamfaceless.facelessjobs.controller;
 
 import javax.validation.Valid;
 
-import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoLoginDto;
 import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
 import com.teamfaceless.facelessjobs.dtos.candidato.mapper.ICandidatoMapper;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
+import com.teamfaceless.facelessjobs.services.ICredencialService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -28,6 +29,9 @@ public class ControllerCandidato {
 	private ICandidatoService candidatoService;
 	@Autowired
 	private ICandidatoMapper candidatoMapper;
+
+	@Autowired
+	private ICredencialService credencialService;
 	
 	@GetMapping("/registro")
 	public String formRegistro(Model model,CandidatoRegistroDto candidatoRegistroDto) {
@@ -66,15 +70,26 @@ public class ControllerCandidato {
 			}
 			
 	}
-	
-	@GetMapping("/login")
-	public String formLogin(Model model,@RequestParam(value = "error",required = false)String error) {
-		if(error!=null) {
-			model.addAttribute("msgError", "Credenciales incorrectas");
-		}
-		
-		return"views/candidato/login";
+
+	@GetMapping("/perfil")
+	public String goToCandidateProfile() {
+		return "views/app/candidato/perfil";
 	}
+
+	@GetMapping("/modify")
+	public String goToCandidateModify() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+// credencialService.findByEmail(auth.getName());
+
+System.out.println(auth.getDetails());
+System.out.println(auth.getCredentials());
+System.out.println(auth.getPrincipal());
+System.out.println(auth.getName());
+
+		return "views/app/candidato/modify";
+	}
+	
 	
 	// @PostMapping("/login")
 	// public String login(Model model, @Valid @ModelAttribute("candidatoLogin") CandidatoLoginDto candidato,

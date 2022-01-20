@@ -3,12 +3,14 @@
 
 <head th:replace="fragments/base :: head">
 
-
 </head>
+
+
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 
-	</header>
+
+
 
 	<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 
@@ -17,41 +19,53 @@
 		<div class="row g-5 justify-content-center p-5">
 
 			<div class="col-md bg-light p-5">
-				<h4 class="mb-3 text-center">Login Empresa</h4>
-				<form class="form " th:action="@{/empresa/login}"
-					 method="post" th:object="${credencial}">
+				<h4 class="mb-3 text-center">Login</h4>
+				<form class="form " th:action="@{/login}" method="POST">
 					<div class="container">
 						<div class="row">
 							<div class="col-md mb-3">
+
+
 								<div class=" form-group mb-3">
-									<label for="email" class="form-label">Correo</label> <input
-										type="email" class="form-control" id="email" name="username"
-										th:field="*{email}" placeholder="correo@gmail.com" required>
+									<label for="email" class="form-label">Correo</label> <input type="email"
+										class="form-control" id="email" name="username" th:value="${username}"
+										placeholder="correo@gmail.com" required>
+
 								</div>
+
+
 								<div class="form-group mb-3">
-									<label for="pass" class="form-label">Contraseña</label> <input
-										type="password" class="form-control" id="pass" name="password"
-										placeholder="Contrase�a"  th:field="*{pass}" required>
+									<label for="pass" class="form-label">Contraseña</label> <input type="password"
+										class="form-control" id="pass" name="password" placeholder="Contraseña" required
+										th:value="${password}">
+
 								</div>
+
+
 							</div>
+
+
 						</div>
 						<div class="row">
 							<input type="submit" class="btn btn-primary" value="Login">
 						</div>
 						<div class="row">
-							<p>No tiene cuenta, <a th:href="@{/empresa/registro}" >regístrese</a></p>
+							<p>No tiene cuenta, <a th:href="@{/candidato/registro}">regístrese</a></p>
 						</div>
 						<div class="row alert-danger text-center" th:if="${msgError}">
 							<p th:text="${msgError}"></p>
 						</div>
+
 					</div>
+
+
 				</form>
 			</div>
 		</div>
 
-		<footer th:replace="fragments/base :: footer"></footer>
-		<th:block th:replace="fragments/base :: script"></th:block>
-	
+	</div>
+	<footer th:replace="fragments/base :: footer"></footer>
+	<th:block th:replace="fragments/base :: script"></th:block>
 
 </body>
 

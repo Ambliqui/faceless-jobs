@@ -29,8 +29,32 @@
         <a class="navbar-brand fs-3" href="/">The Faceless Jobs</a>
       </div>
       <div class="d-flex flex-row-reverse bd-highlight">
+
+        <span sec:authorize="isAnonymous()">     
+
         <a class="btn btn-primary ms-3" href="/candidato/login">Entrar</a>
         <a class="btn btn-light ms-3" href="/candidato/registro">Registrarse</a>
+
+        </span>
+
+        <div sec:authorize="isAuthenticated()">
+          <span class="nav-item" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')">
+            Candidato
+          </span>
+          
+          <spanl class="nav-item" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')">
+            Empresa
+        </spanl>
+
+          
+          
+          <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
+          <a th:href="@{/logout}">Salir</a>
+          <a th:href="@{/candidato/perfil}">Perfil</a>
+      </div>    
+
+
+
       </div>
     </div>
   </nav>
