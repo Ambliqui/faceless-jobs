@@ -49,8 +49,8 @@ public class InscriptionController {
 			.fechaInscripcion(new Date())
 			.build();
 			
-		inscriptionService.save(inscription);
-		return "/views/empresa/perfil";
+		inscriptionService.create(inscription);
+		return "/views/app/empresa/perfil";
 	}
 
 }

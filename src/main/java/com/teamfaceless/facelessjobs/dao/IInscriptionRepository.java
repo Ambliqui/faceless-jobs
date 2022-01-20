@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 
-public interface IInscriptionRepository extends JpaRepository<InscripcionOferta, Integer>{
+public interface IInscriptionRepository  extends JpaRepository<InscripcionOferta, Integer>{
 
 }
