@@ -29,14 +29,25 @@ public class ControllerHabilidad {
 	public String goListado(Model model) {
 		model.addAttribute("titulo", "Listado de Habilidades");
 		model.addAttribute("habilidades", iHabilidadService.findAll());
-		return "/views/habilidad/listado";
+		return "views/habilidad/listado";
 	}
+	/*
+	// CONTROLADOR PARA COMPROBAR QUE FUNCIONAN LOS FILTROS POR CATEGORÍA
+	// CAMBIAR "categoria.BLANDA" por "categoria.DURA" Y SE VERÁ
+	
+	@GetMapping("/listadoFiltrado")
+	public String goListadoFiltrado(Model model) {
+		model.addAttribute("titulo", "Listado de Habilidades");
+		model.addAttribute("habilidades", iHabilidadService.findHabilidadByCategoria(Categoria.DURA));
+		return "views/habilidad/listado";
+	}
+	*/
 	
 	@PostMapping("/listado")
 	public String goListadoPost(Model model) {
 		model.addAttribute("titulo", "Listado de Habilidades");
 		model.addAttribute("habilidades", iHabilidadService.findAll());
-		return "/views/habilidad/listado";
+		return "views/habilidad/listado";
 	}
 	
 	@GetMapping("/formulario")
@@ -48,7 +59,7 @@ public class ControllerHabilidad {
 		model.addAttribute("submitValue", "Añadir");
 		model.addAttribute("categorias", Categoria.values());
 		model.addAttribute("titulo", "Crear Habilidad");
-		return "/views/habilidad/formulario";
+		return "views/habilidad/formulario";
 	}
 	
 	@GetMapping("/formulario/{idHabilidad}")
@@ -66,7 +77,7 @@ public class ControllerHabilidad {
 		else {
 			return "redirect:/habilidad/formulario";
 		}
-		return "/views/habilidad/formulario";
+		return "views/habilidad/formulario";
 	}
 	
 	@PostMapping("/guardar")
@@ -81,7 +92,7 @@ public class ControllerHabilidad {
 				model.addAttribute("categoriaPlaceholder", habilidad.getCategoriaHabilidad());
 				model.addAttribute("titulo", "Editar Habilidad");
 				model.addAttribute("submitValue", "Editar");
-				return "/views/habilidad/formulario";				
+				return "views/habilidad/formulario";				
 			}
 			else {
 				model.addAttribute("habilidad", habilidad);
@@ -90,7 +101,7 @@ public class ControllerHabilidad {
 				model.addAttribute("submitValue", "Añadir");
 				model.addAttribute("categorias", Categoria.values());
 				model.addAttribute("titulo", "Crear Habilidad");
-				return "/views/habilidad/formulario";
+				return "views/habilidad/formulario";
 			}
 		}
 		
@@ -104,6 +115,6 @@ public class ControllerHabilidad {
 		iHabilidadService.delete(idHabilidad);
 		model.addAttribute("titulo", "Listado de Habilidades");
 		model.addAttribute("habilidades", iHabilidadService.findAll());
-		return "/views/habilidad/listado";
+		return "views/habilidad/listado";
 	}
 }
