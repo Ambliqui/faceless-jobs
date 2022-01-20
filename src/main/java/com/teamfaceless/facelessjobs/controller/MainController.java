@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.paginator.PageRender;
@@ -10,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,24 +40,40 @@ public class MainController {
 
     @GetMapping("/offer/{idOffer}")
     public String goToOffers() {
-        return "/rendered/generic/offerdetail";
+        return "/views/generic/offerdetail";
     }
 
     @GetMapping("/about")
     public String goToAbout() {
-        return "/rendered/generic/about";
+        return "/views/generic/about";
     }
 
     @GetMapping("/contact")
     public String goToContact() {
-        return "/rendered/generic/contact";
+        return "/views/generic/contact";
     }
     
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-        logoutHandler.logout(request, null, null);
-        return "redirect:/";
+        logoutHandler.logout(request, response, null);
+        return "/";
     }
-    
+
+    @GetMapping("/login")
+	public String formLogin(Model model,@RequestParam(value = "error",required = false)String error) {
+		if(error!=null) {
+			model.addAttribute("msgError", "Credenciales incorrectas");
+		}
+		return"views/generic/login";
+	}
+
+    // @PostMapping("login")
+    // public void formLogin() {
+    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        
+
+        
+    // }
 }

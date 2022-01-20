@@ -151,24 +151,24 @@ public class ControllerEmpresa {
 		return "redirect:/empresa/listado";
 	}
 	
-	@GetMapping("/login")
-	public String formLogin(Model model,@RequestParam(value = "error",required = false)String error) {
-		model.addAttribute("credencial", new Credencial());
-		if(error!=null) {
-			model.addAttribute("msgError", "Credenciales incorrectas");
-		}
-		return"views/empresa/login";
-	}
+	// @GetMapping("/login")
+	// public String formLogin(Model model,@RequestParam(value = "error",required = false)String error) {
+	// 	model.addAttribute("credencial", new Credencial());
+	// 	if(error!=null) {
+	// 		model.addAttribute("msgError", "Credenciales incorrectas");
+	// 	}
+	// 	return"views/empresa/login";
+	// }
 	
-	@PostMapping("/login")
-	public String login(@Valid @ModelAttribute("credencial")Credencial credencial,
-			Model model, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			return"views/empresa/login";
-		}
-		//loguear
-		return"views/app/empresa/home";
-	}
+	// @PostMapping("/login")
+	// public String login(@Valid @ModelAttribute("credencial")Credencial credencial,
+	// 		Model model, BindingResult bindingResult) {
+	// 	if(bindingResult.hasErrors()) {
+	// 		return"views/empresa/login";
+	// 	}
+	// 	//loguear
+	// 	return"views/app/empresa/home";
+	// }
 	
 	@GetMapping("/pruebasValidation")
 	private String goPruebasValidation(Model model) {

@@ -33,18 +33,7 @@
   </main>
 
   
-  <div sec:authorize="isAuthenticated()">
-    <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
-    <a th:href="@{/logout}">Salir</a>
-</div>    
 
-<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')">
-  hola, eres un candidato
-</li>
-
-<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')">
-  hola, eres una empresa
-</li>
 
 
 
