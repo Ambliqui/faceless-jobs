@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/error")
-public class ControllerDePruebaError {
+public class ControllerDePrueba {
 
 	@GetMapping("/400")
 	public String goError400() {
