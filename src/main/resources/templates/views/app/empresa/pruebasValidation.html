@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head"></head>
-<body>
+<head th:replace="fragments/base :: head"></head>
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 	Pruebas de validacion
@@ -11,5 +10,7 @@
 		<input id="njempresa" type="text" th:field="*{nombreJuridicoEmpresa}" placeholder="Nombre juridico" class="form-control">
 		<button type="submit">Registrar</button>
 	</form>
+	<footer th:replace="fragments/base :: footer"></footer>
+  	<th:block th:replace="fragments/base :: script"></th:block>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,24 +34,23 @@ public class InscriptionController {
 	private IOfertaService ofertaService;
 	
 	@PostMapping("/save")
-	public String saveInscription(OfertaEmpleo offert) {
+	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert) {
 	
-		
 		//TODO cambiar por usuario de session
 		Candidato candidato = candidatoService.findById(1).get();
 		//TODO recoger oferta de 
-		//OfertaEmpleo offert = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
+		OfertaEmpleo oferta = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
 		//TODO
 		InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(), candidato.getIdCandidato());
 		InscripcionOferta inscription= InscripcionOferta.builder()
 			.candidato(candidato)
-			.ofertaEmpleo(offert)
+			.ofertaEmpleo(oferta)
 			.inscripcionOfertaPK(keyInscription)
-			.fechaInscripcion(null)
+			.fechaInscripcion(new Date())
 			.build();
 			
-		inscriptionService.save(inscription);
-		return "/views/candidato/perfil";
+		inscriptionService.create(inscription);
+		return "/views/app/empresa/perfil";
 	}
 
 }
