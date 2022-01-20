@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:replace="fragments/base :: head">
+		<meta charset="utf-8">
 	</head>
 	
 	<body>
@@ -16,7 +17,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-2 text-center">
-					<a th:href="@{/habilidad/formulario}" class="btn btn-primary btn-block" role="button">Añadir Habilidad</a>
+					<a th:href="@{/habilidad/formulario}" class="btn btn-primary btn-block" role="button">AÃ±adir Habilidad</a>
 				</div>
 				
 				<div class="col">
@@ -25,11 +26,11 @@
 							<tr>
 								<th>Nombre</th>
 								
-								<th>Descripción</th>
+								<th>DescripciÃ³n</th>
 								
 								<th>Categor&iacute;a</th>
 								
-								<th>Gestión</th>
+								<th>GestiÃ³n</th>
 							</tr>
 						</thead>
 						<tr th:each="habilidad:${habilidades}">
@@ -47,7 +48,7 @@
 									<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 								</a>
 								<a th:href="@{'/habilidad/eliminar/' + ${habilidad.idHabilidad}}"
-									onclick="return confirm('�Estas seguro?')"
+									onclick="return confirm('¿Estas seguro?')"
 									class="btn btn-danger btn-sm"
 									role="button"
 									title="Eliminar Habilidad">
