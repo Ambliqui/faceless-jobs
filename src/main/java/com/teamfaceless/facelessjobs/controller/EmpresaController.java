@@ -36,9 +36,6 @@ public class EmpresaController {
 	@Autowired
 	private IEmpresaMapper iEmpresaMapper;
 	
-	@Autowired
-	private IValidations iValidations;
-	
 	@GetMapping("/home")
 	public String home() {
 		return "views/app/empresa/home";
