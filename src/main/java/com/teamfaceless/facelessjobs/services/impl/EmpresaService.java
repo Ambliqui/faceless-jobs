@@ -98,4 +98,9 @@ public class EmpresaService implements IEmpresaService {
 		return mapaErrores;
 	}
 
+	@Override
+	public Optional<Empresa> findByEmailEmpresa(String email) {
+		return repository.findByEmailEmpresa(email);
+	}
+
 }

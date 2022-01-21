@@ -13,6 +13,6 @@ public interface ICandidatoService {
 	void create(Candidato candidato) throws EmailExisteException;
 	List<Candidato> findByNombre(String nombre);
 	Optional<Candidato> findById(Integer id);
-	
+	Optional<Candidato> findByEmail (String email);
 	
 }

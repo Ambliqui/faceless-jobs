@@ -14,6 +14,7 @@ public interface IEmpresaService {
 
 	List<Empresa> findAll();
 	Optional<Empresa> findById(Integer id);
+	Optional<Empresa> findByEmailEmpresa(String email);
 	Empresa findEmpresa(OfertaEmpleo oferta);
 	void create(Empresa empresa);
 	void delete (Empresa empresa);

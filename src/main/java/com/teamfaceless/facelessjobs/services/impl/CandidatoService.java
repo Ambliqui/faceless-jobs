@@ -62,4 +62,9 @@ public class CandidatoService implements ICandidatoService {
 		return repository.findByEmail(candidato.getCredencial().getEmail()).isPresent();
 	}
 
+	@Override
+	public Optional<Candidato> findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
+
 }
