@@ -12,7 +12,10 @@
 <!-- 	<p th:text="${descOferta}"></p> -->
 	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
 		<input th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
-		<button type="submit" class="btn btn-success">Inscribete</button>
+		<hr>
+		<button type="submit"
+			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
+			class="btn btn-success">Inscribete</button>
 		<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 	</form>
 	</main>

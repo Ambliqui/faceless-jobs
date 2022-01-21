@@ -78,4 +78,6 @@ public class EmpresaRegistroDto implements Serializable {
 
     private Set<Rol> roles = new HashSet<>();
     
+    private Boolean enable = true;
+    
 }

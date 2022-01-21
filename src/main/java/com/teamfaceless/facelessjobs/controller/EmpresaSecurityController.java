@@ -59,22 +59,10 @@ public class EmpresaSecurityController {
 	
 	@PostMapping("/registro")
 	public String registrarEmpresa(Model model, @Valid EmpresaRegistroDto empresaRegistroDto, BindingResult result) {
-		//Crear validador personalizado para esta vista y devolver un mapa de errores a la vista
-		Map<String, String> mapaErrores = new HashMap<>();
 		
-		iValidations.emailExistente(empresaRegistroDto.getEmailEmpresa())
-			.ifPresent((error) -> mapaErrores.put("ErrorEmailExist", error.getMessage()));
-
-		iValidations.camposCoincidentes(empresaRegistroDto.getConfirmEmailEmpresa(), empresaRegistroDto.getEmailEmpresa(), "Email", "Repite Email")
-			.ifPresent((error) -> mapaErrores.put("errorEmailNoDuplicate", error.getMessage()));
+		Map<String, String> mapaErrores = iEmpresaService.validateRegister(empresaRegistroDto);
 		
-		iValidations.camposCoincidentes(empresaRegistroDto.getPassEmpresa(), empresaRegistroDto.getConfirmPassEmpresa(), "Password", "Repite Password")
-			.ifPresent((error) -> mapaErrores.put("errorPassNoDuplicate", error.getMessage()));
-		
-		iValidations.cifExistente(empresaRegistroDto.getCIFempresa())
-			.ifPresent((error) -> mapaErrores.put("errorCIFExist", error.getMessage()));
-		
-		if (result.hasErrors()) {
+		if (result.hasErrors()||!mapaErrores.isEmpty()) {
 			model.addAttribute("empresaRegistroDto", empresaRegistroDto);
 			model.addAttribute("mapaErrores", mapaErrores);
 			model.addAttribute("provincias", iProvinciaService.findAll());

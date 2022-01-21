@@ -49,8 +49,9 @@
           
           
           <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
-          <a th:href="@{/logout}">Salir</a>
-          <a th:href="@{/candidato/perfil}">Perfil</a>
+          <a class="btn btn-danger ms-3" th:href="@{/logout}">Salir</a>
+          <a class="btn btn-primary ms-3" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" th:href="@{/candidato/perfil}">Perfil</a>
+          <a class="btn btn-primary ms-3" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')" th:href="@{/app/empresa/perfil}">Perfil</a>
       </div>    
 
 
