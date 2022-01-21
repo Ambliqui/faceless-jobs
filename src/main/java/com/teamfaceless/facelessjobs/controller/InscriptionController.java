@@ -36,10 +36,11 @@ public class InscriptionController {
 	private IOfertaService ofertaService;
 	
 	@PostMapping("/save")
-	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert) {
+	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth) {
 	
 		//TODO cambiar por usuario de session
-		Candidato candidato = candidatoService.findById(1).get();
+		String nombre = auth.getName();
+		Candidato candidato = candidatoService.findByEmail(nombre).get();
 		//TODO recoger oferta de 
 		OfertaEmpleo oferta = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
 		//TODO
@@ -51,7 +52,7 @@ public class InscriptionController {
 			.fechaInscripcion(new Date())
 			.build();
 			
-		inscriptionService.create(inscription);
+//		inscriptionService.create(inscription);
 		return "/views/app/empresa/perfil";
 	}
 
