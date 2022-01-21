@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,10 +37,11 @@ public class ControllerOferta {
 	private ISectorService sectorService;
 
 	@GetMapping("/listado")
-	public String goListado(Model model, @Param("idEmpresa") Integer idEmpresa) {
-		idEmpresa = 1;
-		model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(idEmpresa));
-//		model.addAttribute("ofertas", ofertaService.findAll());
+	public String goListado(Model model, Authentication auth) {
+		String email = auth.getName();
+		Empresa empresa = empresaService.findByEmailEmpresa(email).get();
+		Integer id = empresa.getIdEmpresa();
+		model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(id));
 		model.addAttribute("titulo", "Mis ofertas publicadas:");
 		return "views/oferta/listado";
 	}

@@ -38,12 +38,10 @@ public class InscriptionController {
 	@PostMapping("/save")
 	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth) {
 	
-		//TODO cambiar por usuario de session
 		String nombre = auth.getName();
 		Candidato candidato = candidatoService.findByEmail(nombre).get();
 		//TODO recoger oferta de 
 		OfertaEmpleo oferta = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
-		//TODO
 		InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(), candidato.getIdCandidato());
 		InscripcionOferta inscription= InscripcionOferta.builder()
 			.candidato(candidato)
@@ -52,8 +50,8 @@ public class InscriptionController {
 			.fechaInscripcion(new Date())
 			.build();
 			
-//		inscriptionService.create(inscription);
-		return "/views/app/empresa/perfil";
+		inscriptionService.create(inscription);
+		return "/views/app/candidato/perfil";
 	}
 
 }
