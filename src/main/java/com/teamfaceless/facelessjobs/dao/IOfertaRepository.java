@@ -12,8 +12,7 @@ import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 public interface IOfertaRepository extends JpaRepository<OfertaEmpleo,Integer> {
 
 	@Query("SELECT o FROM OfertaEmpleo o WHERE o.empresa.idEmpresa = :idEmpresa")
-	List<OfertaEmpleo> findOfertaByEmpresa(
-	  @Param("idEmpresa") Integer idEmpresa);
+	List<OfertaEmpleo> findOfertaByidEmpresa(Integer idEmpresa);
 	
 	
 }
