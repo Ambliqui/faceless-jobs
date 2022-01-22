@@ -26,4 +26,9 @@ public class RolService implements IRolService {
 
     }
 
+	@Override
+	public Optional<Rol> findByUser(String user) {
+		return rolRepository.findByUser(user);
+	}
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamfaceless.facelessjobs.model.Candidato;
+import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
@@ -50,7 +51,7 @@ public class InscriptionController {
 			.fechaInscripcion(new Date())
 			.build();
 			
-		inscriptionService.create(inscription);
+//		inscriptionService.create(inscription);
 		return "/views/app/candidato/perfil";
 	}
 
