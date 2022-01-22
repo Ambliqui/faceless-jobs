@@ -27,4 +27,6 @@ public interface IOfertaService {
 	
 	Page<OfertaEmpleo> findAllPageable(Pageable pageable);
 	
+	List<OfertaEmpleo> findOfertaByidCandidato(Integer idCandidato);
+	
 }

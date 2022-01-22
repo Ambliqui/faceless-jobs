@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.IInscriptionRepository;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
+import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IInscriptionService;
 
@@ -56,6 +57,12 @@ public class InscriptionService implements IInscriptionService{
 	public boolean isPresent(InscripcionOferta inscripcionOferta) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Optional<InscripcionOfertaPK> findByInscripcionOfertaPK(InscripcionOfertaPK pk) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

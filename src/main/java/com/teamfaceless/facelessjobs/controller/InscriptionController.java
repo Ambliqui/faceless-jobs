@@ -51,7 +51,7 @@ public class InscriptionController {
 			.fechaInscripcion(new Date())
 			.build();
 			
-//		inscriptionService.create(inscription);
+		inscriptionService.create(inscription);
 		return "/views/app/candidato/perfil";
 	}
 

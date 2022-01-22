@@ -57,7 +57,7 @@ public class ControllerOferta {
 		}else if(rol.getNombre().equals("ROLE_CANDIDATO")) {
 			Candidato candidato = candidatoService.findByEmail(email).get();
 			Integer id = candidato.getIdCandidato();
-			model.addAttribute("ofertas", ofertaService. findOfertaByEmpresa(id));
+			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(id));
 			model.addAttribute("titulo", "Mis inscripciones:");
 		}
 		return "views/oferta/listado";
