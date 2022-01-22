@@ -1,5 +1,6 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -84,7 +85,7 @@ public class ControllerOferta {
 		OfertaEmpleo oferta = new OfertaEmpleo();
 		Optional<Empresa> emp = empresaService.findById(1);
 		model.addAttribute("empresa", emp);
-		model.addAttribute("titulo", "Formulario de ofertas");
+		model.addAttribute("titulo", "Alta de ofertas");
 		model.addAttribute("value", "Añadir");
 		model.addAttribute("provincias", provinciaService.findAll());
 		model.addAttribute("sectores", sectorService.findAll());
@@ -111,25 +112,27 @@ public class ControllerOferta {
 	@PostMapping(value = "/guardar")
 	public String guardarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,
 			Model model) {
+		 LocalDate hoy = LocalDate.now();
+
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("value", "Añadir");
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			return "views/oferta/formulario";
-		} else if (oferta.getFechaFinOferta().before(oferta.getFechaInicioOferta())) {
+		}
+		else if (!oferta.getFechaInicioOferta().equals(hoy)) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("value", "Añadir");
-			model.addAttribute("msgFecha", "La fecha de finalización no puede ser anterior a la inicial.");
+			model.addAttribute("msgFecha", "La fecha publicación no puede ser anterior a la fecha de hoy.");
 			return "views/oferta/formulario";
-		}
+		} 
 		oferta.setEmpresa(empresaService.findById(1).get());
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
 		return "redirect:listado";
-
 	}
 
 	@GetMapping(value = "/eliminar/{idOfertaEmpleo}")

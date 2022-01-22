@@ -1,134 +1,136 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head">
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: head">
+<meta charset="UTF-8">
 </head>
 
 <body>
-	<header th:replace="plantilla/template :: header"> </header>
+	<nav th:replace="fragments/base :: navbar"></nav>
 
 	<div class="container">
-		<h1 th:text="${titulo}" class="text-secondary"></h1>
-		<form th:action="@{/oferta/guardar}" th:object="${oferta}"
-			method="post">
-			<table>
-				<tr>
-					<!--  	<td>idOfertaEmpleo</td>-->
-					<td><input type="hidden" th:field="*{idOfertaEmpleo}"
-						class="form-control" /></td>
-				</tr>
-				<!-- 
- 		<tr>
-					<td>empresaIdOferta</td>
-					<td><input type="number" th:field="*{empresa.idEmpresa}"
-						class="form-control" /></td>
-				</tr>
-				-->
-				<tr>
-					<td>Título</td>
-					<td><input id="tituloOferta" type="text"
-						th:field="*{tituloOferta}" class="form-control" /> <label
-						id="errortituloOferta" for="tituloOferta"
-						th:if="${#fields.hasErrors('tituloOferta')}"
-						th:errors="*{tituloOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
+		<h1 class="text-center" th:text="${titulo}"></h1>
 
-				<tr>
-					<td>Descripción</td>
-					<td><input type="text" id="descripcionOferta"
-						th:field="*{descripcionOferta}" class="form-control" /> <label
-						id="errordescripcionOferta" for="descripcionOferta"
-						th:if="${#fields.hasErrors('descripcionOferta')}"
-						th:errors="*{descripcionOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Salario</td>
-					<td><input type="number" id="salarioOferta"
-						th:field="*{salarioOferta}" class="form-control" /> <label
-						id="errorsalarioOferta" for="salarioOferta"
-						th:if="${#fields.hasErrors('salarioOferta')}"
-						th:errors="*{salarioOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Sector</td>
-					<td><select th:field="*{sectorOferta.idSectorLaboral}" class="form-control"
-						id="idSectorLaboral">
-							<option th:each="sector:${sectores}"
-								th:value="${sector.idSectorLaboral}"
-								th:text="${sector.nombreSectorLaboral}"></option>
-					</select> <label id="errorsectorOferta" for="sectorOferta"
-						th:if="${#fields.hasErrors('sectorOferta')}"
-						th:errors="*{sectorOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Número de vacantes</td>
-					<td><input type="number" id="numeroVacantesOferta"
-						th:field="*{numeroVacantesOferta}" class="form-control" /> <label
-						id="errornumeroVacantesOferta" for="numeroVacantesOferta"
-						th:if="${#fields.hasErrors('numeroVacantesOferta')}"
-						th:errors="*{numeroVacantesOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Provincia</td>
-					<td><select th:field="*{provinciaOferta.idProvincia}" class="form-control"
-						id="idProvincia">
+		<hr>
+
+		<div class="row">
+			<section class="col-2"></section>
+			<section class="col-8">
+				<form class="container row g-3" th:action="@{/oferta/guardar}"
+					th:object="${oferta}" method="post">
+					<h5>Datos de oferta</h5>
+					<div class="col-md-12">
+						<label for="titulOferta">TÃ­tulo</label> <input id="tituloOferta"
+							th:field="*{tituloOferta}" placeholder="Escribe el tÃ­tulo de la oferta..." class="form-control" /><label
+							id="errortituloOferta" for="tituloOferta"
+							th:if="${#fields.hasErrors('tituloOferta')}"
+							th:errors="*{tituloOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-3">
+						<label for="idProvincia">Provincia</label> <select
+							th:field="*{provinciaOferta.idProvincia}" class="form-control"
+							id="idProvincia">
 							<option th:each="provincia:${provincias}"
 								th:value="${provincia.idProvincia}"
 								th:text="${provincia.nombreProvincia}"></option>
-					</select> <label id="errorprovinciaOferta" for="provinciaOferta"
-						th:if="${#fields.hasErrors('provinciaOferta')}"
-						th:errors="*{provinciaOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Localidad</td>
-					<td><input id="localidadOferta" type="text"
-						th:field="*{localidadOferta}" class="form-control" /> <label
-						id="errorlocalidadOferta" for="localidadOferta"
-						th:if="${#fields.hasErrors('localidadOferta')}"
-						th:errors="*{localidadOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Fecha de incicio</td>
-					<td><input type="date" id="fechaInicioOferta"
-						th:field="*{fechaInicioOferta}" class="form-control" /> <label
-						id="errorfechaInicioOferta" for="fechaInicioOferta"
-						th:if="${#fields.hasErrors('fechaInicioOferta')}"
-						th:errors="*{fechaInicioOferta}" class="form-text text-danger">
-					</label></td>
-				</tr>
-				<tr>
-					<td>Fecha de cierre</td>
-					<td><input type="date" th:field="*{fechaFinOferta}"
-						class="form-control" /> <label id="errorfechaFinOferta"
-						for="fechaFinOferta"
-						th:if="${#fields.hasErrors('fechaFinOferta')}"
-						th:errors="*{fechaFinOferta}" class="form-text text-danger">
-					</label> <label id="errorfechaFinOfertaMenor" for="fechaFinOferta"
-						class="form-text text-danger" th:text="${msgFecha}"></label></td>
-				</tr>
-				 <!--  
-				<tr>
-					<td><input type="number" th:field="*{empresa.idEmpresa}" 
-						class="form-control"/></td>
-				</tr>
-				-->
-				<tr>
-					<td><input type="submit" th:value="${value}"
-						class="btn btn-primary" />
-					<a th:href="@{/oferta/listado}"  th:text="${'Volver'}" class="btn btn-secondary">Button</a>
-						</td>
-				</tr>
-			</table>
-		</form>
+						</select> 
+						<label id="errorprovinciaOferta" for="provinciaOferta"
+							th:if="${#fields.hasErrors('provinciaOferta')}"
+							th:errors="*{provinciaOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-9">
+						<label for="localidadOferta">Localidad</label> <input
+							id="localidadOferta" type="text" th:field="*{localidadOferta}"
+							class="form-control"  placeholder="Localidad..."/> <label id="errorlocalidadOferta"
+							for="localidadOferta"
+							th:if="${#fields.hasErrors('localidadOferta')}"
+							th:errors="*{localidadOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-4">
+						<label for="idSectorLaboral">Sector laboral</label> <select
+							th:field="*{sectorOferta.idSectorLaboral}" class="form-control"
+							id="idSectorLaboral">
+							<option th:each="sector:${sectores}"
+								th:value="${sector.idSectorLaboral}"
+								th:text="${sector.nombreSectorLaboral}"></option>
+						</select> <label id="errorsectorOferta" for="sectorOferta"
+							th:if="${#fields.hasErrors('sectorOferta')}"
+							th:errors="*{sectorOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-4">
+						<label for="numeroVacantesOferta">NÃºmero de vacantes</label> <input
+							type="number" placeholder="Indica el numero de vacantes..." id="numeroVacantesOferta"
+							th:field="*{numeroVacantesOferta}" class="form-control"   /> <label
+							id="errornumeroVacantesOferta" for="numeroVacantesOferta"
+							th:if="${#fields.hasErrors('numeroVacantesOferta')}"
+							th:errors="*{numeroVacantesOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-4">
+						<label for="numeroVacantesOferta">Salario</label> <input
+							type="number" placeholder="Salario..." id="salarioOferta" th:field="*{salarioOferta}"
+							class="form-control" /> <label id="errorsalarioOferta"
+							for="salarioOferta" th:if="${#fields.hasErrors('salarioOferta')}"
+							th:errors="*{salarioOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-6" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_EMPRESA')">
+						<label for="numeroprioridadOferta">Prioridad</label> <input
+							type="number" id="numeroprioridadOferta"
+							th:field="*{prioridadOferta}" class="form-control" /> <label
+							id="errorprioridadOferta" for="prioridadOferta"
+							th:if="${#fields.hasErrors('prioridadOferta')}"
+							th:errors="*{prioridadOferta}" class="form-text text-danger">
+						</label>
+					</div>
+					<div class="col-md-6">
+						<label for="fechaInicioOferta">Fecha de publicaciÃ³n</label> <input
+							type="date" id="fechaInicioOferta"
+							th:field="*{fechaInicioOferta}" class="form-control" /> <label
+							id="errorfechaInicioOferta" for="fechaInicioOferta"
+							th:if="${#fields.hasErrors('fechaInicioOferta')}"
+							th:errors="*{fechaInicioOferta}" class="form-text text-danger">
+						</label>
+							<label id="errorfechaInicioOfertaMenor" for="fechaInicioOferta"
+							class="form-text text-danger" th:text="${msgFecha}"></label>
+					</div>
+					<div class="col-md-6">
+						<label for="fechaFin">Fecha de fin </label> <input type="date"
+							th:field="*{fechaFinOferta}" class="form-control" id="fechaFin" />
+						<label id="errorfechaFinOferta" for="fechaFinOferta"
+							th:if="${#fields.hasErrors('fechaFinOferta')}"
+							th:errors="*{fechaFinOferta}" class="form-text text-danger">
+						</label> 
+						<label id="errorfechaFinOfertaMenor" for="fechaFinOferta"
+							class="form-text text-danger" th:text="${msgFecha}"></label>
+					</div>
+					<hr>
+					<h5>DescripciÃ³n</h5>
+					<div class="col-md-12">
+						<textarea class="form-control h-25" rows="15"
+							placeholder="Describe brevemente la oferta..."
+							th:field="*{descripcionOferta}" maxlength="2000sap"></textarea>
+						<label id="errordescripcionOferta" for="descripcionOferta"
+							th:if="${#fields.hasErrors('descripcionOferta')}"
+							th:errors="*{descripcionOferta}" class="form-text text-danger">
+						</label>
+						<hr>
+							<div class="col-md-12  text-center align-middle">
+						<button role="submit" class="btn btn-success" th:text="${value}"></button>
+						<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
+						<hr>
+					</div>
+					</div>
+				</form>
+			</section>
+		</div>
 	</div>
-	<footer th:replace="plantilla/template :: footer"></footer>
+	<script th:src="@{/tinymce/tinymce.min.js}"></script>
+	<footer th:replace="fragments/base :: footer"></footer>
+	<th:block th:replace="fragments/base :: script"></th:block>
 
 </body>
 

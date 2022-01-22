@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,40 +56,42 @@ public class OfertaEmpleo implements Serializable {
 	@Column(name = "titulo_oferta")
 	private String tituloOferta;
 
-	@Size(max = 255)
+	@Size(max = 2000)
 	@NotEmpty
 	@Column(name = "descripcion_oferta")
 	private String descripcionOferta;
 
 	@Column(name = "salario_oferta")
 	@NotNull
+	@Min(0)
 	private Integer salarioOferta;
-
+	@Min(1)
 	@Column(name = "numero_vacantes_oferta")
 	@NotNull
 	private Integer numeroVacantesOferta;
 
-	@Size(max = 255)
+	@Size(max = 100)
 	@NotEmpty
 	@Column(name = "localidad_oferta")
 	private String localidadOferta;
 
 	@Column(name = "fecha_inicio_oferta")
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull
-	private Date fechaInicioOferta;
+	@FutureOrPresent	
+	private LocalDate fechaInicioOferta;
 
 	@Column(name = "fecha_fin_oferta")
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull
-	private Date fechaFinOferta;
+
+	private LocalDate fechaFinOferta;
 	
-	@Column(name = "prioridad_oferta", nullable = false, columnDefinition = "Integer default 5")
+	@Column(name = "prioridad_oferta")
 	@Min(value= 1)
 	@Max(value = 10)
-	@NotNull
 	private Integer prioridadOferta;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ofertaEmpleo")
