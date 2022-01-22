@@ -88,7 +88,7 @@ public class MainController {
     }
 
     @GetMapping("/afterlogin")
-    public String formLogin(Model model) {
+    public String formLogin(Model model, HttpServletRequest request) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -105,13 +105,13 @@ public class MainController {
                     }
                 }
             } else if (roles.get(0).getAuthority().equals("ROLE_EMPRESA")) {
-                // OJO - ESTO NO ESTÁ PROBADO, pero debe ser igual que el de candidato
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
                 if (credencial.isPresent()) {
                     Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
+                        request.setAttribute("userSession", empresa);
                         return "redirect:/";
                     }
                 }

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +16,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
+import com.teamfaceless.facelessjobs.model.Rol;
+import com.teamfaceless.facelessjobs.services.ICandidatoService;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
+import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
 
 @Controller
@@ -31,17 +37,32 @@ public class ControllerOferta {
 	@Autowired
 	private IEmpresaService empresaService;
 	@Autowired
+	private ICandidatoService candidatoService;
+	@Autowired
 	private IProvinciaService provinciaService;
 	@Autowired
 	private ISectorService sectorService;
+	@Autowired
+	private IRolService rolService;
 
 	@GetMapping("/listado")
-	public String goListado(Model model, @Param("idEmpresa") Integer idEmpresa) {
-		idEmpresa = 1;
-		model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(idEmpresa));
-//		model.addAttribute("ofertas", ofertaService.findAll());
-		model.addAttribute("titulo", "Mis ofertas publicadas:");
+	public String goListado(Model model, Authentication auth) {
+		String email = auth.getName();
+		Rol rol = rolService.findByUser(email).get();
+		if (rol.getNombre().equals("ROLE_EMPRESA")) {
+			Empresa empresa = empresaService.findByEmailEmpresa(email).get();
+			Integer id = empresa.getIdEmpresa();
+			model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(id));
+			model.addAttribute("titulo", "Mis ofertas publicadas:");
+			
+		}else if(rol.getNombre().equals("ROLE_CANDIDATO")) {
+			Candidato candidato = candidatoService.findByEmail(email).get();
+			Integer id = candidato.getIdCandidato();
+			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(id));
+			model.addAttribute("titulo", "Mis inscripciones:");
+		}
 		return "views/oferta/listado";
+
 	}
 
 	@GetMapping(value = "/detalle/{idOfertaEmpleo}")

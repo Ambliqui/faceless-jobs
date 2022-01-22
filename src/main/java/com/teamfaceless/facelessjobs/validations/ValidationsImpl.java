@@ -9,9 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.ICredencialRepository;
 import com.teamfaceless.facelessjobs.dao.IEmpresaRepository;
+import com.teamfaceless.facelessjobs.dao.IInscriptionRepository;
 import com.teamfaceless.facelessjobs.exceptions.CIFExisteException;
 import com.teamfaceless.facelessjobs.exceptions.CamposNoCoincidentesException;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
+import com.teamfaceless.facelessjobs.exceptions.InscripcionExisteException;
+import com.teamfaceless.facelessjobs.model.Candidato;
+import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
+import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
 @Service
 public class ValidationsImpl implements IValidations{
@@ -21,6 +26,9 @@ public class ValidationsImpl implements IValidations{
 	
 	@Autowired
 	private ICredencialRepository credencialRepository;
+	
+	@Autowired
+	private IInscriptionRepository inscripcionRepositoy;
 	
 	/**
 	 * Validar una fecha es anterior a otra
@@ -105,6 +113,30 @@ public class ValidationsImpl implements IValidations{
 		//El CIF ya estaba
 		CIFExisteException exception = new CIFExisteException("El CIF ya existe en el sistema");
 		return Optional.of(exception);
+	}
+
+	/**
+	 * @author Mefisto
+	 * @param idOferta Oferta a comprobar
+	 * @param idCandidato candidato a comprobar
+	 * @return Optiona de Exception
+	 */
+	@Override
+	public Optional<InscripcionExisteException> inscripcionExistente(Integer idOferta, Integer idCandidato) {
+		
+		InscripcionOfertaPK pk = new InscripcionOfertaPK(idOferta, idCandidato); 
+		
+		if(Objects.isNull(inscripcionRepositoy.findByInscripcionOfertaPK(pk))){
+			return Optional.empty();
+		}
+		InscripcionExisteException exception = new InscripcionExisteException("Ya esta inscrito en esta oferta");
+		return Optional.of(exception);
+	}
+
+	@Override
+	public Optional<InscripcionExisteException> inscripcionExistente(OfertaEmpleo ofertaEmpleo, Candidato candidato) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
