@@ -1,5 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -28,6 +30,7 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
+import com.teamfaceless.facelessjobs.validations.IValidations;
 
 @Controller
 @RequestMapping("/oferta")
@@ -44,6 +47,8 @@ public class ControllerOferta {
 	private ISectorService sectorService;
 	@Autowired
 	private IRolService rolService;
+	@Autowired
+	private IValidations iValidations;
 
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
@@ -66,10 +71,22 @@ public class ControllerOferta {
 	}
 
 	@GetMapping(value = "/detalle/{idOfertaEmpleo}")
-	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model,
+			Authentication auth) {
+
+		String email = auth.getName();
 		Optional<OfertaEmpleo> oferta = null;
-		if (idOfertaEmpleo > 0) {
-			oferta = ofertaService.findById(idOfertaEmpleo);
+		Map<String, String> mapaErrores = new HashMap<>();
+
+		oferta = ofertaService.findById(idOfertaEmpleo);
+		Rol rol = rolService.findByUser(auth.getName()).get();
+		if (rol.getNombre().equals("ROLE_CANDIDATO")) {
+			Candidato candidato = candidatoService.findByEmail(email).get();
+			Integer idCandidato = candidato.getIdCandidato();
+			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
+					.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
+			model.addAttribute("msg", mapaErrores);
+		}
 			model.addAttribute("titulo", oferta.get().getTituloOferta());
 			model.addAttribute("desc", "Descripción");
 			model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
@@ -80,7 +97,7 @@ public class ControllerOferta {
 			model.addAttribute("fechaPubli",oferta.get().getFechaInicioOferta());
 			model.addAttribute("localidad", oferta.get().getLocalidadOferta());
 			model.addAttribute("oferta", oferta);
-		}
+
 		return "views/oferta/detalle";
 	}
 
