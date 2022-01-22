@@ -61,6 +61,11 @@ public class OfertaService implements IOfertaService {
 			return repository.findAll(page);
 		}
 
+		@Override
+		public List<OfertaEmpleo> findOfertaByidCandidato(Integer idCandidato) {
+			return repository.findOfertaByidCandidato(idCandidato);
+		}
+
 	
 
 	
