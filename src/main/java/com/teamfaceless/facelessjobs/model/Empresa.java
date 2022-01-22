@@ -20,6 +20,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.teamfaceless.facelessjobs.enums.Provincias;
+import com.teamfaceless.facelessjobs.enums.RangoEmpleados;
 import com.teamfaceless.facelessjobs.validations.CifRepetido.CIFExist;
 
 import lombok.AllArgsConstructor;
@@ -88,6 +89,9 @@ public class Empresa implements Serializable {
     @Min(value = 1)
     @Column(name = "empleados_empresa")
     private Integer empleadosEmpresa;
+    
+    @Column(name = "rango_empleados")
+    private RangoEmpleados rangoEmpleadosEmpresa;
     
     @Singular
     @OneToMany(cascade = CascadeType.ALL)
