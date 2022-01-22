@@ -56,7 +56,7 @@ public class OfertaEmpleo implements Serializable {
 	@Column(name = "titulo_oferta")
 	private String tituloOferta;
 
-	@Size(max = 2000)
+	@Size(max = 2000,min=500)
 	@NotEmpty
 	@Column(name = "descripcion_oferta")
 	private String descripcionOferta;
