@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-
+<meta charset="UTF-8">
 <head th:replace="fragments/base :: head">
 
 
@@ -9,7 +9,9 @@
 <body>
   <nav th:replace="fragments/base :: navbar"></nav>
   <h1 th:text="${titulo}" class="text-secondary" style="text-align: center;"></h1>
+  
   <main class="container content">
+  <a class="btn btn-primary" th:href="@{/oferta/formulario}">Añadir</a>
     <div class="row m-3">
       <div th:each="oferta:${ofertas}" class="container">
         <div class="card text-center">
