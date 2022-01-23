@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,7 +59,7 @@ public class OfertaEmpleo implements Serializable {
 
 	@Size(max = 2000,min=500)
 	@NotEmpty
-	@Column(name = "descripcion_oferta")
+	@Column(name = "descripcion_oferta", length = 2000)
 	private String descripcionOferta;
 
 	@Column(name = "salario_oferta")
@@ -94,7 +95,7 @@ public class OfertaEmpleo implements Serializable {
 	@Max(value = 10)
 	private Integer prioridadOferta;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ofertaEmpleo")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ofertaEmpleo", fetch = FetchType.EAGER)
 	private List<HabilidadOferta> habilidadOfertaList;
 
 	@JoinColumn(name = "provincia_oferta", referencedColumnName = "id_provincia")
