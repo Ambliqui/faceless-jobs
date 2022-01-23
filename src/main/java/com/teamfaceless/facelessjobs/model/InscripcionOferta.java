@@ -9,6 +9,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -48,12 +49,18 @@ public class InscripcionOferta implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaInscripcion;
     
-    @JoinColumn(name = "candidato_id_inscripcion", referencedColumnName = "id_candidato", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @MapsId("id_candidato")
+    @JoinColumn(name = "candidato_id_inscripcion")
+//    @JoinColumn(name = "candidato_id_inscripcion", referencedColumnName = "id_candidato", insertable = false, updatable = false)
+//    @ManyToOne(optional = false)
     private Candidato candidato;
     
-    @JoinColumn(name = "oferta_id_inscripcion", referencedColumnName = "id_oferta_empleo", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @MapsId("id_oferta_empleo")
+    @JoinColumn(name = "oferta_id_inscripcion")
+//    @JoinColumn(name = "oferta_id_inscripcion", referencedColumnName = "id_oferta_empleo", insertable = false, updatable = false)
+//    @ManyToOne(optional = false)
     private OfertaEmpleo ofertaEmpleo;
 
     public InscripcionOferta(InscripcionOfertaPK inscripcionOfertaPK) {
