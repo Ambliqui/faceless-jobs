@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Empresa;
@@ -86,7 +87,14 @@ public class ControllerOferta {
 			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
 					.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
 			model.addAttribute("msg", mapaErrores);
+			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
+			.ifPresent((error) ->model.addAttribute("error","¡YA ESTAS INSCRITO/A A ESTA OFERTA!"));
+			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
+			.ifPresent((error) ->model.addAttribute("btn","hidden"));
+		}if(!iValidations.inscripcionExistente(idOfertaEmpleo, idOfertaEmpleo).isPresent()) {
+			model.addAttribute("btn","submit");
 		}
+			
 			model.addAttribute("titulo", oferta.get().getTituloOferta());
 			model.addAttribute("desc", "Descripción");
 			model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
