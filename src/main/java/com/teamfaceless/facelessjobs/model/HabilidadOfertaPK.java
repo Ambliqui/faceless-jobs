@@ -28,10 +28,10 @@ public class HabilidadOfertaPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "oferta_id_habilidad")
-    private int ofertaIdHabilidad;
+    private int ofertaId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "habilidad_id_habilidad")
-    private int habilidadIdHabilidad;
+    private int habilidadId;
     
 }
