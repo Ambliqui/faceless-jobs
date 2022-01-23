@@ -156,14 +156,8 @@ public class ControllerOferta {
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			return "views/oferta/formulario";
-		} else if (!oferta.getFechaInicioOferta().equals(hoy)) {
-			model.addAttribute("titulo", "Formulario de ofertas");
-			model.addAttribute("provincias", provinciaService.findAll());
-			model.addAttribute("sectores", sectorService.findAll());
-			model.addAttribute("value", "Añadir");
-			model.addAttribute("msgFecha", "La fecha publicación no puede ser anterior a la fecha de hoy.");
-			return "views/oferta/formulario";
-		}
+		} 
+		
 		oferta.setEmpresa(empresaService.findById(1).get());
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
