@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 </head>
 
-<body>
-	<nav th:replace="fragments/base :: navbar"></nav>
+<body  onload="ocultar()">
+	<nav th:replace="fragments/base :: navbar"></nav><br>
 	<main class="container content">
+	<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error}" id="div"></div>
 	<div class="col-md-8">
 	<h1 th:text="${titulo}"></h1>
 	<p th:text="${empresa.nombreEmpresa}"></p>
@@ -27,17 +28,24 @@
 	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
 		<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
 		<hr>
+		
 		<div class="col-md-12  text-center align-middle">
-		<button type="submit"
+		
+		<input th:type="${btn}" 
 			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
-			class="btn btn-success">Inscribete</button>
-		<a th:href="@{'/oferta/formulario/' + ${idOferta}}" class="btn btn-warning" role="button"sec:authorize="hasAnyAuthority('ROLE_EMPRESA')" >Modificar</a>
+			class="btn btn-success" id="btn" th:value="${'Inscribirse'}"/>		
+		<a th:href="@{'/oferta/formulario/' + ${idOferta}}" class="btn btn-warning" role="button"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_ADMINISTRADOR')" >Modificar</a>
 		<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
+
 		</div>
+		
 	</form>
 	</main>
+	<br>
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>
+	<script type="text/javascript">
+	</script>
 </body>
 </html>
 
