@@ -16,6 +16,7 @@ import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
 import com.teamfaceless.facelessjobs.dtos.empresa.mapper.IEmpresaMapper;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
+import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
 import com.teamfaceless.facelessjobs.validations.IValidations;
@@ -35,6 +36,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private IEmpresaMapper iEmpresaMapper;
+	
+	@Autowired
+	private IOfertaService iOfertaService;
 	
 	@GetMapping("/home")
 	public String home() {
@@ -107,6 +111,16 @@ public class EmpresaController {
 	public String bajaEmpresa(@PathVariable Integer idEmpresa) {
 		iEmpresaService.delete(idEmpresa);
 		return "redirect:/app/empresa/listado";
+	}
+	
+	@GetMapping("/inscritos/{idOferta}")
+	public String goInscritos(@PathVariable Integer idOferta, Model model) {
+		model.addAttribute("provincias", iProvinciaService.findAll());
+		model.addAttribute("sectores", iSectorService.findAll());
+		model.addAttribute("oferta", iOfertaService.findById(idOferta).get());
+		//TODO Para pruebas de vista
+		model.addAttribute("empresa", iEmpresaService.findById(idOferta).get());
+		return "views/app/empresa/inscritos";
 	}
 		
 	@GetMapping("/pruebasValidation")

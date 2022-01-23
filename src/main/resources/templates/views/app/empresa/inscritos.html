@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="html://www.thymeleaf.org">
+<head th:replace="fragments/base :: head">
+	<meta charset="utf-8">
+</head>
+<body>
+	<nav th:replace="fragments/base :: navbar"></nav>
+	<hr>
+	<h1 class="text-center">Inscritos Oferta</h1>
+	<hr>
+	<div class="container">
+	<div class="row">
+		<div class="col-2 border border-dark text-center">
+			<a th:href="@{'/oferta/formulario/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a>
+			<p>Aqui van los filtros</p>
+		</div>
+		<div class="col">
+			<table class="table table-hover table-bordered">
+
+				<thead class="table-dark">
+					<tr>
+						<th>Candidato</th>
+						<th class="text-center">Provincia</th>
+						<th>Localidad</th>
+						<th th:text="${oferta.habilidadOfertaList}"></th>
+<!-- 						<th th:each="habilidad : ${oferta.habilidadOfertaList}"> -->
+						<th class="text-center">Habilidad 1</th>
+						<th class="text-center">Habilidad 2</th>
+						<th class="text-center">Habilidad 3</th>
+					</tr>
+				</thead>
+
+<!-- 				<tr th:each="emp : ${listEmpresas}"> -->
+<!-- 					<td class="text-center align-middle"><img
+<!-- 						th:src="@{/images/empresa/logo/{portada} (portada=${emp.logoEmpresa})}" width="60" -->
+<!-- 						heigth="50"></td>--> -->
+<!-- 					<td th:text="${emp.idEmpresa}" class="text-center align-middle"></td> -->
+<!-- 					<td  th:text="${emp.cIFempresa}" -->
+<!-- 						class="align-middle"> -->
+<!-- 					</td> -->
+<!-- 					<td  class="align-middle"> -->
+<!-- 						<a th:href="@{'/app/empresa/modificar/' + ${emp.idEmpresa}}" th:text="${emp.nombreEmpresa}"></a> -->
+<!-- 					</td> -->
+<!-- 					<td th:text="${emp.provinciaEmpresa.nombreProvincia}" -->
+<!-- 						class="align-middle"> -->
+<!-- 					</td> -->
+<!-- 					<td th:text="${emp.sectorEmpresa.nombreSectorLaboral}" -->
+<!-- 						class="align-middle"> -->
+<!-- 					</td> -->
+<!-- 					<td th:text="${emp.empleadosEmpresa}" -->
+<!-- 						class="align-middle"> -->
+<!-- 					</td> -->
+<!-- 					<td class="text-center align-middle"> -->
+<!-- 						<a th:href="@{'/app/empresa/modificar/' + ${emp.idEmpresa}}" -->
+<!-- 							class="btn btn-success btn-sm" -->
+<!-- 							role="button" -->
+<!-- 							title="Modificar Empresa"> -->
+<!-- 							<i class="fas fa-pencil-alt" aria-hidden="true"></i> -->
+<!-- 						</a> -->
+<!-- 						<a th:href="@{'/app/empresa/borrar/' + ${emp.idEmpresa}}" -->
+<!-- 							onclick="return confirm('¿Estas seguro?')" -->
+<!-- 							class="btn btn-danger btn-sm" -->
+<!-- 							role="button" -->
+<!-- 							title="Eliminar Empresa"> -->
+<!-- 							<i class="fas fa-trash" aria-hidden="true"></i> -->
+<!-- 						</a> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+			</table>
+		</div>
+	</div>
+	</div>
+<!-- 	<footer th:replace="plantilla/template :: footer"></footer> -->
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>
