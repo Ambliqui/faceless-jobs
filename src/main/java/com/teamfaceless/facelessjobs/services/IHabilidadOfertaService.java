@@ -3,6 +3,7 @@ package com.teamfaceless.facelessjobs.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
@@ -14,5 +15,6 @@ public interface IHabilidadOfertaService {
 	void modify(HabilidadOferta habilidadOferta);
 	void delete(Integer idHabilidad);
 	//List<HabilidadOferta> findHabilidadOfertaByXXX(@Param("XXX") XXX xxx);
-	List<HabilidadOferta> obtenerHabilidadesByOferta(OfertaEmpleo oferta);
+	List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta);
+	List<Habilidad> findHabilidadesByOfertaEmpleo(OfertaEmpleo oferta);
 }

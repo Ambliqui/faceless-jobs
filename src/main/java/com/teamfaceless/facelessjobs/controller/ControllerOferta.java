@@ -69,9 +69,13 @@ public class ControllerOferta {
 			model.addAttribute("titulo", "Mis inscripciones:");
 		}
 		return "views/oferta/listado";
-
 	}
-
+	
+	@PostMapping("/listado")
+	public String goListadoPost(Model model, Authentication auth) {
+		return "redirect:/oferta/listado";
+	}
+	
 	@GetMapping(value = "/detalle/{idOfertaEmpleo}")
 	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model,
 			Authentication auth) {
