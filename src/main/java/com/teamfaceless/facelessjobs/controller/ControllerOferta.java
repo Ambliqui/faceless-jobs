@@ -2,6 +2,7 @@ package com.teamfaceless.facelessjobs.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -60,8 +61,8 @@ public class ControllerOferta {
 			Integer id = empresa.getIdEmpresa();
 			model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(id));
 			model.addAttribute("titulo", "Mis ofertas publicadas:");
-			
-		}else if(rol.getNombre().equals("ROLE_CANDIDATO")) {
+
+		} else if (rol.getNombre().equals("ROLE_CANDIDATO")) {
 			Candidato candidato = candidatoService.findByEmail(email).get();
 			Integer id = candidato.getIdCandidato();
 			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(id));
@@ -75,36 +76,42 @@ public class ControllerOferta {
 	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model,
 			Authentication auth) {
 
-		String email = auth.getName();
 		Optional<OfertaEmpleo> oferta = null;
+		oferta = ofertaService.findById(idOfertaEmpleo);
 		Map<String, String> mapaErrores = new HashMap<>();
 
-		oferta = ofertaService.findById(idOfertaEmpleo);
-		Rol rol = rolService.findByUser(auth.getName()).get();
-		if (rol.getNombre().equals("ROLE_CANDIDATO")) {
-			Candidato candidato = candidatoService.findByEmail(email).get();
-			Integer idCandidato = candidato.getIdCandidato();
-			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
-					.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
-			model.addAttribute("msg", mapaErrores);
-			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
-			.ifPresent((error) ->model.addAttribute("error","¡YA ESTAS INSCRITO/A A ESTA OFERTA!"));
-			iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
-			.ifPresent((error) ->model.addAttribute("btn","hidden"));
-		}if(!iValidations.inscripcionExistente(idOfertaEmpleo, idOfertaEmpleo).isPresent()) {
-			model.addAttribute("btn","submit");
+		if (!Objects.isNull(auth)) {
+			String email = auth.getName();
+			Rol rol = rolService.findByUser(auth.getName()).get();
+			if (rol.getNombre().equals("ROLE_CANDIDATO")) {
+				Candidato candidato = candidatoService.findByEmail(email).get();
+				Integer idCandidato = candidato.getIdCandidato();
+
+				if (iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato).isPresent()) {
+//				iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
+//					.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
+					model.addAttribute("msg", mapaErrores);
+					model.addAttribute("error", "¡YA ESTAS INSCRITO/A A ESTA OFERTA!");
+					model.addAttribute("btn", "hidden");
+				} else {
+					model.addAttribute("btn", "submit");
+				}
+			}
+//			if (!iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato).isPresent()) {
+//				model.addAttribute("btn", "submit");
+//			}
 		}
-			
-			model.addAttribute("titulo", oferta.get().getTituloOferta());
-			model.addAttribute("desc", "Descripción");
-			model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
-			model.addAttribute("empresa", empresaService.findEmpresa(oferta.get()));
-			model.addAttribute("idOferta", oferta.get().getIdOfertaEmpleo());
-			model.addAttribute("salario", oferta.get().getSalarioOferta());
-			model.addAttribute("provincia", oferta.get().getProvinciaOferta().getNombreProvincia());
-			model.addAttribute("fechaPubli",oferta.get().getFechaInicioOferta());
-			model.addAttribute("localidad", oferta.get().getLocalidadOferta());
-			model.addAttribute("oferta", oferta);
+
+		model.addAttribute("titulo", oferta.get().getTituloOferta());
+		model.addAttribute("desc", "Descripción");
+		model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
+		model.addAttribute("empresa", empresaService.findEmpresa(oferta.get()));
+		model.addAttribute("idOferta", oferta.get().getIdOfertaEmpleo());
+		model.addAttribute("salario", oferta.get().getSalarioOferta());
+		model.addAttribute("provincia", oferta.get().getProvinciaOferta().getNombreProvincia());
+		model.addAttribute("fechaPubli", oferta.get().getFechaInicioOferta());
+		model.addAttribute("localidad", oferta.get().getLocalidadOferta());
+		model.addAttribute("oferta", oferta);
 
 		return "views/oferta/detalle";
 	}
@@ -141,7 +148,7 @@ public class ControllerOferta {
 	@PostMapping(value = "/guardar")
 	public String guardarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,
 			Model model) {
-		 LocalDate hoy = LocalDate.now();
+		LocalDate hoy = LocalDate.now();
 
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de ofertas");
@@ -149,15 +156,14 @@ public class ControllerOferta {
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			return "views/oferta/formulario";
-		}
-		else if (!oferta.getFechaInicioOferta().equals(hoy)) {
+		} else if (!oferta.getFechaInicioOferta().equals(hoy)) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("value", "Añadir");
 			model.addAttribute("msgFecha", "La fecha publicación no puede ser anterior a la fecha de hoy.");
 			return "views/oferta/formulario";
-		} 
+		}
 		oferta.setEmpresa(empresaService.findById(1).get());
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
@@ -174,9 +180,9 @@ public class ControllerOferta {
 
 	@GetMapping(value = "/confirmar/{idOfertaEmpleo}")
 	public String confirmarBorrado(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
-		model.addAttribute("pregunta","¿Estás seguro/a de eliminar esta oferta?");
-		model.addAttribute("msg","Una vez eliminada,¡no se prodrá restablecer!");
-		model.addAttribute("id",idOfertaEmpleo);
+		model.addAttribute("pregunta", "¿Estás seguro/a de eliminar esta oferta?");
+		model.addAttribute("msg", "Una vez eliminada,¡no se prodrá restablecer!");
+		model.addAttribute("id", idOfertaEmpleo);
 		return "views/oferta/confirmar";
 	}
 }
