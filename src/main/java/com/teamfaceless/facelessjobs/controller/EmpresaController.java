@@ -90,6 +90,9 @@ public class EmpresaController {
 			model.addAttribute("sectores", iSectorService.findAll());
 			return "/views/app/empresa/detalle";
 		}
+		Empresa empresaAnterior = iEmpresaService.findById(empresa.getIdEmpresa()).get();
+		empresa.setOfertasEmpleos(empresaAnterior.getOfertasEmpleos());
+		empresa.setCredencial(empresaAnterior.getCredencial());
 		iEmpresaService.modify(empresa);
 		return "redirect:/app/empresa/listado";
 	}
