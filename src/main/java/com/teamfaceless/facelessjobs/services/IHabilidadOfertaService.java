@@ -16,5 +16,6 @@ public interface IHabilidadOfertaService {
 	void delete(Integer idHabilidad);
 	//List<HabilidadOferta> findHabilidadOfertaByXXX(@Param("XXX") XXX xxx);
 	List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta);
-	List<Habilidad> findHabilidadesByOfertaEmpleo(OfertaEmpleo oferta);
+	List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta);
+	List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta);
 }

@@ -11,12 +11,16 @@ import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
+import com.teamfaceless.facelessjobs.services.IHabilidadService;
 
 @Service
 public class HabilidadOfertaService implements IHabilidadOfertaService{
 	
 	@Autowired
 	private IHabilidadOfertaRepository repository;
+	
+	@Autowired
+	private IHabilidadService habService;
 	
 	@Override
 	public List<HabilidadOferta> findAll() {
@@ -49,8 +53,16 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	}
 
 	@Override
-	public List<Habilidad> findHabilidadesByOfertaEmpleo(OfertaEmpleo oferta) {
+	public List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta) {
 		return repository.findHabilidadesByOferta(oferta);
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta) {
+		List<Habilidad> listaCompleta = habService.findAll();
+		List<Habilidad> listaHabilidadEnOferta = findHabilidadesByOferta(oferta);
+		listaCompleta.removeAll(listaHabilidadEnOferta);
+		return listaCompleta;
 	}
 	
 	

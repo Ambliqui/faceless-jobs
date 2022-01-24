@@ -40,20 +40,18 @@ public class ControllerHabilidadOferta {
 		OfertaEmpleo ofertaEmpleo = ofeService.findById(idOferta).get();
 		model.addAttribute("ofertaEmpleo", ofertaEmpleo);
 		
-		HabilidadOferta habilidadOferta = new HabilidadOferta();
-//		habilidadOferta.setOfertaEmpleo(ofertaEmpleo);
-//		habilidadOferta.setExperienciaOferta(3);
-//		habilidadOferta.setHabilidad(habService.findById(1).get());
-		model.addAttribute("habilidadOferta", habilidadOferta);
+		model.addAttribute("habilidadOferta", new HabilidadOferta());
 		
-		List<Habilidad> listaCompleta = habService.findAll();
-		List<Habilidad> listaHabilidadEnOferta = habOfeService.findHabilidadesByOfertaEmpleo(ofertaEmpleo);
-		listaCompleta.removeAll(listaHabilidadEnOferta);
 		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
-		model.addAttribute("listaHabilidadesRestante", listaCompleta);
+		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
 		
-		return "views/pruebaHabilidadOferta/formulario";
+		return "views/app/empresa/oferta/formularioAdd";
 	}
+	@PostMapping("/{idOferta}")
+	public String goListadoPost(@PathVariable Integer idOferta,Model model) {
+		return "redirect: /"+idOferta;
+	}
+	
 	
 	@PostMapping("/guardar")
 	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model) {
@@ -64,5 +62,21 @@ public class ControllerHabilidadOferta {
 		//TODO
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+	}
+	
+	@GetMapping("/modificar/{idHabilidad}/{idOferta}")
+	public String modificarHabilidadOferta(@PathVariable Integer idHabilidad,@PathVariable Integer idOferta, Model model) {
+		
+		OfertaEmpleo ofertaEmpleo = ofeService.findById(idOferta).get();
+		model.addAttribute("ofertaEmpleo", ofertaEmpleo);
+		
+		Habilidad habilidad = habService.findById(idHabilidad).get();
+		model.addAttribute("thisHabilidad", habilidad);
+		
+		model.addAttribute("habilidadOferta", new HabilidadOferta());
+		
+		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
+		
+		return "views/app/empresa/oferta/formularioModificar";
 	}
 }
