@@ -79,4 +79,29 @@ public class ControllerHabilidadOferta {
 		
 		return "views/app/empresa/oferta/formularioModificar";
 	}
+	
+	@PostMapping("/modificarConfirmado")
+	public String modificarHabilidadOfertaCOnfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return "redirect:/habilidadOferta/modificar/"
+					+ habilidadOferta.getHabilidad().getIdHabilidad() + "/"
+					+ habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		}
+		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
+		//TODO
+		habOfeService.modify(habilidadOferta);
+		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+	}
+	
+	@GetMapping("/eliminar/{idHabilidad}/{idOferta}")
+	public String eliminarHabilidadOferta(@PathVariable Integer idHabilidad,@PathVariable Integer idOferta, Model model) {
+		OfertaEmpleo ofertaEmpleo = ofeService.findById(idOferta).get();
+		Habilidad habilidad = habService.findById(idHabilidad).get();
+		
+		HabilidadOferta habilidadOferta = habOfeService.findHabilidadOfertaByOfertaAndHabilidad(ofertaEmpleo, habilidad);
+		//TODO El método delete no persiste el borrado, tampoco da error
+		habOfeService.delete(habilidadOferta);
+		
+		return "redirect:/habilidadOferta/"+idOferta;
+	}
 }

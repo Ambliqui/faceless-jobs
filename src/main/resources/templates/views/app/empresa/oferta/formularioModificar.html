@@ -14,8 +14,7 @@
 		<section class="row">
 			<div class="col-2"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;">
-				<form th:action="@{'/habilidadOferta/modificarConfirmado/' + ${thisHabilidad.idHabilidad}
-										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}" th:object="${habilidadOferta}" method="POST">
+				<form th:action="@{/habilidadOferta/modificarConfirmado}" th:object="${habilidadOferta}" method="POST">
 					<label for="habilidad">Habilidad: </label>
 					
 					<select id="habilidad" th:field="*{habilidad}" class="form-control">
@@ -43,7 +42,7 @@
 						<input type="submit" th:value="Modificar"
 								class="btn btn-primary"/>
 						
-						<button class="btn btn-warning" th:formaction="@{'habilidadOferta/'+${ofertaEmpleo.idOfertaEmpleo}}" formNoValidate>Volver</button>
+						<a class="btn btn-warning" th:href="@{'/habilidadOferta/' + ${ofertaEmpleo.idOfertaEmpleo}}">Volver</a>
 					</div>
 				</form>
 			</div>

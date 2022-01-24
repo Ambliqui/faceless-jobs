@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadOfertaRepository;
 import com.teamfaceless.facelessjobs.model.Habilidad;
@@ -43,8 +44,11 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	}
 
 	@Override
-	public void delete(Integer idHabilidad) {
-		repository.deleteById(idHabilidad);		
+	@Transactional
+	public void delete(HabilidadOferta habilidadOferta) {
+		OfertaEmpleo oferta = habilidadOferta.getOfertaEmpleo();
+		Habilidad habilidad = habilidadOferta.getHabilidad();
+		repository.deleteHabilidadOferta(oferta, habilidad);
 	}
 
 	@Override
@@ -63,6 +67,11 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 		List<Habilidad> listaHabilidadEnOferta = findHabilidadesByOferta(oferta);
 		listaCompleta.removeAll(listaHabilidadEnOferta);
 		return listaCompleta;
+	}
+
+	@Override
+	public HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(OfertaEmpleo oferta, Habilidad habilidad) {
+		return repository.findHabilidadOfertaByOfertaAndHabilidad(oferta, habilidad);
 	}
 	
 	
