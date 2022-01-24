@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
@@ -17,6 +18,7 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +47,9 @@ public class MainController {
 
     @Autowired
     private IEmpresaService empresaService;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("/")
     public String goToIndex(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -101,6 +106,7 @@ public class MainController {
                     Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
+                        httpSession.setAttribute("userSession", candidato.get());
                         return "redirect:/";
                     }
                 }
@@ -111,7 +117,7 @@ public class MainController {
                     Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
-                        request.setAttribute("userSession", empresa);
+                        request.getSession().setAttribute("userSession", empresa);
                         return "redirect:/";
                     }
                 }

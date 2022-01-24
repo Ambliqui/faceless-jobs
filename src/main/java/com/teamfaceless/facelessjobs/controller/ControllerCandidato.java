@@ -1,5 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
@@ -9,6 +11,7 @@ import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
 import com.teamfaceless.facelessjobs.services.ICredencialService;
 
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +35,10 @@ public class ControllerCandidato {
 
 	@Autowired
 	private ICredencialService credencialService;
-	
+
+	@Autowired
+	private HttpSession httpSession;
+
 	@GetMapping("/registro")
 	public String formRegistro(Model model,CandidatoRegistroDto candidatoRegistroDto) {
 			model.addAttribute("candidato", candidatoRegistroDto);
@@ -78,14 +84,11 @@ public class ControllerCandidato {
 
 	@GetMapping("/modify")
 	public String goToCandidateModify() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-// credencialService.findByEmail(auth.getName());
 
-System.out.println(auth.getDetails());
-System.out.println(auth.getCredentials());
-System.out.println(auth.getPrincipal());
-System.out.println(auth.getName());
+	
+		
+		// modificar datos
+	
 
 		return "views/app/candidato/modify";
 	}
