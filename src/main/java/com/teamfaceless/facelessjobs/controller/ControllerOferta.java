@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.time.LocalDate;
@@ -58,15 +59,13 @@ public class ControllerOferta {
 		Rol rol = rolService.findByUser(email).get();
 		if (rol.getNombre().equals("ROLE_EMPRESA")) {
 			Empresa empresa = empresaService.findByEmailEmpresa(email).get();
-			Integer id = empresa.getIdEmpresa();
-			model.addAttribute("ofertas", ofertaService.findOfertaByEmpresa(id));
-			model.addAttribute("titulo", "Mis ofertas publicadas:");
+			model.addAttribute("ofertas", empresa.getOfertasEmpleos());
+			model.addAttribute("titulo", "Mis ofertas publicadas");
 
 		} else if (rol.getNombre().equals("ROLE_CANDIDATO")) {
 			Candidato candidato = candidatoService.findByEmail(email).get();
-			Integer id = candidato.getIdCandidato();
-			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(id));
-			model.addAttribute("titulo", "Mis inscripciones:");
+			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(candidato.getIdCandidato()));
+			model.addAttribute("titulo", "Mis inscripciones");
 		}
 		return "views/oferta/listado";
 	}

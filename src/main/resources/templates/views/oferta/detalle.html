@@ -33,8 +33,7 @@
 		
 		<input th:type="${btn}" 
 			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
-			class="btn btn-success" id="btn" th:value="${'Inscribirse'}"/>		
-		<!--  <a th:href="@{'/oferta/formulario/' + ${idOferta}}" class="btn btn-warning" role="button"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_ADMINISTRADOR')" >Modificar</a>-->
+			class="btn btn-success" id="btn" th:value="${'Inscribirse'}"/>
 		<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 
 		</div>
