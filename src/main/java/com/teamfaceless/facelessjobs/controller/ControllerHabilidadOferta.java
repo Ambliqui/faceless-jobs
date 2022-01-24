@@ -41,7 +41,7 @@ public class ControllerHabilidadOferta {
 		model.addAttribute("ofertaEmpleo", ofertaEmpleo);
 		
 		HabilidadOferta habilidadOferta = new HabilidadOferta();
-		habilidadOferta.setOfertaEmpleo(ofertaEmpleo);
+//		habilidadOferta.setOfertaEmpleo(ofertaEmpleo);
 //		habilidadOferta.setExperienciaOferta(3);
 //		habilidadOferta.setHabilidad(habService.findById(1).get());
 		model.addAttribute("habilidadOferta", habilidadOferta);
@@ -63,6 +63,6 @@ public class ControllerHabilidadOferta {
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		//TODO
 		habOfeService.modify(habilidadOferta);
-		return "redirect:/habilidadOferta/formulario"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
 }
