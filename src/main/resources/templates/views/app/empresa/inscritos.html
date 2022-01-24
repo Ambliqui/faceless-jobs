@@ -23,19 +23,33 @@
 						<th>Localidad</th>
 						<th th:each="hab : ${oferta.habilidadOfertaList}"
 							th:text="${hab.habilidad.nombreHabilidad}"
-							class="bg-primary">
+							class="bg-primary"></th>
+						<th>Puntuación</th>
+						<th>Gestión</th>
 					</tr>
 				</thead>
 
 				<tr th:each="insc : ${oferta.inscripcionOfertaList}">
-					<td th:text="${insc.candidato.idCandidato}"></td>
-					<td th:text="${insc.candidato.provinciaCandidato}"></td>
+					<td th:text="${insc.candidato.nombreCandidato}"></td>
+					<td th:text="${insc.candidato.provinciaCandidato.nombreProvincia}"></td>
 					<td th:text="${insc.candidato.localidadCandidato}"></td>
+					
+<!-- 					For del tamaño de la lista de habilidades de la oferta -->
+<!-- 						<th th:each="habOfert : ${oferta.habilidadOfertaList}"> -->
+
+<!-- 							For sobre la lista de habilidades del candiato -->
+<!-- 							<td th:each="habCand : ${insc.candidato.habilidadCandidatoList}"		 -->
+
+<!-- 								Comprobar si la id de la habilidad de la lista es igual a la id de la habilidad de candidato -->
+<!-- 								Si (habOfert.id == habCand.id) ==> Imprimir-->
+					
 					<td th:each="hab : ${insc.candidato.habilidadCandidatoList}"
-						th:text="${hab.habilidad.nombreHabilidad}">HOLA</td>
-<!-- 					<td class="text-center align-middle"><img
+						th:text="${hab.habilidad.nombreHabilidad}"></td>
+						
+						
+<!-- 					<td class="text-center align-middle"><img -->
 <!-- 						th:src="@{/images/empresa/logo/{portada} (portada=${emp.logoEmpresa})}" width="60" -->
-<!-- 						heigth="50"></td>--> -->
+<!-- 						heigth="50"></td>-->
 <!-- 					<td th:text="${emp.idEmpresa}" class="text-center align-middle"></td> -->
 <!-- 					<td  th:text="${emp.cIFempresa}" -->
 <!-- 						class="align-middle"> -->
@@ -54,21 +68,21 @@
 <!-- 					</td> -->
 
 
-<!-- 					<td class="text-center align-middle"> -->
-<!-- 						<a th:href="@{'/app/empresa/modificar/' + ${emp.idEmpresa}}" -->
-<!-- 							class="btn btn-success btn-sm" -->
-<!-- 							role="button" -->
-<!-- 							title="Modificar Empresa"> -->
-<!-- 							<i class="fas fa-pencil-alt" aria-hidden="true"></i> -->
-<!-- 						</a> -->
-<!-- 						<a th:href="@{'/app/empresa/borrar/' + ${emp.idEmpresa}}" -->
-<!-- 							onclick="return confirm('¿Estas seguro?')" -->
-<!-- 							class="btn btn-danger btn-sm" -->
-<!-- 							role="button" -->
-<!-- 							title="Eliminar Empresa"> -->
-<!-- 							<i class="fas fa-trash" aria-hidden="true"></i> -->
-<!-- 						</a> -->
-<!-- 					</td> -->
+					<td class="text-center align-middle">
+						<a th:href="@{'/'}"
+							class="btn btn-success btn-sm"
+							role="button"
+							title="Aceptar Candidato">
+							<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+						</a>
+						<a th:href="@{'/'}"
+							onclick="return confirm('¿Estas seguro?')"
+							class="btn btn-danger btn-sm"
+							role="button"
+							title="Descartar Candidato">
+							<i class="fas fa-trash" aria-hidden="true"></i>
+						</a>
+					</td>
 				</tr>
 			</table>
 		</div>
