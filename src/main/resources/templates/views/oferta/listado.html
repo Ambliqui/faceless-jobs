@@ -11,7 +11,9 @@
   <h1 th:text="${titulo}" class="text-secondary" style="text-align: center;"></h1>
   
   <main class="container content">
-  <a class="btn btn-primary" th:href="@{/oferta/formulario}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Añadir</a>
+
+ 
+
     <div class="row m-3">
       <div th:each="oferta:${ofertas}" class="container">
         <div class="card text-center">
@@ -21,7 +23,8 @@
             <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
               With supporting text below as a natural lead-in to additional content.
             </p>
-            <a th:href="@{'/oferta/formulario/' + ${oferta.idOfertaEmpleo}}" th:text="${'Editar'}" class="btn btn-warning">Button</a>
+             <a class="btn btn-primary"  th:href="@{/oferta/formulario}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_EMPRESA')">Añadir</a>
+            <a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" th:text="${'Editar'}" class="btn btn-warning">Button</a>
             <a th:href="@{'/oferta/confirmar/' + ${oferta.idOfertaEmpleo}}"  th:text="${'Eliminar'}" class="btn btn-danger">Button</a>
           </div>
           <div class="card-footer text-muted bg-light" th:text="${oferta.fechaInicioOferta}">2 days ago</div>

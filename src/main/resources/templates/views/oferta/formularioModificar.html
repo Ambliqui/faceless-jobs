@@ -15,7 +15,7 @@
 		<div class="row">
 			<section class="col-2"></section>
 			<section class="col-8">
-				<form class="container row g-3" th:action="@{/oferta/guardar}"
+				<form class="container row g-3" th:action="@{/oferta/modificar}"
 					th:object="${oferta}" method="post">
 					<h5>Datos de oferta</h5>
 					<div class="col-md-12">
@@ -119,7 +119,7 @@
 						</label>
 						<hr>
 							<div class="col-md-12  text-center align-middle">
-						<button role="submit" class="btn btn-success" th:text="${value}"></button>
+						<button role="submit" class="btn btn-warning" th:text="${value}"></button>
 						<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 						<hr>
 					</div>

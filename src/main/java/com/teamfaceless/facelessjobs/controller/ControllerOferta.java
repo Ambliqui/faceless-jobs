@@ -118,6 +118,8 @@ public class ControllerOferta {
 
 	@GetMapping(value = "/formulario")
 	public String crearOferta(Model model) {
+		LocalDate hoy=LocalDate.now();
+		
 		OfertaEmpleo oferta = new OfertaEmpleo();
 		Optional<Empresa> emp = empresaService.findById(1);
 		model.addAttribute("empresa", emp);
@@ -126,10 +128,11 @@ public class ControllerOferta {
 		model.addAttribute("provincias", provinciaService.findAll());
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
+		model.addAttribute("hoy",hoy);
 		return "views/oferta/formulario";
 	}
 
-	@GetMapping(value = "/formulario/{idOfertaEmpleo}")
+	@GetMapping(value = "/formularioModificar/{idOfertaEmpleo}")
 	public String modificarOferta(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
 		Optional<OfertaEmpleo> oferta = null;
 		if (idOfertaEmpleo > 0) {
@@ -140,29 +143,78 @@ public class ControllerOferta {
 		model.addAttribute("provincias", provinciaService.findAll());
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
-		model.addAttribute("value", "Añadir");
-		model.addAttribute("titulo", "Formulario de ofertas");
-		return "views/oferta/formulario";
+		model.addAttribute("value", "Editar");
+		model.addAttribute("titulo", "Editar ofertas");
+		return "views/oferta/formularioModificar";
 	}
 
 	@PostMapping(value = "/guardar")
 	public String guardarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,
-			Model model) {
-		LocalDate hoy = LocalDate.now();
+			Model model,Authentication auth) {
+		LocalDate hoy=LocalDate.now();
+		String email = auth.getName();
+		Rol rol = rolService.findByUser(email).get();
 
-		if (result.hasErrors()) {
+		if (result.hasErrors() || oferta.getFechaFinOferta().isBefore(hoy)) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("value", "Añadir");
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
+			model.addAttribute("hoy",hoy);
+			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
 			return "views/oferta/formulario";
 		} 
 		
-		oferta.setEmpresa(empresaService.findById(1).get());
+		if (rol.getNombre().equals("ROLE_EMPRESA")) {
+			Empresa empresa = empresaService.findByEmailEmpresa(email).get();
+			Integer id = empresa.getIdEmpresa();
+			oferta.setEmpresa(empresaService.findById(id).get());
+			
+		}
+	
+		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
 		return "redirect:listado";
 	}
+	@PostMapping(value = "/modificar")
+	public String modificarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,
+			Model model,Authentication auth) {
+		
+		LocalDate hoy=oferta.getFechaInicioOferta();
+		String email = auth.getName();
+		Rol rol = rolService.findByUser(email).get();
+
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario de ofertas");
+			model.addAttribute("value", "Editar");
+			model.addAttribute("provincias", provinciaService.findAll());
+			model.addAttribute("sectores", sectorService.findAll());
+			model.addAttribute("hoy",hoy);
+			return "views/oferta/formularioModificar";
+		} 
+		
+		if (rol.getNombre().equals("ROLE_EMPRESA")) {
+			Empresa empresa = empresaService.findByEmailEmpresa(email).get();
+			Integer id = empresa.getIdEmpresa();
+			oferta.setEmpresa(empresaService.findById(id).get());
+			
+		}
+		if(oferta.getFechaFinOferta().isBefore(hoy)) {
+			model.addAttribute("titulo", "Formulario de ofertas");
+			model.addAttribute("value", "Editar");
+			model.addAttribute("provincias", provinciaService.findAll());
+			model.addAttribute("sectores", sectorService.findAll());
+			model.addAttribute("hoy",hoy);
+			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
+			return "views/oferta/formulario";
+		}
+		oferta.setFechaInicioOferta(hoy);
+		ofertaService.create(oferta);
+		System.out.println("Oferta añadida con exito.");
+		return "redirect:listado";
+	}
+	
 
 	@GetMapping(value = "/eliminar/{idOfertaEmpleo}")
 	public String eliminarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo) {
