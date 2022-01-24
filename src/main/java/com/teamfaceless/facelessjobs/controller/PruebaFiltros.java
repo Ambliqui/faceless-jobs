@@ -19,6 +19,8 @@ public class PruebaFiltros {
 	
 	@Autowired
 	private IOfertaService ofertaService;
+	
+	private final Integer N_ELEMENTOS=6;//items por pagina
 
 	@GetMapping(value ="/test" )
 	public String test(  
@@ -27,10 +29,11 @@ public class PruebaFiltros {
 			@RequestParam(required = false)String provincia,
 			@RequestParam(required = false)String sector,
 			@RequestParam(required = false)Integer salarioMinimo,
-			@RequestParam(required = false)Integer salarioMaximo){
-		List<OfertaEmpleo> lista=ofertaService.findByTituloAndDescripcion(
-				titulo, descripcion, provincia, sector,salarioMinimo,salarioMaximo);
-		
+			@RequestParam(required = false)Integer salarioMaximo,
+			@RequestParam Integer nPagina){//comienza en 0
+		List<OfertaEmpleo> lista=ofertaService.findByTituloAndDescripcion(//fecha de inicio descendiente
+				titulo, descripcion, provincia, sector,salarioMinimo,salarioMaximo,nPagina,N_ELEMENTOS);
+
 		
 		return "redirect:/index";
 	}
