@@ -2,7 +2,9 @@ package com.teamfaceless.facelessjobs.dao;
 
 import java.util.List;
 
+
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,6 +33,6 @@ public interface IOfertaRepository extends JpaRepository<OfertaEmpleo,Integer> {
 			+ "(?6 is null or o.salarioOferta < ?6) ")
 	List<OfertaEmpleo> findByTituloAndDescripcion(
 			String titulo, String descrpcion,String provincia,String sector,
-			Integer salarioMinimo, Integer salarioMaximo); 
+			Integer salarioMinimo, Integer salarioMaximo, Pageable pageable); 
 	
 }
