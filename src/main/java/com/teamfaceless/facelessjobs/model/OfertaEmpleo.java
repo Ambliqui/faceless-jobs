@@ -57,9 +57,9 @@ public class OfertaEmpleo implements Serializable {
 	@Column(name = "titulo_oferta")
 	private String tituloOferta;
 
-	@Size(max = 2000,min=500)
+	@Size(max =2000)
 	@NotEmpty
-	@Column(name = "descripcion_oferta", length = 2000)
+	@Column(name = "descripcion_oferta")
 	private String descripcionOferta;
 
 	@Column(name = "salario_oferta")
@@ -78,9 +78,7 @@ public class OfertaEmpleo implements Serializable {
 
 	@Column(name = "fecha_inicio_oferta")
 //	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull
-	@FutureOrPresent	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private LocalDate fechaInicioOferta;
 
 	@Column(name = "fecha_fin_oferta")

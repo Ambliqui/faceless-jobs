@@ -11,7 +11,9 @@
   <h1 th:text="${titulo}" class="text-secondary" style="text-align: center;"></h1>
   
   <main class="container content">
-  <a class="btn btn-primary" th:href="@{/oferta/formulario}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Añadir</a>
+
+ 
+
     <div class="row m-3">
       <div th:each="oferta:${ofertas}" class="container">
         <div class="card text-center">

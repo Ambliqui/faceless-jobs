@@ -8,7 +8,6 @@
 	<nav th:replace="fragments/base :: navbar"></nav>
 
 	<div class="container">
-	
 		<h1 class="text-center" th:text="${titulo}"></h1>
 
 		<hr>
@@ -16,13 +15,12 @@
 		<div class="row">
 			<section class="col-2"></section>
 			<section class="col-8">
-				<form class="container row g-3" th:action="@{/oferta/guardar}"
+				<form class="container row g-3" th:action="@{/oferta/modificar}"
 					th:object="${oferta}" method="post">
 					<h5>Datos de oferta</h5>
 					<div class="col-md-12">
 						<label for="titulOferta">Título</label> <input id="tituloOferta"
-							th:field="*{tituloOferta}" placeholder="Escribe el título de la oferta..." class="form-control" />
-							<label
+							th:field="*{tituloOferta}" placeholder="Escribe el título de la oferta..." class="form-control" /><label
 							id="errortituloOferta" for="tituloOferta"
 							th:if="${#fields.hasErrors('tituloOferta')}"
 							th:errors="*{tituloOferta}" class="form-text text-danger">
@@ -121,7 +119,7 @@
 						</label>
 						<hr>
 							<div class="col-md-12  text-center align-middle">
-						<button role="submit" class="btn btn-success" th:text="${value}"></button>
+						<button role="submit" class="btn btn-warning" th:text="${value}"></button>
 						<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 						<hr>
 					</div>

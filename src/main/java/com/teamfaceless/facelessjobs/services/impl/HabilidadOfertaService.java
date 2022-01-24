@@ -5,17 +5,23 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadOfertaRepository;
+import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
+import com.teamfaceless.facelessjobs.services.IHabilidadService;
 
 @Service
 public class HabilidadOfertaService implements IHabilidadOfertaService{
 	
 	@Autowired
 	private IHabilidadOfertaRepository repository;
+	
+	@Autowired
+	private IHabilidadService habService;
 	
 	@Override
 	public List<HabilidadOferta> findAll() {
@@ -38,13 +44,37 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	}
 
 	@Override
-	public void delete(Integer idHabilidad) {
-		repository.deleteById(idHabilidad);		
+	@Transactional
+	public void delete(HabilidadOferta habilidadOferta) {
+		OfertaEmpleo oferta = habilidadOferta.getOfertaEmpleo();
+		Habilidad habilidad = habilidadOferta.getHabilidad();
+		repository.deleteHabilidadOferta(oferta, habilidad);
 	}
 
 	@Override
-	public List<HabilidadOferta> obtenerHabilidadesByOferta(OfertaEmpleo oferta) {
+	public List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesOfertaByOferta(oferta);
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta) {
 		return repository.findHabilidadesByOferta(oferta);
 	}
 
+	@Override
+	public List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta) {
+		List<Habilidad> listaCompleta = habService.findAll();
+		List<Habilidad> listaHabilidadEnOferta = findHabilidadesByOferta(oferta);
+		listaCompleta.removeAll(listaHabilidadEnOferta);
+		return listaCompleta;
+	}
+
+	@Override
+	public HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(OfertaEmpleo oferta, Habilidad habilidad) {
+		return repository.findHabilidadOfertaByOfertaAndHabilidad(oferta, habilidad);
+	}
+	
+	
+
+	
 }
