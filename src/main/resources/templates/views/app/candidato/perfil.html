@@ -12,7 +12,9 @@
 		<h1 th:text="${titulo}" class="text-center">Perfil de usuario</h1>
 		<hr>
 		<nav class="col-2 border border-dark">Esto seria un nav</nav>
+		
 		<section class="col-8 border border-dark text-center">
+			<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 			<section class="row inline-block">
 				<figure class="col">
 					<a href="/candidato/modify"><img width="200" alt="Datos personales"

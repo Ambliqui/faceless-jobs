@@ -102,11 +102,14 @@ public class MainController {
             if (roles.get(0).getAuthority().equals("ROLE_CANDIDATO")) {
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
+                
                 if (credencial.isPresent()) {
+                    
                     Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
                         httpSession.setAttribute("userSession", candidato.get());
+                        httpSession.setAttribute("credencialSession", credencial.get());
                         return "redirect:/";
                     }
                 }
@@ -117,7 +120,8 @@ public class MainController {
                     Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
-                        request.getSession().setAttribute("userSession", empresa);
+                        httpSession.setAttribute("userSession", empresa.get());
+                        httpSession.setAttribute("credencialSession", credencial.get());
                         return "redirect:/";
                     }
                 }
