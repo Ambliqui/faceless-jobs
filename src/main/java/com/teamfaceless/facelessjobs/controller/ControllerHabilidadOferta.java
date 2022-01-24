@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
+import com.teamfaceless.facelessjobs.model.HabilidadOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
@@ -40,7 +41,7 @@ public class ControllerHabilidadOferta {
 		model.addAttribute("ofertaEmpleo", ofertaEmpleo);
 		
 		HabilidadOferta habilidadOferta = new HabilidadOferta();
-//		habilidadOferta.setOfertaEmpleo(ofertaEmpleo);
+		habilidadOferta.setOfertaEmpleo(ofertaEmpleo);
 //		habilidadOferta.setExperienciaOferta(3);
 //		habilidadOferta.setHabilidad(habService.findById(1).get());
 		model.addAttribute("habilidadOferta", habilidadOferta);
@@ -59,6 +60,8 @@ public class ControllerHabilidadOferta {
 		if(result.hasErrors()) {
 				return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 			}
+		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
+		//TODO
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/formulario"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}

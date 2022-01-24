@@ -26,14 +26,15 @@
 						
 						<label for="experiencia">Experiencia: </label>
 						
-						<input id="experiencia" type="text"
+						<input id="experiencia" type="number"
 							th:field="*{experienciaOferta}"
 							class="form-control"
 							required>
 						
-						
-						<input type="text" th:field="*{ofertaEmpleo}"
-								class="form-control"/>
+						<input type="hidden" name="ofertaEmpleo"
+								th:value = "${ofertaEmpleo.idOfertaEmpleo}"
+								class="form-control"
+						/>
 						
 							
 						<br>
