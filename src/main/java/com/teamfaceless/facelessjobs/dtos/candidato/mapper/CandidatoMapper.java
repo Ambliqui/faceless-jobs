@@ -2,6 +2,7 @@ package com.teamfaceless.facelessjobs.dtos.candidato.mapper;
 
 import org.springframework.stereotype.Service;
 
+import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoModifyDto;
 import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
@@ -22,13 +23,13 @@ public class CandidatoMapper implements ICandidatoMapper {
 						.roles(candidatoRegistroDto.getRoles())
 						.build())
 				.fechaNacimientoCandidato(candidatoRegistroDto.getFechaNacimientoCandidato())
-				.telefonoCandidato(candidatoRegistroDto.getTelefonoCandidato().trim())		
+				.telefonoCandidato(candidatoRegistroDto.getTelefonoCandidato().trim())
 				.build();
 	}
 
 	@Override
 	public CandidatoRegistroDto candidatoToCandidatoRegistroDto(Candidato candidato) {
-		
+
 		return CandidatoRegistroDto.builder()
 				.nombreCandidato(candidato.getNombreCandidato())
 				.apellidosCandidato(candidato.getApellidosCandidato())
@@ -36,6 +37,20 @@ public class CandidatoMapper implements ICandidatoMapper {
 				.fechaNacimientoCandidato(candidato.getFechaNacimientoCandidato())
 				.telefonoCandidato(candidato.getTelefonoCandidato())
 				.build();
+	}
+
+	@Override
+	public Candidato candidatoModifyDtoToCandidato(CandidatoModifyDto candidatoModifyDto) {
+
+		return Candidato.builder()
+				.idCandidato(candidatoModifyDto.getIdCandidato())
+				.nombreCandidato(candidatoModifyDto.getNombreCandidato())
+				.apellidosCandidato(candidatoModifyDto.getApellidosCandidato())
+				.fechaNacimientoCandidato(candidatoModifyDto.getFechaNacimientoCandidato())
+				.telefonoCandidato(candidatoModifyDto.getTelefonoCandidato())
+				.credencial(candidatoModifyDto.getCredencial())
+				.build();
+
 	}
 
 }

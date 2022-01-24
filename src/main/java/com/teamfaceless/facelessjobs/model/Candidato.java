@@ -19,6 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -55,6 +58,7 @@ public class Candidato implements Serializable {
 
     @Column(name = "fecha_nacimiento_candidato")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date fechaNacimientoCandidato;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato")

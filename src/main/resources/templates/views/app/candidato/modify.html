@@ -8,9 +8,140 @@
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 
-	</header>
+	<div class="container wrapper">
 
-	<h3>Modificar datos</h3>
+		<div class="row g-5 justify-content-center p-5">
+
+			<div class="col-md bg-light p-5">
+				<h4 class="mb-3 text-center">Modificar datos</h4>
+				<form class="form " th:action="@{/candidato/modify}" th:object="${sessionCandidato}" method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md mb-3">
+
+								<input type="hidden" th:field=*{idCandidato} th:value="*{idCandidato}" />
+
+
+								<div class="form-group mb-3">
+									<label class="form-label" for="nombre">Nombre</label> <input
+										th:field="*{nombreCandidato}" type="text" class="form-control" id="nombre"
+										th:value="*{nombreCandidato}" required>
+									<div class="alert-danger" th:if="${#fields.hasErrors('nombreCandidato')}"
+										th:errors="*{nombreCandidato}"></div>
+								</div>
+
+								<div class="col-md mb-3">
+									<div class="form-group mb-3">
+										<label class="form-label" for="apellidos">Apellidos</label> <input type="text"
+											class="form-control" id="apellidos" th:value="*{apellidosCandidato}"
+											required th:field="*{apellidosCandidato}">
+										<div class="alert-danger" th:if="${#fields.hasErrors('apellidosCandidato')}"
+											th:errors="*{apellidosCandidato}"></div>
+									</div>
+
+								</div>
+
+								<div class="form-group mb-3">
+									<label class="form-label" for="telefono">Teléfono</label> <input
+										th:field="*{telefonoCandidato}" type="text" class="form-control" id="telefono"
+										th:value="*{telefonoCandidato}" required>
+									<div class="alert-danger" th:if="${#fields.hasErrors('telefonoCandidato')}"
+										th:errors="*{telefonoCandidato}"></div>
+								</div>
+
+								<!-- <div class=" form-group mb-3">
+									<label for="email" class="form-label">Correo</label> <input type="email"
+										class="form-control" id="email" th:field="*{emailCandidato}"
+										th:value="*{emailCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('emailCandidato')}"
+										th:errors="*{emailCandidato}"></div>
+									<div class="alert-danger" th:if="${error}" th:text="${error}"></div>
+									<div class="alert-danger" th:if="${errorEmail}" th:text="${errorEmail}"></div>
+								</div> -->
+
+								<!-- <div class=" form-group mb-3">
+									<label for="confEmail" class="form-label">Confirmar
+										Correo </label> <input type="email" class="form-control" id="confEmail"
+										th:field="*{emailConfirmCandidato}" th:value="*{emailCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('emailConfirmCandidato')}"
+										th:errors="*{emailConfirmCandidato}"></div>
+								</div>  -->
+
+								<!-- <div class="form-group mb-3">
+									<label for="pass" class="form-label">Contraseña</label> <input type="password"
+										class="form-control" id="pass" th:value="*{passCandidato}" required
+										th:field="*{passCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('passCandidato')}"
+										th:errors="*{passCandidato}"></div>
+									<div class="alert-danger" th:if="${errorPass}" th:text="${errorPass}"></div>
+
+								</div> -->
+
+								<!-- <div class="form-group mb-3">
+									<label for="confirmPass" class="form-label">Confirmar
+										Contraseña</label> <input type="password" class="form-control" id="confirmPass"
+										th:value="*{passCandidato}" required th:field="*{passConfirmCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('passConfirmCandidato')}"
+										th:errors="*{passConfirmCandidato}"></div>
+
+								</div>  
+
+							</div>-->
+
+
+								<!-- <div class="form-group mb-3">
+
+									<label class="form-label" for="cp">Código Postal</label> <input type="text"
+										class="form-control " id="cp" th:value="*{cpCandidato}" required
+										th:field="*{cpCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('cpCandidato')}"
+										th:errors="*{cpCandidato}"></div>
+								</div> -->
+
+								<div class=" form-group mb-3">
+									<label class="form-label" for="fecha">Fecha de
+										nacimiento</label> <input id="fecha" type="date" class="form-control"
+										th:field="*{fechaNacimientoCandidato}" th:value="*{fechaNacimientoCandidato}"
+										required>
+
+
+								</div>
+
+
+
+							</div>
+						</div>
+
+						<div class="row">
+							<input type="submit" class="btn btn-primary" value="Modificar">
+						</div>
+
+
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19,6 +150,8 @@
 
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>
+
+
 </body>
 
 </html>

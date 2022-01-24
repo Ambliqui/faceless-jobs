@@ -14,5 +14,7 @@ public interface ICandidatoService {
 	List<Candidato> findByNombre(String nombre);
 	Optional<Candidato> findById(Integer id);
 	Optional<Candidato> findByEmail (String email);
+
+	void update(Candidato candidato);
 	
 }
