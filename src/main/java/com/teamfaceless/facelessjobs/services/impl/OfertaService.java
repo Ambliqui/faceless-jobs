@@ -10,6 +10,7 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -64,6 +65,13 @@ public class OfertaService implements IOfertaService {
 		@Override
 		public List<OfertaEmpleo> findOfertaByidCandidato(Integer idCandidato) {
 			return repository.findOfertaByidCandidato(idCandidato);
+		}
+
+
+		public List<OfertaEmpleo> findByTituloAndDescripcion(String titulo, String descrpcion,String provincia,
+				String sector,Integer salarioMinimo, Integer salarioMaximo) {
+			return repository.findByTituloAndDescripcion(titulo, descrpcion, provincia, 
+					sector,salarioMinimo,salarioMaximo);
 		}
 
 	

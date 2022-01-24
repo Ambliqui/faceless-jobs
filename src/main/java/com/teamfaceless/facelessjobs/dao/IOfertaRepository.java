@@ -21,5 +21,16 @@ public interface IOfertaRepository extends JpaRepository<OfertaEmpleo,Integer> {
 			nativeQuery = true)	
 	List<OfertaEmpleo> findOfertaByidCandidato(Integer idCandidato);
 	
+
+	@Query("SELECT o FROM OfertaEmpleo o WHERE "
+			+ "(?1 is null or lower(o.tituloOferta) like concat('%',?1,'%')) and "
+			+ "(?2 is null or lower(o.descripcionOferta) like lower(concat('%',?2,'%'))) and "
+			+ "(?3 is null or lower(o.provinciaOferta.nombreProvincia) like lower(concat('%',?3,'%'))) and "
+			+ "(?4 is null or lower(o.sectorOferta.nombreSectorLaboral) like lower(concat('%',?4,'%'))) and "
+			+ "(?5 is null or o.salarioOferta > ?5) and "
+			+ "(?6 is null or o.salarioOferta < ?6) ")
+	List<OfertaEmpleo> findByTituloAndDescripcion(
+			String titulo, String descrpcion,String provincia,String sector,
+			Integer salarioMinimo, Integer salarioMaximo); 
 	
 }
