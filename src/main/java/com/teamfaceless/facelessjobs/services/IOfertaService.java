@@ -29,4 +29,8 @@ public interface IOfertaService {
 	
 	List<OfertaEmpleo> findOfertaByidCandidato(Integer idCandidato);
 	
+	List<OfertaEmpleo> findByTituloAndDescripcion(
+			String titulo, String descrpcion,String provincia,String sector,
+			Integer salarioMinimo, Integer salarioMaximo);
+	
 }
