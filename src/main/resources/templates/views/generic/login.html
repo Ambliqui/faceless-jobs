@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-
+<meta charset="UTF-8">
 </head>
 
 
@@ -36,7 +36,7 @@
 
 								<div class="form-group mb-3">
 									<label for="pass" class="form-label">Contraseña</label> <input type="password"
-										class="form-control" id="pass" name="password" placeholder="Contraseña" required
+										class="form-control" id="pass" name="password" placeholder="ContraseÃ±a" required
 										th:value="${password}">
 
 								</div>
@@ -46,12 +46,14 @@
 
 
 						</div>
-						<div class="row">
-							<input type="submit" class="btn btn-primary" value="Login">
+						<div class="col-md-12  text-center align-middle">
+							<input type="submit" class="btn btn-success" value="Login">
+							<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 						</div>
 						<div class="row">
-							<p>No tiene cuenta, <a th:href="@{/candidato/registro}">regístrese</a></p>
-						</div>
+							<p class=" text-center align-middle">
+							¿Tienes cuenta?,<a th:href="@{/candidato/registro}">Registrate.</a>
+							</p>
 						<div class="row alert-danger text-center" th:if="${msgError}">
 							<p th:text="${msgError}"></p>
 						</div>
