@@ -155,12 +155,13 @@ public class ControllerOferta {
 		String email = auth.getName();
 		Rol rol = rolService.findByUser(email).get();
 
-		if (result.hasErrors()) {
+		if (result.hasErrors() || oferta.getFechaFinOferta().isBefore(hoy)) {
 			model.addAttribute("titulo", "Formulario de ofertas");
 			model.addAttribute("value", "Añadir");
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("hoy",hoy);
+			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
 			return "views/oferta/formulario";
 		} 
 		
@@ -170,15 +171,7 @@ public class ControllerOferta {
 			oferta.setEmpresa(empresaService.findById(id).get());
 			
 		}
-		if(oferta.getFechaFinOferta().isBefore(hoy)) {
-			model.addAttribute("titulo", "Formulario de ofertas");
-			model.addAttribute("value", "Añadir");
-			model.addAttribute("provincias", provinciaService.findAll());
-			model.addAttribute("sectores", sectorService.findAll());
-			model.addAttribute("hoy",hoy);
-			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
-			return "views/oferta/formulario";
-		}
+	
 		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
