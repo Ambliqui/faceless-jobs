@@ -57,6 +57,10 @@ public class Candidato implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaNacimientoCandidato;
 
+
+    @Column(name = "localidad_candidato")
+    private String localidadCandidato;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato")
     private List<HabilidadCandidato> habilidadCandidatoList;
 

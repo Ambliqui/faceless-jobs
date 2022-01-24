@@ -23,11 +23,16 @@
 						<th>Localidad</th>
 						<th th:each="hab : ${oferta.habilidadOfertaList}"
 							th:text="${hab.habilidad.nombreHabilidad}"
-							class="bg-primary">	
+							class="bg-primary">
 					</tr>
 				</thead>
 
-<!-- 				<tr th:each="emp : ${listEmpresas}"> -->
+				<tr th:each="insc : ${oferta.inscripcionOfertaList}">
+					<td th:text="${insc.candidato.idCandidato}"></td>
+					<td th:text="${insc.candidato.provinciaCandidato}"></td>
+					<td th:text="${insc.candidato.localidadCandidato}"></td>
+					<td th:each="hab : ${insc.candidato.habilidadCandidatoList}"
+						th:text="${hab.habilidad.nombreHabilidad}">HOLA</td>
 <!-- 					<td class="text-center align-middle"><img
 <!-- 						th:src="@{/images/empresa/logo/{portada} (portada=${emp.logoEmpresa})}" width="60" -->
 <!-- 						heigth="50"></td>--> -->
@@ -47,6 +52,8 @@
 <!-- 					<td th:text="${emp.empleadosEmpresa}" -->
 <!-- 						class="align-middle"> -->
 <!-- 					</td> -->
+
+
 <!-- 					<td class="text-center align-middle"> -->
 <!-- 						<a th:href="@{'/app/empresa/modificar/' + ${emp.idEmpresa}}" -->
 <!-- 							class="btn btn-success btn-sm" -->
@@ -62,7 +69,7 @@
 <!-- 							<i class="fas fa-trash" aria-hidden="true"></i> -->
 <!-- 						</a> -->
 <!-- 					</td> -->
-<!-- 				</tr> -->
+				</tr>
 			</table>
 		</div>
 	</div>
