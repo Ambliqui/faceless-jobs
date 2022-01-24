@@ -144,7 +144,7 @@ public class ControllerOferta {
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
 		model.addAttribute("value", "Editar");
-		model.addAttribute("titulo", "Formulario de ofertas");
+		model.addAttribute("titulo", "Editar ofertas");
 		return "views/oferta/formularioModificar";
 	}
 
