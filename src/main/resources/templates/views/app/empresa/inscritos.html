@@ -15,8 +15,6 @@
 			<p>Aqui van los filtros</p>
 		</div>
 		<div class="col">
-			<span th:if="${inscritos.size() < 1}">No hay candidatos inscritos</span>
-<!-- 			<tr th:each="insc : ${oferta.inscripcionOfertaList}"> -->
 			<table class="table table-hover table-bordered">
 				<thead class="table-dark">
 					<tr>
@@ -40,6 +38,7 @@
 					<td th:text="${insc.localidad}"></td>
 					<td th:each="hab : ${insc.habilidades}"
 						th:text="${hab.nombreHabilidad}"></td>
+					<td>75%</td>
 					<td class="text-center align-middle">
 						<a th:href="@{'/'}"
 							class="btn btn-success btn-sm"
@@ -57,6 +56,11 @@
 					</td>
 				</tr>
 			</table>
+			<div id="warningVacio"
+				role="alert"
+				th:if="${inscritos.size() < 1}" 
+				class="alert alert-danger col-md-12  text-center align-middle">No hay candidatos inscritos
+			</div>
 		</div>
 	</div>
 	</div>
