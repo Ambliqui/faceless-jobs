@@ -124,7 +124,9 @@ public class MainController {
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
                 if (credencial.isPresent()) {
-                    Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
+                   // Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
+                    Optional<Empresa> empresa = empresaService.buscarPorId(credencial.get().getIdCredencial());
+
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
                         httpSession.setAttribute("userSession", empresa.get());
