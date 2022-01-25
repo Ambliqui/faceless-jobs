@@ -4,26 +4,38 @@
 <meta charset="UTF-8">
 </head>
 
-<body  onload="ocultar()">
+<body >
 	<nav th:replace="fragments/base :: navbar"></nav><br>
 	<main class="container content">
 	<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error}" id="div"></div>
 	<div class="col-md-8">
-	<h1 th:text="${titulo}"></h1>
-	<p th:text="${empresa.nombreEmpresa}"></p>
+	<h1 th:text="${oferta.tituloOferta}"></h1>
+	<p th:text="${oferta.empresa.nombreEmpresa}"></p>
 	</div>
 	<div class="col-md-8">
 	<ul>
-  <li th:text="${provincia}+${','}+${localidad}+${'(España)'}"></li>
-  <li th:text=" ${'Publicada el' }+' '  + ${fechaPubli}"></li>
-  <li th:text="${'Salario no disponible'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_CANDIDATO')"></li>
-  <li th:text="${salario}+${'€'}" sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_ADMINISTRADOR')">
+  <li th:text="${oferta.provinciaOferta.nombreProvincia}+${','}+${oferta.localidadOferta}+${'(España)'}"></li>
+  <li th:text=" ${'Publicada el' }+' '  + ${oferta.fechaInicioOferta}"></li>
+  <li th:text="${'Salario no disponible'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_CANDIDATO','ROLE_ADMIN')"></li>
+</ul>
+</div>
+<div class="col-md-8">
+<ul>
+  <li th:text="${oferta.provinciaOferta.nombreProvincia}+${','}+${oferta.localidadOferta}+${'(España)'}"></li>
+  <li th:text=" ${'Termina el' }+' '  + ${oferta.fechaFinOferta}"></li>
+  <li th:text="${'Salario no disponible'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_CANDIDATO','ROLE_ADMIN')"></li>
 </ul>
 </div>
 <hr>
-	<h5 th:text="${desc}">></h5>
+<h5>Requisitos</h5>
+<ul th:each=h:${oferta.habilidadOfertaList}>
+<li th:text="${h.habilidad.nombreHabilidad}">
+
+</ul>
+<hr>
+	<h5 th:text="${'Descripción'}">></h5>
 	<div class="col-md-12">
-	<textarea th:text="${descOferta}"class="form-control h-25" rows="3"readonly></textarea>
+	<textarea th:text="${oferta.descripcionOferta}"class="form-control h-25" rows="3"readonly></textarea>
 	</div>
 	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
 		<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
