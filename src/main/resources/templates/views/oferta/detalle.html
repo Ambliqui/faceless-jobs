@@ -8,34 +8,33 @@
 	<nav th:replace="fragments/base :: navbar"></nav><br>
 	<main class="container content">
 	<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error}" id="div"></div>
-	<div class="col-md-8">
+	<div class="col-md-12">
 	<h1 th:text="${oferta.tituloOferta}"></h1>
 	<p th:text="${oferta.empresa.nombreEmpresa}"></p>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 	<ul>
   <li th:text="${oferta.provinciaOferta.nombreProvincia}+${','}+${oferta.localidadOferta}+${'(España)'}"></li>
   <li th:text=" ${'Publicada el' }+' '  + ${oferta.fechaInicioOferta}"></li>
-  <li th:text="${'Salario no disponible'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_CANDIDATO','ROLE_ADMIN')"></li>
-</ul>
-</div>
-<div class="col-md-8">
-<ul>
-  <li th:text="${oferta.provinciaOferta.nombreProvincia}+${','}+${oferta.localidadOferta}+${'(España)'}"></li>
   <li th:text=" ${'Termina el' }+' '  + ${oferta.fechaFinOferta}"></li>
-  <li th:text="${'Salario no disponible'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA','ROLE_CANDIDATO','ROLE_ADMIN')"></li>
+     <li th:text="${'Hay'}+' ' +${oferta.numeroVacantesOferta}+' '+${'para esta oferta.'}"></li>
+  <li th:text="${'El Salario es'}+ ' ' +${oferta.salarioOferta}+${'€'}+' '+${'Bruto/mes.'}"></li>
 </ul>
 </div>
 <hr>
 <h5>Requisitos</h5>
-<ul th:each=h:${oferta.habilidadOfertaList}>
-<li th:text="${h.habilidad.nombreHabilidad}">
+<div th:each=h:${oferta.habilidadOfertaList}>
+<p th:text="${h.habilidad.nombreHabilidad}"></p>
 
-</ul>
+</div>
 <hr>
 	<h5 th:text="${'Descripción'}">></h5>
 	<div class="col-md-12">
 	<textarea th:text="${oferta.descripcionOferta}"class="form-control h-25" rows="3"readonly></textarea>
+	</div>
+	<hr>
+	<div>
+	<p style="font-weight: bold;" th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}">
 	</div>
 	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
 		<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
