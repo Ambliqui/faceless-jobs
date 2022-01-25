@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/base :: head">
+
+</head>
+
+<body>
+	<nav th:replace="fragments/base :: navbar"></nav>
+
+	<div class="container wrapper">
+
+		<div class="row g-5 justify-content-center p-5">
+
+			<div class="col-md bg-light p-5">
+				<h4 class="mb-3 text-center">Modificar credenciales</h4>
+				<form class="form " th:action="@{/credencial/modify}" th:object="${sessionCredencial}" method="post">
+					<div class="container">
+						<div class="row">
+							<div class="col-md mb-3">
+
+								<input type="hidden" th:field=*{idCredencial} th:value="*{idCredencial}" />
+
+								<div class=" form-group mb-3">
+									<label for="email" class="form-label">Correo</label> <input type="email"
+										class="form-control" id="email" th:field="*{email}"
+										th:value="*{email}">
+					
+								</div> 
+
+								
+
+								 <div class="form-group mb-3">
+									<label for="pass" class="form-label">Contraseña</label> <input type="password"
+										class="form-control" id="pass" th:value="*{pass}" required
+										th:field="*{pass}">
+								</div> 
+
+								<!-- <div class="form-group mb-3">
+									<label for="confirmPass" class="form-label">Confirmar
+										Contraseña</label> <input type="password" class="form-control" id="confirmPass"
+										th:value="*{passCandidato}" required th:field="*{passConfirmCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('passConfirmCandidato')}"
+										th:errors="*{passConfirmCandidato}"></div>
+
+								</div>  
+
+							</div>-->
+
+
+								<!-- <div class="form-group mb-3">
+
+									<label class="form-label" for="cp">Código Postal</label> <input type="text"
+										class="form-control " id="cp" th:value="*{cpCandidato}" required
+										th:field="*{cpCandidato}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('cpCandidato')}"
+										th:errors="*{cpCandidato}"></div>
+								</div> -->
+
+					
+
+
+							</div>
+						</div>
+
+						<div class="row">
+							<input type="submit" class="btn btn-primary" value="Modificar">
+						</div>
+
+
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<footer th:replace="fragments/base :: footer"></footer>
+	<th:block th:replace="fragments/base :: script"></th:block>
+
+
+</body>
+
+</html>

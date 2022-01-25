@@ -85,7 +85,7 @@ public class ControllerCandidato {
 	}
 
 	@GetMapping("/modify")
-	public String goToCandidateModify(Model model) {
+	public String goToCandidateModify(Model model, CandidatoModifyDto candidatoModifyDto) {
 
 		model.addAttribute("sessionCandidato", httpSession.getAttribute("userSession"));
 
@@ -96,11 +96,19 @@ public class ControllerCandidato {
 
 	@PostMapping("/modify")
 	public String candidateModifyData(@Valid @ModelAttribute("candidato") CandidatoModifyDto candidatoModifyDto, BindingResult result,
-			RedirectAttributes redirect) {
+			RedirectAttributes redirect, Model model) {
+
+				if (result.hasErrors()) {
+					System.out.println("HAY ERRORES");
+					model.addAttribute("sessionCandidato", candidatoModifyDto);
+					return "views/app/candidato/modify";
+				}
+		
 
 		Candidato candidatoTemp = (Candidato) httpSession.getAttribute("userSession");
 		Credencial credencial = candidatoTemp.getCredencial();
 		candidatoModifyDto.setCredencial(credencial);
+		candidatoModifyDto.setIdCandidato(candidatoTemp.getIdCandidato());
 
 		Candidato candidato = candidatoMapper.candidatoModifyDtoToCandidato(candidatoModifyDto);
 		candidatoService.update(candidato);			

@@ -19,8 +19,13 @@
 						<div class="row">
 							<div class="col-md mb-3">
 
-								<input type="hidden" th:field=*{idCandidato} th:value="*{idCandidato}" />
-
+								<!-- <input type="hidden" th:field=*{idCandidato} th:value="*{idCandidato}" /> -->
+<!-- global errors thymeleaf-->
+								<div th:if="${hasErrors}" class="alert alert-danger" role="alert">
+									<div th:each="${error in errors}" class="alert alert-danger" role="alert">
+										<div th:text="${error}"></div>
+									</div>
+									</div>
 
 								<div class="form-group mb-3">
 									<label class="form-label" for="nombre">Nombre</label> <input
@@ -49,60 +54,18 @@
 										th:errors="*{telefonoCandidato}"></div>
 								</div>
 
-								<!-- <div class=" form-group mb-3">
-									<label for="email" class="form-label">Correo</label> <input type="email"
-										class="form-control" id="email" th:field="*{emailCandidato}"
-										th:value="*{emailCandidato}">
-									<div class="alert-danger" th:if="${#fields.hasErrors('emailCandidato')}"
-										th:errors="*{emailCandidato}"></div>
-									<div class="alert-danger" th:if="${error}" th:text="${error}"></div>
-									<div class="alert-danger" th:if="${errorEmail}" th:text="${errorEmail}"></div>
-								</div> -->
-
-								<!-- <div class=" form-group mb-3">
-									<label for="confEmail" class="form-label">Confirmar
-										Correo </label> <input type="email" class="form-control" id="confEmail"
-										th:field="*{emailConfirmCandidato}" th:value="*{emailCandidato}">
-									<div class="alert-danger" th:if="${#fields.hasErrors('emailConfirmCandidato')}"
-										th:errors="*{emailConfirmCandidato}"></div>
-								</div>  -->
-
-								<!-- <div class="form-group mb-3">
-									<label for="pass" class="form-label">Contraseña</label> <input type="password"
-										class="form-control" id="pass" th:value="*{passCandidato}" required
-										th:field="*{passCandidato}">
-									<div class="alert-danger" th:if="${#fields.hasErrors('passCandidato')}"
-										th:errors="*{passCandidato}"></div>
-									<div class="alert-danger" th:if="${errorPass}" th:text="${errorPass}"></div>
-
-								</div> -->
-
-								<!-- <div class="form-group mb-3">
-									<label for="confirmPass" class="form-label">Confirmar
-										Contraseña</label> <input type="password" class="form-control" id="confirmPass"
-										th:value="*{passCandidato}" required th:field="*{passConfirmCandidato}">
-									<div class="alert-danger" th:if="${#fields.hasErrors('passConfirmCandidato')}"
-										th:errors="*{passConfirmCandidato}"></div>
-
-								</div>  
-
-							</div>-->
-
-
-								<!-- <div class="form-group mb-3">
-
-									<label class="form-label" for="cp">Código Postal</label> <input type="text"
-										class="form-control " id="cp" th:value="*{cpCandidato}" required
-										th:field="*{cpCandidato}">
-									<div class="alert-danger" th:if="${#fields.hasErrors('cpCandidato')}"
-										th:errors="*{cpCandidato}"></div>
-								</div> -->
+							
 
 								<div class=" form-group mb-3">
 									<label class="form-label" for="fecha">Fecha de
 										nacimiento</label> <input id="fecha" type="date" class="form-control"
 										th:field="*{fechaNacimientoCandidato}" th:value="*{fechaNacimientoCandidato}"
 										required>
+										<div class="alert-danger"
+										th:if="${#fields.hasErrors('fechaNacimientoCandidato')}"
+										th:errors="*{fechaNacimientoCandidato}"></div>
+			
+								</div>
 
 
 								</div>

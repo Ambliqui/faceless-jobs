@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -86,6 +87,12 @@ public class MainController {
 
     @GetMapping("/login")
     public String formLogin(Model model, @RequestParam(value = "error", required = false) String error) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/";
+        }
+
         if (error != null) {
             model.addAttribute("msgError", "Credenciales incorrectas");
         }
@@ -102,9 +109,9 @@ public class MainController {
             if (roles.get(0).getAuthority().equals("ROLE_CANDIDATO")) {
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
-                
+
                 if (credencial.isPresent()) {
-                    
+
                     Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
@@ -127,9 +134,16 @@ public class MainController {
                 }
             }
         }
-        
+
         return "/login";
 
+    }
+
+    @GetMapping("/credencial/modify")
+    public String goToCredencialModify(Model model) {
+        model.addAttribute("sessionCredencial", httpSession.getAttribute("credencialSession"));
+
+        return "views/app/credencialmodify";
     }
 
 }
