@@ -18,7 +18,6 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -54,7 +53,7 @@ public class MainController {
 
     @GetMapping("/")
     public String goToIndex(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
-        Pageable pageRequest = PageRequest.of(page, 6);
+        Pageable pageRequest = PageRequest.of(page, 8);
         Page<OfertaEmpleo> ofertas = ofertaService.findAllPageable(pageRequest);
         PageRender<OfertaEmpleo> pageRender = new PageRender<>("/", ofertas);
         model.addAttribute("pageTitle", "Inicio");
