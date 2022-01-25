@@ -118,8 +118,6 @@ public class EmpresaController {
 		model.addAttribute("provincias", iProvinciaService.findAll());
 		model.addAttribute("sectores", iSectorService.findAll());
 		model.addAttribute("oferta", iOfertaService.findById(idOferta).get());
-		//TODO Para pruebas de vista
-		model.addAttribute("empresa", iEmpresaService.findById(idOferta).get());
 		return "views/app/empresa/inscritos";
 	}
 		
