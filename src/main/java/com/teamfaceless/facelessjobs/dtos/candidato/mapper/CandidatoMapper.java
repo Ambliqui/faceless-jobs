@@ -1,14 +1,19 @@
 package com.teamfaceless.facelessjobs.dtos.candidato.mapper;
 
-import org.springframework.stereotype.Service;
-
 import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoModifyDto;
 import com.teamfaceless.facelessjobs.dtos.candidato.CandidatoRegistroDto;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
+import com.teamfaceless.facelessjobs.services.IProvinciaService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CandidatoMapper implements ICandidatoMapper {
+
+	@Autowired
+	private IProvinciaService provinciaService;
 
 	@Override
 	public Candidato candidatoRegistroDtoToCandidato(CandidatoRegistroDto candidatoRegistroDto) {
@@ -24,6 +29,7 @@ public class CandidatoMapper implements ICandidatoMapper {
 						.build())
 				.fechaNacimientoCandidato(candidatoRegistroDto.getFechaNacimientoCandidato())
 				.telefonoCandidato(candidatoRegistroDto.getTelefonoCandidato().trim())
+				.provinciaCandidato(provinciaService.findById(candidatoRegistroDto.getProvinciaCandidato()).get())
 				.build();
 	}
 
@@ -36,6 +42,7 @@ public class CandidatoMapper implements ICandidatoMapper {
 				.emailCandidato(candidato.getCredencial().getEmail())
 				.fechaNacimientoCandidato(candidato.getFechaNacimientoCandidato())
 				.telefonoCandidato(candidato.getTelefonoCandidato())
+				.provinciaCandidato(candidato.getProvinciaCandidato().getIdProvincia())
 				.build();
 	}
 

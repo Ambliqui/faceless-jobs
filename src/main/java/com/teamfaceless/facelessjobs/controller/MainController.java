@@ -111,7 +111,8 @@ public class MainController {
 
                 if (credencial.isPresent()) {
 
-                    Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
+                   // Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
+                   Optional<Candidato> candidato = candidatoService.buscarPorId(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
                         httpSession.setAttribute("userSession", candidato.get());

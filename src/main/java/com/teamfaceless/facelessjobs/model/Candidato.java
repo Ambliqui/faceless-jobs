@@ -61,8 +61,8 @@ public class Candidato implements Serializable {
     private Date fechaNacimientoCandidato;
 
 
-    @Column(name = "localidad_candidato")
-    private String localidadCandidato;
+    // @Column(name = "localidad_candidato")
+    // private String localidadCandidato;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato")
     private List<HabilidadCandidato> habilidadCandidatoList;

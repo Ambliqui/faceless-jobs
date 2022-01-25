@@ -10,6 +10,7 @@ import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
+import com.teamfaceless.facelessjobs.services.IProvinciaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class ControllerCandidato {
 	private ICandidatoService candidatoService;
 	@Autowired
 	private ICandidatoMapper candidatoMapper;
+	@Autowired
+	private IProvinciaService iProvinciaService;
 
 	@Autowired
 	private HttpSession httpSession;
@@ -36,6 +39,7 @@ public class ControllerCandidato {
 	@GetMapping("/registro")
 	public String formRegistro(Model model, CandidatoRegistroDto candidatoRegistroDto) {
 		model.addAttribute("candidato", candidatoRegistroDto);
+		model.addAttribute("provincias", iProvinciaService.findAll());
 		return "views/candidato/registro";
 	}
 
