@@ -12,8 +12,10 @@ public interface ICandidatoService {
 	List<Candidato> findAll();
 	void create(Candidato candidato) throws EmailExisteException;
 	List<Candidato> findByNombre(String nombre);
-	Optional<Candidato> findById(Integer id);
+	//Optional<Candidato> findById(Integer id);
 	Optional<Candidato> findByEmail (String email);
+
+	Optional<Candidato> buscarPorId(Integer id);
 
 	void update(Candidato candidato);
 	

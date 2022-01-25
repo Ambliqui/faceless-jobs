@@ -22,5 +22,7 @@ public interface IEmpresaService {
 	void modify (Empresa empresa);
 	boolean isPresent(Empresa empresa);
 	Map <String, String> validateRegister(EmpresaRegistroDto empresaRegistroDto);
+
+	Optional<Empresa> buscarPorId(Integer id);
 	
 }

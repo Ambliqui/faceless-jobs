@@ -18,10 +18,10 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +53,7 @@ public class MainController {
 
     @GetMapping("/")
     public String goToIndex(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
-        Pageable pageRequest = PageRequest.of(page, 6);
+        Pageable pageRequest = PageRequest.of(page, 8);
         Page<OfertaEmpleo> ofertas = ofertaService.findAllPageable(pageRequest);
         PageRender<OfertaEmpleo> pageRender = new PageRender<>("/", ofertas);
         model.addAttribute("pageTitle", "Inicio");
@@ -86,6 +86,12 @@ public class MainController {
 
     @GetMapping("/login")
     public String formLogin(Model model, @RequestParam(value = "error", required = false) String error) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/";
+        }
+
         if (error != null) {
             model.addAttribute("msgError", "Credenciales incorrectas");
         }
@@ -102,10 +108,11 @@ public class MainController {
             if (roles.get(0).getAuthority().equals("ROLE_CANDIDATO")) {
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
-                
+
                 if (credencial.isPresent()) {
-                    
-                    Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
+
+                   // Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
+                   Optional<Candidato> candidato = candidatoService.buscarPorId(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
                         httpSession.setAttribute("userSession", candidato.get());
@@ -117,7 +124,9 @@ public class MainController {
                 String accountName = auth.getName();
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
                 if (credencial.isPresent()) {
-                    Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
+                   // Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
+                    Optional<Empresa> empresa = empresaService.buscarPorId(credencial.get().getIdCredencial());
+
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
                         httpSession.setAttribute("userSession", empresa.get());
@@ -127,9 +136,16 @@ public class MainController {
                 }
             }
         }
-        
+
         return "/login";
 
+    }
+
+    @GetMapping("/credencial/modify")
+    public String goToCredencialModify(Model model) {
+        model.addAttribute("sessionCredencial", httpSession.getAttribute("credencialSession"));
+
+        return "views/app/credencialmodify";
     }
 
 }

@@ -1,25 +1,28 @@
 <!doctype html>
+
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-<meta charset="UTF-8">
+
+	<meta charset="UTF-8">
 </head>
 
 
 <body>
+
 	<nav th:replace="fragments/base :: navbar"></nav>
 
 
 
 
-	<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 
-	<div class="container wrapper-login">
+	<main class="container wrapper-login">
 
+		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 		<div class="row g-5 justify-content-center p-5">
 
 			<div class="col-md bg-light p-5">
-				<h4 class="mb-3 text-center">Login</h4>
+				<h4 class="mb-3 text-center">Iniciar sesión</h4>
 				<form class="form " th:action="@{/login}" method="POST">
 					<div class="container">
 						<div class="row">
@@ -36,7 +39,7 @@
 
 								<div class="form-group mb-3">
 									<label for="pass" class="form-label">Contraseña</label> <input type="password"
-										class="form-control" id="pass" name="password" placeholder="ContraseÃ±a" required
+										class="form-control" id="pass" name="password" placeholder="Contraseña" required
 										th:value="${password}">
 
 								</div>
@@ -47,25 +50,34 @@
 
 						</div>
 						<div class="col-md-12  text-center align-middle">
-							<input type="submit" class="btn btn-success" value="Login">
+							<input type="submit" class="btn btn-success" value="Entrar">
 							<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
-						</div>
-						<div class="row">
-							<p class=" text-center align-middle">
-							¿Tienes cuenta?,<a th:href="@{/candidato/registro}">Registrate.</a>
-							</p>
-						<div class="row alert-danger text-center" th:if="${msgError}">
-							<p th:text="${msgError}"></p>
 						</div>
 
 					</div>
 
-
-				</form>
 			</div>
-		</div>
+			</form>
 
-	</div>
+			<div class="row mt-3">
+				<div class=" text-center align-middle">
+
+
+					<a th:href="@{/candidato/registro}" class="btn btn-secondary" tabindex="13">No tengo cuenta,
+						registrarme.</a>
+					<div class="row alert-danger text-center" th:if="${msgError}">
+						<p th:text="${msgError}"></p>
+					</div>
+
+				</div>
+				</div>
+
+
+
+	</main>
+
+
+
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>
 
