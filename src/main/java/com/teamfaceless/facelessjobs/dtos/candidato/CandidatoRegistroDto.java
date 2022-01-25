@@ -11,6 +11,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.teamfaceless.facelessjobs.model.Provincia;
 import com.teamfaceless.facelessjobs.model.Rol;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,9 +49,8 @@ public class CandidatoRegistroDto implements Serializable{
 	@Pattern(regexp = "^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")
 	private String passConfirmCandidato;
 	
-	@NotBlank
-	@Pattern(regexp = "^(?:0?[1-9]|[1-4]\\d|5[0-2])\\d{3}$")
-	private String cpCandidato;
+	//@NotBlank
+	private Integer provinciaCandidato;
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	@Past

@@ -103,4 +103,9 @@ public class EmpresaService implements IEmpresaService {
 		return repository.findByEmailEmpresa(email);
 	}
 
+	@Override
+	public Optional<Empresa> buscarPorId(Integer id) {
+		return repository.buscarPorId(id);
+	}
+
 }

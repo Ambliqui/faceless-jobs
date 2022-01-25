@@ -54,8 +54,9 @@ public class CandidatoService implements ICandidatoService {
 	}
 
 	@Override
-	public Optional<Candidato> findById(Integer id) {
-		return repository.findById(id);
+	public Optional<Candidato> buscarPorId(Integer id) {
+		//return repository.findById(id);
+		return repository.buscarPorId(id);
 	}
 	
 	private boolean isPresent(Candidato candidato) {

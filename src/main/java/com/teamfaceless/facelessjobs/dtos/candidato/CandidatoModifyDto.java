@@ -33,9 +33,9 @@ public class CandidatoModifyDto implements Serializable{
 	@Pattern (regexp = "^[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ]+$")
 	private String apellidosCandidato;
 	
-	@NotBlank
-	@Pattern(regexp = "^(?:0?[1-9]|[1-4]\\d|5[0-2])\\d{3}$")
-	private String cpCandidato;
+	// @NotBlank
+	// @Pattern(regexp = "^(?:0?[1-9]|[1-4]\\d|5[0-2])\\d{3}$")
+	// private String cpCandidato;
 	
 	@NotBlank
 	@Size(min = 3,max = 20)
