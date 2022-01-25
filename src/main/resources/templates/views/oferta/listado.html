@@ -24,7 +24,7 @@
             <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
               With supporting text below as a natural lead-in to additional content.
             </p>
-            <a th:href="@{'/oferta/formulario/' + ${oferta.idOfertaEmpleo}}"
+            <a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Editar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success">Button</a>
