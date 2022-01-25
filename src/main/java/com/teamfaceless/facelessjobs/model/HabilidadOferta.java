@@ -47,6 +47,12 @@ public class HabilidadOferta implements Serializable {
     
     @Column(name = "experiencia_oferta")
     private int experienciaOferta;
+    
+    @Column(name = "is_obligatorio_habilidad_oferta")
+    private boolean isObligatorio;
+    
+    @Column(name = "baremo_habilidad_oferta")
+    private int baremo;
     /*
     @Basic(optional = false)
     @Column(name = "habilidad_oferta_id")

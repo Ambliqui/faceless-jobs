@@ -61,6 +61,10 @@ public class Candidato implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date fechaNacimientoCandidato;
 
+
+    @Column(name = "localidad_candidato")
+    private String localidadCandidato;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato")
     private List<HabilidadCandidato> habilidadCandidatoList;
 

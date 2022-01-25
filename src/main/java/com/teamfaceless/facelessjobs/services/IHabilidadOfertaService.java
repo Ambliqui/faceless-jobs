@@ -13,8 +13,10 @@ public interface IHabilidadOfertaService {
 	void create(HabilidadOferta habilidadOferta);
 	Optional<HabilidadOferta> findById(Integer id);
 	void modify(HabilidadOferta habilidadOferta);
-	void delete(Integer idHabilidad);
+	void delete(HabilidadOferta habilidadOferta);
 	//List<HabilidadOferta> findHabilidadOfertaByXXX(@Param("XXX") XXX xxx);
 	List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta);
-	List<Habilidad> findHabilidadesByOfertaEmpleo(OfertaEmpleo oferta);
+	List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta);
+	List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta);
+	HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(OfertaEmpleo oferta, Habilidad habilidad);
 }
