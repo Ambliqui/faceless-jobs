@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
@@ -19,4 +20,5 @@ public interface IInscriptionService{
 	void modify (InscripcionOferta inscripcionOferta);
 	boolean isPresent(InscripcionOferta inscripcionOferta);
 	Optional<InscripcionOfertaPK> findByInscripcionOfertaPK(InscripcionOfertaPK pk);
+	List<InscripcionOfertaInscritoDto> inscritosOfertaConHabilidades(OfertaEmpleo ofertaEmpleo);
 }

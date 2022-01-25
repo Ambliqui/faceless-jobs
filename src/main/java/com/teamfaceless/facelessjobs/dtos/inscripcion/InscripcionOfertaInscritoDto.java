@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
+import com.teamfaceless.facelessjobs.model.Habilidad;
+import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.Rol;
 
@@ -21,6 +23,6 @@ public class InscripcionOfertaInscritoDto {
 	private Integer idCandidato;
 	private String provincia;
 	private String localidad;
-	private List<HabilidadOferta> habilidades;
+	private List<Habilidad> habilidades;
 
 }
