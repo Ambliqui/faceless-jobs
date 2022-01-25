@@ -112,7 +112,7 @@ public class MainController {
                 if (credencial.isPresent()) {
 
                    // Optional<Candidato> candidato = candidatoService.findById(credencial.get().getIdCredencial());
-                   Optional<Candidato> candidato = candidatoService.buscarPorId(credencial.get().getIdCredencial());
+                   Optional<Candidato> candidato = candidatoService.findByEmail(accountName);// buscarPorId(credencial.get().getIdCredencial());
                     if (candidato.isPresent()) {
                         model.addAttribute("candidato", candidato.get());
                         httpSession.setAttribute("userSession", candidato.get());
@@ -125,8 +125,7 @@ public class MainController {
                 Optional<Credencial> credencial = credencialService.findByEmail(accountName);
                 if (credencial.isPresent()) {
                    // Optional<Empresa> empresa = empresaService.findById(credencial.get().getIdCredencial());
-                    Optional<Empresa> empresa = empresaService.buscarPorId(credencial.get().getIdCredencial());
-
+                    Optional<Empresa> empresa = empresaService.findByEmailEmpresa(accountName);// buscarPorId(credencial.get().getIdCredencial());
                     if (empresa.isPresent()) {
                         model.addAttribute("empresa", empresa.get());
                         httpSession.setAttribute("userSession", empresa.get());
