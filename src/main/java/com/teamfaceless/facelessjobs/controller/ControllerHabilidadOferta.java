@@ -54,12 +54,13 @@ public class ControllerHabilidadOferta {
 	
 	
 	@PostMapping("/guardar")
-	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model) {
+	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
 				return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 			}
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		//TODO
+		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}

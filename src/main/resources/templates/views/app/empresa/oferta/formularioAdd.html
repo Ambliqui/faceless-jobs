@@ -25,10 +25,24 @@
 					
 					<label for="experiencia">Experiencia (meses): </label>
 					
-					<input id="experiencia" type="number"
+					<input id="experiencia" type="number" min="0"
 						th:field="*{experienciaOferta}"
 						class="form-control"
 						required>
+						
+					<label for="isObligatorio">Requerida:</label>
+					<select id="isObligatorio" name="isObligatorio" class="form-control">
+						<option	value=true>SI</option>
+						<option value=false>NO</option>
+					</select>
+					
+					<label for="baremo">Baremo importancia:</label>
+					<input id="baremo" type="range" min="1" max="9"
+						th:field="*{baremo}"
+						style="width:100%"
+						required
+						onmousemove="valorBaremo.innerHTML=baremo.value">
+					<p class="text-center" id=valorBaremo th:value="${habilidadOferta.baremo}">5</p>
 					
 					<input type="hidden" name="ofertaEmpleo"
 							th:value = "${ofertaEmpleo.idOfertaEmpleo}"
@@ -57,6 +71,10 @@
 									
 									<th>Experiencia</th>
 									
+									<th>Requerida</th>
+									
+									<th>Baremo</th>
+									
 									<th>Gestión</th>
 								</tr>
 							</thead>
@@ -64,6 +82,10 @@
 								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"></td>
 									
 								<td class="align-middle" th:text="${habilidad.experienciaOferta}"></td>
+								
+								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"></td>
+								
+								<td class="align-middle" th:text="${habilidad.baremo}"></td>
 								
 								<td class="align-middle">
 									<a th:href="@{'/habilidadOferta/modificar/'+ ${habilidad.habilidad.idHabilidad}

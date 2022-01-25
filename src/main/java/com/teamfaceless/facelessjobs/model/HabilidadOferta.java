@@ -2,17 +2,14 @@ package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,28 +42,20 @@ public class HabilidadOferta implements Serializable {
     @ManyToOne(optional = false)
     private OfertaEmpleo ofertaEmpleo;
     
+    @Min(0)
     @Column(name = "experiencia_oferta")
     private int experienciaOferta;
     
-    @Column(name = "is_obligatorio_habilidad_oferta")
-    private boolean isObligatorio;
+    @Builder.Default
+    @Column(name = "is_obligatorio_habilidad_oferta", columnDefinition = "boolean default true")
+    private boolean isObligatorio=false;
     
-    @Column(name = "baremo_habilidad_oferta")
-    private int baremo;
-    /*
-    @Basic(optional = false)
-    @Column(name = "habilidad_oferta_id")
-    private int habilidadOfertaId;
-    @Column(name = "experiencia_oferta")
-    private Integer experienciaOferta;
-    @JoinColumn(name = "habilidad_id_habilidad", referencedColumnName = "id_habilidad", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Habilidad habilidad;
-    @JoinColumn(name = "oferta_id_habilidad", referencedColumnName = "id_oferta_empleo", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private OfertaEmpleo ofertaEmpleo;
-	
-    */
+    @Min(1)
+    @Max(9)
+    @Builder.Default
+    @Column(name = "baremo_habilidad_oferta", columnDefinition = "int default 5")
+    private int baremo=5;
+    
     public HabilidadOferta(HabilidadOfertaPK habilidadOfertaPK) {
         this.habilidadOfertaPK = habilidadOfertaPK;
     }
