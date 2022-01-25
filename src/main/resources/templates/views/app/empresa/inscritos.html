@@ -27,10 +27,10 @@
 						<!-- LISTA DE HABILIDADES DE LA OFERTA -->
 						<th th:each="hab : ${oferta.habilidadOfertaList}"
 							th:text="${hab.habilidad.nombreHabilidad}"
-							class="bg-primary"></th>
+							class="bg-primary text-center"></th>
 						
-						<th>Puntuación</th>
-						<th>Gestión</th>
+						<th class="text-center">Puntuación</th>
+						<th class="text-center">Gestión</th>
 					</tr>
 				</thead>
 
@@ -39,8 +39,10 @@
 					<td th:text="${insc.provincia}"></td>
 					<td th:text="${insc.localidad}"></td>
 					<td th:each="hab : ${insc.habilidades}"
-						th:text="${hab.nombreHabilidad}"></td>
-					<td>75%</td>
+						th:text="${hab.nombreHabilidad}"
+						class="text-center">
+					</td>
+					<td class="text-center">75%</td>
 					<td class="text-center align-middle">
 						<a th:href="@{'/'}"
 							class="btn btn-success btn-sm"
