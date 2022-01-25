@@ -67,4 +67,10 @@ public class CandidatoService implements ICandidatoService {
 		return repository.findByEmail(email);
 	}
 
+	@Override
+	public void update(Candidato candidato) {
+		repository.save(candidato);
+		
+	}
+
 }
