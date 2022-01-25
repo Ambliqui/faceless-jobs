@@ -87,7 +87,7 @@ public class EmpresaController {
 	
 	@GetMapping("/modificar/{idEmpresa}")
 	public String goModificar(@PathVariable Integer idEmpresa, Model model) {
-		Empresa empresa = iEmpresaService.findById(idEmpresa).get();
+		Empresa empresa = iEmpresaService.buscarPorId(idEmpresa).get();
 		model.addAttribute("empresa", empresa);
 		model.addAttribute("empresaregistrodto", new EmpresaRegistroDto());
 		model.addAttribute("provincias", iProvinciaService.findAll());
