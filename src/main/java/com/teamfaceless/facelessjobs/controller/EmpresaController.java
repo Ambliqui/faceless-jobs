@@ -1,5 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaListadoDto;
 import com.teamfaceless.facelessjobs.dtos.empresa.EmpresaRegistroDto;
 import com.teamfaceless.facelessjobs.dtos.empresa.mapper.IEmpresaMapper;
+import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
 import com.teamfaceless.facelessjobs.model.Empresa;
+import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
+import com.teamfaceless.facelessjobs.services.IInscriptionService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.ISectorService;
@@ -39,6 +44,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private IOfertaService iOfertaService;
+	
+	@Autowired
+	private IInscriptionService iInscriptionService;
 	
 	@GetMapping("/home")
 	public String home() {
@@ -117,7 +125,10 @@ public class EmpresaController {
 	public String goInscritos(@PathVariable Integer idOferta, Model model) {
 		model.addAttribute("provincias", iProvinciaService.findAll());
 		model.addAttribute("sectores", iSectorService.findAll());
+		OfertaEmpleo ofertaPrueba = iOfertaService.findById(idOferta).get();
 		model.addAttribute("oferta", iOfertaService.findById(idOferta).get());
+		List<InscripcionOfertaInscritoDto> inscritos = iInscriptionService.inscritosOfertaConHabilidades(ofertaPrueba);
+		model.addAttribute("inscritos", inscritos);
 		return "views/app/empresa/inscritos";
 	}
 		

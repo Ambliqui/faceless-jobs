@@ -15,6 +15,8 @@
 			<p>Aqui van los filtros</p>
 		</div>
 		<div class="col">
+<!-- 			<span th:if="${oferta.inscripcionOfertaList.size() < 1}">No hay candidatos inscritos</span> -->
+			<tr th:each="insc : ${oferta.inscripcionOfertaList}">
 			<table class="table table-hover table-bordered">
 				<thead class="table-dark">
 					<tr>
