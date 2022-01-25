@@ -15,61 +15,31 @@
 			<p>Aqui van los filtros</p>
 		</div>
 		<div class="col">
-<!-- 			<span th:if="${oferta.inscripcionOfertaList.size() < 1}">No hay candidatos inscritos</span> -->
-			<tr th:each="insc : ${oferta.inscripcionOfertaList}">
+			<span th:if="${inscritos.size() < 1}">No hay candidatos inscritos</span>
+<!-- 			<tr th:each="insc : ${oferta.inscripcionOfertaList}"> -->
 			<table class="table table-hover table-bordered">
 				<thead class="table-dark">
 					<tr>
 						<th>Candidato</th>
 						<th class="text-center">Provincia</th>
 						<th>Localidad</th>
+						
+						<!-- LISTA DE HABILIDADES DE LA OFERTA -->
 						<th th:each="hab : ${oferta.habilidadOfertaList}"
 							th:text="${hab.habilidad.nombreHabilidad}"
 							class="bg-primary"></th>
+						
 						<th>Puntuación</th>
 						<th>Gestión</th>
 					</tr>
 				</thead>
 
-				<tr th:each="insc : ${oferta.inscripcionOfertaList}">
-					<td th:text="${insc.candidato.nombreCandidato}"></td>
-					<td th:text="${insc.candidato.provinciaCandidato.nombreProvincia}"></td>
-					<td th:text="${insc.candidato.localidadCandidato}"></td>
-					
-<!-- 					For del tamaño de la lista de habilidades de la oferta -->
-<!-- 						<th th:each="habOfert : ${oferta.habilidadOfertaList}"> -->
-
-<!-- 							For sobre la lista de habilidades del candiato -->
-<!-- 							<td th:each="habCand : ${insc.candidato.habilidadCandidatoList}"		 -->
-
-<!-- 								Comprobar si la id de la habilidad de la lista es igual a la id de la habilidad de candidato -->
-<!-- 								Si (habOfert.id == habCand.id) ==> Imprimir-->
-					
-					<td th:each="hab : ${insc.candidato.habilidadCandidatoList}"
-						th:text="${hab.habilidad.nombreHabilidad}"></td>
-						
-						
-<!-- 					<td class="text-center align-middle"><img -->
-<!-- 						th:src="@{/images/empresa/logo/{portada} (portada=${emp.logoEmpresa})}" width="60" -->
-<!-- 						heigth="50"></td>-->
-<!-- 					<td th:text="${emp.idEmpresa}" class="text-center align-middle"></td> -->
-<!-- 					<td  th:text="${emp.cIFempresa}" -->
-<!-- 						class="align-middle"> -->
-<!-- 					</td> -->
-<!-- 					<td  class="align-middle"> -->
-<!-- 						<a th:href="@{'/app/empresa/modificar/' + ${emp.idEmpresa}}" th:text="${emp.nombreEmpresa}"></a> -->
-<!-- 					</td> -->
-<!-- 					<td th:text="${emp.provinciaEmpresa.nombreProvincia}" -->
-<!-- 						class="align-middle"> -->
-<!-- 					</td> -->
-<!-- 					<td th:text="${emp.sectorEmpresa.nombreSectorLaboral}" -->
-<!-- 						class="align-middle"> -->
-<!-- 					</td> -->
-<!-- 					<td th:text="${emp.empleadosEmpresa}" -->
-<!-- 						class="align-middle"> -->
-<!-- 					</td> -->
-
-
+				<tr th:each="insc : ${inscritos}">
+					<td th:text="${insc.idCandidato}"></td>
+					<td th:text="${insc.provincia}"></td>
+					<td th:text="${insc.localidad}"></td>
+					<td th:each="hab : ${insc.habilidades}"
+						th:text="${hab.nombreHabilidad}"></td>
 					<td class="text-center align-middle">
 						<a th:href="@{'/'}"
 							class="btn btn-success btn-sm"

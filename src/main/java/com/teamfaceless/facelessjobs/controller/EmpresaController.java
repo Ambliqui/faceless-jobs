@@ -123,10 +123,16 @@ public class EmpresaController {
 	
 	@GetMapping("/inscritos/{idOferta}")
 	public String goInscritos(@PathVariable Integer idOferta, Model model) {
+		
+		//TODO esto sobra
 		model.addAttribute("provincias", iProvinciaService.findAll());
 		model.addAttribute("sectores", iSectorService.findAll());
+		
 		OfertaEmpleo ofertaPrueba = iOfertaService.findById(idOferta).get();
+		//Pasamos Oferta para pruebas
 		model.addAttribute("oferta", iOfertaService.findById(idOferta).get());
+		
+		//TODO
 		List<InscripcionOfertaInscritoDto> inscritos = iInscriptionService.inscritosOfertaConHabilidades(ofertaPrueba);
 		model.addAttribute("inscritos", inscritos);
 		return "views/app/empresa/inscritos";
