@@ -80,7 +80,7 @@ public class ControllerOferta {
 			Authentication auth) {
 
 		Optional<OfertaEmpleo> oferta = null;
-		oferta = ofertaService.findById(idOfertaEmpleo);
+		oferta =ofertaService.findById(idOfertaEmpleo);
 		Map<String, String> mapaErrores = new HashMap<>();
 
 		if (!Objects.isNull(auth)) {
@@ -105,16 +105,7 @@ public class ControllerOferta {
 //			}
 		}
 
-		model.addAttribute("titulo", oferta.get().getTituloOferta());
-		model.addAttribute("desc", "Descripción");
-		model.addAttribute("descOferta", oferta.get().getDescripcionOferta());
-		model.addAttribute("empresa", empresaService.findEmpresa(oferta.get()));
-		model.addAttribute("idOferta", oferta.get().getIdOfertaEmpleo());
-		model.addAttribute("salario", oferta.get().getSalarioOferta());
-		model.addAttribute("provincia", oferta.get().getProvinciaOferta().getNombreProvincia());
-		model.addAttribute("fechaPubli", oferta.get().getFechaInicioOferta());
-		model.addAttribute("localidad", oferta.get().getLocalidadOferta());
-		model.addAttribute("oferta", oferta);
+		model.addAttribute("oferta", oferta.get());
 
 		return "views/oferta/detalle";
 	}
