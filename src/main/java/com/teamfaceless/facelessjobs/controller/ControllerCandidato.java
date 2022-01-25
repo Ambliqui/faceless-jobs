@@ -1,8 +1,5 @@
 package com.teamfaceless.facelessjobs.controller;
 
-import java.util.Date;
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,7 +10,6 @@ import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Credencial;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
-import com.teamfaceless.facelessjobs.services.ICredencialService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +29,6 @@ public class ControllerCandidato {
 	private ICandidatoService candidatoService;
 	@Autowired
 	private ICandidatoMapper candidatoMapper;
-
-	@Autowired
-	private ICredencialService credencialService;
 
 	@Autowired
 	private HttpSession httpSession;
@@ -89,21 +82,18 @@ public class ControllerCandidato {
 
 		model.addAttribute("sessionCandidato", httpSession.getAttribute("userSession"));
 
-		// modificar datos
-
 		return "views/app/candidato/modify";
 	}
 
 	@PostMapping("/modify")
-	public String candidateModifyData(@Valid @ModelAttribute("candidato") CandidatoModifyDto candidatoModifyDto, BindingResult result,
-			RedirectAttributes redirect, Model model) {
+	public String candidateModifyData(@Valid @ModelAttribute("candidato") CandidatoModifyDto candidatoModifyDto,
+			BindingResult result, RedirectAttributes redirect, Model model) {
 
-				if (result.hasErrors()) {
-					System.out.println("HAY ERRORES");
-					model.addAttribute("sessionCandidato", candidatoModifyDto);
-					return "views/app/candidato/modify";
-				}
-		
+		if (result.hasErrors()) {
+			System.out.println("HAY ERRORES");
+			model.addAttribute("sessionCandidato", candidatoModifyDto);
+			return "views/app/candidato/modify";
+		}
 
 		Candidato candidatoTemp = (Candidato) httpSession.getAttribute("userSession");
 		Credencial credencial = candidatoTemp.getCredencial();
@@ -111,9 +101,7 @@ public class ControllerCandidato {
 		candidatoModifyDto.setIdCandidato(candidatoTemp.getIdCandidato());
 
 		Candidato candidato = candidatoMapper.candidatoModifyDtoToCandidato(candidatoModifyDto);
-		candidatoService.update(candidato);			
-
-		
+		candidatoService.update(candidato);
 
 		httpSession.setAttribute("userSession", candidato);
 		redirect.addFlashAttribute("msg", "Modificado correctamente");
