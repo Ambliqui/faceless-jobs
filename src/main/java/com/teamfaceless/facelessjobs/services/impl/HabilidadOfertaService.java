@@ -73,8 +73,25 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	public HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(OfertaEmpleo oferta, Habilidad habilidad) {
 		return repository.findHabilidadOfertaByOfertaAndHabilidad(oferta, habilidad);
 	}
-	
-	
 
+	@Override
+	public List<HabilidadOferta> findHabilidadesOfertaDurasByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesDuras(oferta.getIdOfertaEmpleo());
+	}
+	
+	@Override
+	public List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesBlandas(oferta.getIdOfertaEmpleo());
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesDurasRestantesByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesDurasRestantesByOferta(oferta.getIdOfertaEmpleo());
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesBlandasRestantesByOferta(oferta.getIdOfertaEmpleo());
+	}
 	
 }

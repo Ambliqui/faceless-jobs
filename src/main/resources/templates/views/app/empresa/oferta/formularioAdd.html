@@ -13,14 +13,21 @@
 		<hr>
 		<section class="row">
 			<div class="col-2"></div>
-			<div class="card row col-2" style="height: fit-content; padding:1%;">
+			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
 				<form th:action="@{/habilidadOferta/guardar}" th:object="${habilidadOferta}" method="POST">
 					<label for="habilidad">Habilidad: </label>
 					
 					<select id="habilidad" th:field="*{habilidad}" class="form-control">
-						<option th:each="habilidadX:${listaHabilidadesRestante}"
-						th:value="${habilidadX.idHabilidad}"
-						th:text="${habilidadX.nombreHabilidad}">
+						<optgroup label="DURAS">
+							<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
+						<optgroup label="BLANDAS">
+							<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
 					</select>	
 					
 					<label for="experiencia">Experiencia (meses): </label>
@@ -32,8 +39,8 @@
 						
 					<label for="isObligatorio">Requerida:</label>
 					<select id="isObligatorio" name="isObligatorio" class="form-control">
-						<option	value=true>SI</option>
-						<option value=false>NO</option>
+						<option	value=true>Requisito</option>
+						<option value=false>Valorable</option>
 					</select>
 					
 					<label for="baremo">Baremo importancia:</label>
@@ -61,9 +68,10 @@
 				</form>
 			</div>
 			
-			<div class="container col-4">
+			<div class="container col-5">
 				<div class="row">
 					<div class="col">
+						<h2 class="text-center">Habilidades Duras</h2>
 						<table class="table table-hover table-bordered">
 							<thead class="table-dark">
 								<tr>
@@ -78,7 +86,7 @@
 									<th>Gestión</th>
 								</tr>
 							</thead>
-							<tr th:each="habilidad:${habilidadesAnadidasEnLaOferta}">
+							<tr th:each="habilidad:${habilidadesDurasAnadidas}">
 								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"></td>
 									
 								<td class="align-middle" th:text="${habilidad.experienciaOferta}"></td>
@@ -86,6 +94,63 @@
 								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"></td>
 								
 								<td class="align-middle" th:text="${habilidad.baremo}"></td>
+								
+								<td class="align-middle">
+									<a th:href="@{'/habilidadOferta/modificar/'+ ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
+										class="btn btn-success btn-sm"
+										role="button"
+										title="Editar Habilidad">
+										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+									</a>
+									<a th:href="@{'/habilidadOferta/eliminar/' + ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-danger btn-sm"
+										role="button"
+										title="Eliminar Habilidad">
+										<i class="fas fa-trash" aria-hidden="true"></i>
+									</a>
+								</td>
+							</tr>
+						</table>
+						
+						
+						<h2 class="text-center">Habilidades Blandas</h2>
+						<table class="table table-hover table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>Habilidad</th>
+									
+									<th>Experiencia</th>
+									
+									<th>Requerida</th>
+									
+									<th>Baremo</th>
+									
+									<th>Gestión</th>
+								</tr>
+							</thead>
+							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+									
+								<td class="align-middle" th:text="${habilidad.experienciaOferta}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+							
+								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+								
+								<td class="align-middle" th:text="${habilidad.baremo}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
 								
 								<td class="align-middle">
 									<a th:href="@{'/habilidadOferta/modificar/'+ ${habilidad.habilidad.idHabilidad}
