@@ -36,4 +36,6 @@ public interface IInscriptionService{
 	 * @return List<InscripcionOfertaInscritoDto>
 	 */
 	List<InscripcionOfertaInscritoDto> inscritosOfertaConHabilidades(OfertaEmpleo ofertaEmpleo);
+	
+	Integer calcularAfinidadCandidato(InscripcionOferta inscripcion);
 }
