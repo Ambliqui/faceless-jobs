@@ -13,6 +13,7 @@ import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
+import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
 

@@ -9,28 +9,16 @@
 	<h1 class="text-center">Inscritos Oferta</h1>
 	<hr>
 	<div class="container">
-	
-	
-	
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Puntuaciones</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Experiencia</a>
-  </li>
-</ul>
-	
-	
-	<div class="row">
-<!-- 		<div class="col-2 border border-dark text-center"> -->
-<!-- 			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a> -->
-<!-- 			<p>Aqui van los filtros</p> -->
-<!-- 		</div> -->
-		<div class="col">
-			<span th:if="${inscritos.size() < 1}">No hay candidatos inscritos</span>
-<!-- 			<tr th:each="insc : ${oferta.inscripcionOfertaList}"> -->
-			<table class="table table-hover table-bordered">
+		<nav>
+			<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-puntuaciones" type="button" role="tab" aria-controls="nav-puntuaciones" aria-selected="true">Puntuaciones</button>
+				<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-seleccionados" type="button" role="tab" aria-controls="nav-seleccionados" aria-selected="false">Seleccionados</button>
+				<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-descartados" type="button" role="tab" aria-controls="nav-descartados" aria-selected="false">Descartados</button>
+			</div>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade show active" id="nav-puntuaciones" role="tabpanel" aria-labelledby="nav-puntuaciones-tab">
+				<table class="table table-hover table-bordered">
 				<thead class="table-dark">
 					<tr>
 						<th>Candidato</th>
@@ -46,25 +34,24 @@
 						<th class="text-center">Gestión</th>
 					</tr>
 				</thead>
-
 				<tr th:each="insc : ${inscritos}">
 					<td th:text="${insc.idCandidato}"></td>
 					<td th:text="${insc.provincia}"></td>
 					<td th:text="${insc.localidad}"></td>
 					<td th:each="hab : ${insc.habilidades}"
-						th:text="${hab.nombreHabilidad}"
+						th:text="${hab.notaHabilidadCandidato}"
 						class="text-center">
 					</td>
 					<td class="text-center">75%</td>
 					<td class="text-center align-middle">
-						<a th:href="@{'/'}"
+						<a th:href="@{'#'}"
 							class="btn btn-success btn-sm"
 							role="button"
 							title="Aceptar Candidato">
 							<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 						</a>
-						<a th:href="@{'/'}"
-							onclick="return confirm('¿Estas seguro?')"
+						<a th:href="@{'#'}"
+							
 							class="btn btn-danger btn-sm"
 							role="button"
 							title="Descartar Candidato">
@@ -73,13 +60,29 @@
 					</td>
 				</tr>
 			</table>
-			<div id="warningVacio"
-				role="alert"
-				th:if="${inscritos.size() < 1}" 
-				class="alert alert-danger col-md-12  text-center align-middle">No hay candidatos inscritos
+			<div class="col">
+				<div id="warningVacio"
+					role="alert"
+					th:if="${inscritos.size() < 1}" 
+					class="alert alert-danger col-md-12  text-center align-middle">No hay candidatos inscritos
+				</div>
+			</div>
+			</div>
+<!-- Panel de seleccionados -->
+			<div class="tab-pane fade" id="nav-seleccionados" role="tabpanel" aria-labelledby="nav-seleccionados-tab">
+				Esta es mi tabla de seleccionados
+			</div>
+<!-- Panel de descartados -->
+			<div class="tab-pane fade" id="nav-descartados" role="tabpanel" aria-labelledby="nav-descartados-tab">
+				Esta es mi tabla de	descartados
 			</div>
 		</div>
-	</div>
+<!-- 		<div class="row"> -->
+<!-- 		<div class="col-2 border border-dark text-center"> -->
+<!-- 			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a> -->
+<!-- 			<p>Aqui van los filtros</p> -->
+<!-- 		</div> -->
+<!-- 		</div> -->
 	</div>
 <!-- 	<footer th:replace="plantilla/template :: footer"></footer> -->
   <footer th:replace="fragments/base :: footer"></footer>
