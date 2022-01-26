@@ -90,7 +90,7 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	}
 
 	/**
-	 * Devuelve una lsita de HabilidadCandidato a partir de una lista de Habilidad genérica
+	 * Devuelve una lista de HabilidadCandidato a partir de una lista de Habilidad genérica
 	 * @param habilidades
 	 * @param candidato
 	 * @return Lista de HabilidadCandidato 
@@ -98,11 +98,18 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	@Override
 	public List<HabilidadCandidato> especializacionHabilidadesCandidato(List<Habilidad> habilidades, Candidato candidato) {
 		
+		List<HabilidadCandidato> habilidadesCandidato = candidato.getHabilidadCandidatoList();
+		List<HabilidadCandidato> habilidadesComprobadas = new ArrayList<>();
+		
 		for (Habilidad habilidad : habilidades) {
-			
+			for (HabilidadCandidato habCand : habilidadesCandidato) {
+				if (habCand.getHabilidad().equals(habilidad)) {
+					habilidadesComprobadas.add(habCand);
+					break;
+				}
+			}
 		}
-		return null;
+		return habilidadesComprobadas;
 	}
-	
 	
 }

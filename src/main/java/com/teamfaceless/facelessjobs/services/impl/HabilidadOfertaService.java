@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadOfertaRepository;
 import com.teamfaceless.facelessjobs.model.Habilidad;
+import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
@@ -107,6 +108,7 @@ public class HabilidadOfertaService implements IHabilidadOfertaService {
 	}
 
 	/**
+	 * @author Mefisto
 	 * Devuelve la lista de Habilidades de una oferta
 	 * @param habilidadesOferta
 	 * @return Lista de Habilidad de una oferta
@@ -122,15 +124,27 @@ public class HabilidadOfertaService implements IHabilidadOfertaService {
 	}
 
 	/**
+	 * @author Mefisto
 	 * Devuelve la especificacion de de las habilidades de una oferta
 	 * @param habilidades
 	 * @param OfertaEmpleo
 	 * @return Lista HabilidadOferta
 	 */
 	@Override
-	public List<HabilidadOferta> especializacionHabilidadesOferta(List<Habilidad> habilidades, OfertaEmpleo OfertaEmpleo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HabilidadOferta> especializacionHabilidadesOferta(List<Habilidad> habilidades, OfertaEmpleo ofertaEmpleo) {
+	
+		List<HabilidadOferta> habilidadesOferta = ofertaEmpleo.getHabilidadOfertaList();
+		List<HabilidadOferta> habilidadesComprobadas = new ArrayList<>();
+		
+		for (Habilidad habilidad : habilidades) {
+			for (HabilidadOferta habOfer : habilidadesOferta) {
+				if (habOfer.getHabilidad().equals(habilidad)) {
+					habilidadesComprobadas.add(habOfer);
+					break;
+				}
+			}
+		}
+		return habilidadesComprobadas;
 	}
 
 }
