@@ -3,8 +3,6 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-
-	<meta charset="UTF-8">
 </head>
 
 
@@ -16,7 +14,7 @@
 
 
 
-	<main class="container wrapper-login">
+	<main class="container wrapper-login content">
 
 		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 		<div class="row g-5 justify-content-center p-5">
@@ -59,18 +57,21 @@
 			</div>
 			</form>
 
+			<div class="row alert-danger mt-3 p-3 text-center" th:if="${msgError}">
+				<span th:text="${msgError}"></span>
+			</div>
+
 			<div class="row mt-3">
 				<div class=" text-center align-middle">
 
 
 					<a th:href="@{/candidato/registro}" class="btn btn-secondary" tabindex="13">No tengo cuenta,
 						registrarme.</a>
-					<div class="row alert-danger text-center" th:if="${msgError}">
-						<p th:text="${msgError}"></p>
-					</div>
+
+
 
 				</div>
-				</div>
+			</div>
 
 
 
