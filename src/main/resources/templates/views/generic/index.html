@@ -2,41 +2,34 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
 </head>
 
 <body>
-
   <nav th:replace="fragments/base :: navbar"></nav>
+  <h1 class="text-center align-middle text-secondary mt-3 display-3">Ofertas de empleo disponibles</h1>
 
-
-
-  <h1 th:text="${'Ofertas más recientes'}" class="text-center align-middle text-secondary" style="text-decoration: underline;"></h1>
   <main class="container content">
-    <div class="row m-3">
+    <section class="row m-3">
       <div th:each="oferta:${ofertas}" class="col-md-6 col-xxl-3 my-3">
         <div class="card text-center">
-          <div class="card-header" th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
+          <header class="card-header" th:text="${oferta.empresa.nombreEmpresa}"></header>
           <div class="card-body">
-            <h5 class="card-title" th:text="${oferta.tituloOferta}">Special title treatment</h5>
+            <h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
             <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
-              With supporting text below as a natural lead-in to additional content.
             </p>
-            <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}" th:text="${'Detalle'}"
-              class="btn btn-primary">Button</a>
+            <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary">Detalle</a>
           </div>
-          <div class="card-footer text-muted" th:text="${oferta.fechaInicioOferta}">2 days ago</div>
+          <footer class="card-footer text-muted" th:text="${oferta.fechaInicioOferta}"></footer>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <div class="d-flex justify-content-center">
+  <nav class="d-flex justify-content-center">
     <nav class="margin-auto" th:replace="fragments/paginator-nav :: paginator"></nav>
-  </div>
-
-
+  </nav>
 
   <footer th:replace="fragments/base :: footer"></footer>
   <th:block th:replace="fragments/base :: script"></th:block>

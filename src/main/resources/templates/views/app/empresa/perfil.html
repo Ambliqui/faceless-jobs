@@ -3,6 +3,7 @@
 <head th:replace="fragments/base :: head"></head>
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
+	
 	<main class="row">
 		<hr>
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
@@ -52,6 +53,9 @@
 		</section>
 		<aside class="col border border-dark">Esto es el aside</aside>
 	</main>
+
+	<div class="content"></div>
+
 	<footer th:replace="fragments/base :: footer"></footer>
   	<th:block th:replace="fragments/base :: script"></th:block>
 </body>

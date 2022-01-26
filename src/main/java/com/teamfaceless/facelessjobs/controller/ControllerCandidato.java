@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,6 +36,7 @@ public class ControllerCandidato {
 
 	@Autowired
 	private HttpSession httpSession;
+	private Model addAttribute;
 
 	@GetMapping("/registro")
 	public String formRegistro(Model model, CandidatoRegistroDto candidatoRegistroDto) {
@@ -77,7 +79,14 @@ public class ControllerCandidato {
 	}
 
 	@GetMapping("/perfil")
-	public String goToCandidateProfile() {
+	public String goToCandidateProfile(Model model) {
+
+		Candidato candidato = (Candidato) httpSession.getAttribute("userSession");
+
+		model.addAttribute("idCandidato", candidato.getIdCandidato());
+
+		
+
 		return "views/app/candidato/perfil";
 	}
 
