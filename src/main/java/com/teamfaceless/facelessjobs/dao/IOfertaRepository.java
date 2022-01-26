@@ -31,7 +31,7 @@ public interface IOfertaRepository extends JpaRepository<OfertaEmpleo,Integer> {
 			+ "(?4 is null or lower(o.sectorOferta.nombreSectorLaboral) like lower(concat('%',?4,'%'))) and "
 			+ "(?5 is null or o.salarioOferta > ?5) and "
 			+ "(?6 is null or o.salarioOferta < ?6) ")
-	List<OfertaEmpleo> findByTituloAndDescripcion(
+	Page<OfertaEmpleo> findByTituloAndDescripcion(
 			String titulo, String descrpcion,String provincia,String sector,
 			Integer salarioMinimo, Integer salarioMaximo, Pageable pageable); 
 	

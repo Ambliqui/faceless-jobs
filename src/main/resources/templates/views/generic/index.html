@@ -2,37 +2,88 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
 </head>
 
 <body>
-  <nav th:replace="fragments/base :: navbar"></nav>
-  <h1 class="text-center align-middle text-secondary mt-3 display-3">Ofertas de empleo disponibles</h1>
+	<nav th:replace="fragments/base :: navbar"></nav>
+	<h1 class="text-center align-middle text-secondary mt-3 display-3">Ofertas
+		de empleo disponibles</h1>
 
-  <main class="container content">
-    <section class="row m-3">
-      <div th:each="oferta:${ofertas}" class="col-md-6 col-xxl-3 my-3">
-        <div class="card text-center">
-          <header class="card-header" th:text="${oferta.empresa.nombreEmpresa}"></header>
-          <div class="card-body">
-            <h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
-            <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
-            </p>
-            <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary">Detalle</a>
-          </div>
-          <footer class="card-footer text-muted" th:text="${oferta.fechaInicioOferta}"></footer>
-        </div>
-      </div>
-    </section>
-  </main>
+	<main class="container content">
+		<section class="row">
+			<div class="col-2">
+<h1 th:text="${'Filtro'}"></h1>
+				<form action="/" method="get">
+					<div class="form-group">
+						<label for="tituloOferta">Título</label> <input type="text"
+							class="form-control" id="tituloOferta" placeholder="Título..."
+							name="titulo">
+					</div>
+					<div class="form-group">
+						<label for="palabraClave">Palabra clave</label> <input type="text"
+							class="form-control" id="palabraClave"
+							placeholder="Palabra clave..." name="descripcion">
+					</div>
 
-  <nav class="d-flex justify-content-center">
-    <nav class="margin-auto" th:replace="fragments/paginator-nav :: paginator"></nav>
-  </nav>
+					<div class="form-group">
+						<label for="provincia">Provincia</label> <select
+							class="form-control" id="provincia" name="provincia">
+							<option th:each="p:${provincias}" th:value="${p.nombreProvincia}"
+								th:text="${p.nombreProvincia}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="sector">Sector</label> <select class="form-control"
+							id="sector" name="sector">
+							<option th:each="s:${sectores}"
+								th:value="${s.nombreSectorLaboral}"
+								th:text="${s.nombreSectorLaboral}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="salario">Salario Minimo</label> <input type="number"
+							step="500" class="form-control" id="salario"
+							placeholder="Salario minimo..." name="salarioMinimo">
+					</div>
 
-  <footer th:replace="fragments/base :: footer"></footer>
-  <th:block th:replace="fragments/base :: script"></th:block>
+					<br>
+					<button type="submit" class="btn btn-primary">Filtrar</button>
+					<button type="submit" formaction="/limpiarFiltro" class="btn btn-dark">Limpiar filtro</button>
+				</form>
+			</div>
+		<div class="col-8">
+			<div th:each="oferta:${ofertas}">
+				<div class="card text-center">
+					<header class="card-header"
+						th:text="${oferta.empresa.nombreEmpresa}"></header>
+					<div class="card-body">
+						<h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
+						<p class="recortar-contenido card-text"
+							th:text="${oferta.descripcionOferta}"></p>
+						<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+							class="btn btn-primary">Detalle</a>
+					</div>
+					<footer class="card-footer text-muted"
+						th:text="${oferta.fechaInicioOferta}"></footer>
+				</div>
+				<br>
+			</div>
+			</div>
+		</section>
+		<p class="form-text text-danger text-center align-middle"
+			th:text="${msgError}"></p>
+
+	</main>
+
+	<nav class="d-flex justify-content-center">
+		<nav class="margin-auto"
+			th:replace="fragments/paginator-nav :: paginator"></nav>
+	</nav>
+
+	<footer th:replace="fragments/base :: footer"></footer>
+	<th:block th:replace="fragments/base :: script"></th:block>
 </body>
 
 </html>
