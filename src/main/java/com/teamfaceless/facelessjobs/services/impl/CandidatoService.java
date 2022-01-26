@@ -27,6 +27,11 @@ public class CandidatoService implements ICandidatoService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
+	public Candidato findById(Integer id) {
+		return repository.findById(id).get();
+	}
+	
+	@Override
 	public List<Candidato> findAll() {
 		return repository.findAll();
 	}

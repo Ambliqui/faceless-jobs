@@ -13,11 +13,11 @@ import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
 public interface IHabilidadOfertaRepository extends JpaRepository<HabilidadOferta,Integer>{
 
-	@Query("FROM HabilidadOferta WHERE ofertaEmpleo = :oferta")
-	List<HabilidadOferta> findHabilidadesOfertaByOferta(@Param("oferta") OfertaEmpleo oferta);
+//	@Query("FROM HabilidadOferta WHERE ofertaEmpleo = :oferta")
+//	List<HabilidadOferta> findHabilidadesOfertaByOferta(@Param("oferta") OfertaEmpleo oferta);
 	
-	@Query("SELECT habilidad FROM HabilidadOferta WHERE oferta_id_habilidad = :oferta")
-	List<Habilidad> findHabilidadesByOferta(@Param("oferta") OfertaEmpleo oferta);
+//	@Query("SELECT habilidad FROM HabilidadOferta WHERE oferta_id_habilidad = :oferta")
+//	List<Habilidad> findHabilidadesByOferta(@Param("oferta") OfertaEmpleo oferta);
 	
 	@Query("FROM HabilidadOferta WHERE ofertaEmpleo = :thisOferta AND habilidad = :thisHabilidad")
 	HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(@Param("thisOferta") OfertaEmpleo oferta, @Param("thisHabilidad") Habilidad habilidad);
@@ -30,13 +30,13 @@ public interface IHabilidadOfertaRepository extends JpaRepository<HabilidadOfert
 			+ "inner join habilidad_oferta "
 			+ "on habilidad.id_habilidad = habilidad_oferta.habilidad_id_habilidad "
 			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 1",nativeQuery = true)
-	List<HabilidadOferta> findHabilidadesDuras(@Param("oferta") int idOferta);
+	List<HabilidadOferta> findHabilidadesOfertaDurasByOferta(@Param("oferta") int idOferta);
 	
 	@Query(value="SELECT habilidad_id_habilidad,oferta_id_habilidad,experiencia_oferta,baremo_habilidad_oferta,is_obligatorio_habilidad_oferta FROM habilidad "
 			+ "inner join habilidad_oferta "
 			+ "on habilidad.id_habilidad = habilidad_oferta.habilidad_id_habilidad "
 			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 0",nativeQuery = true)
-	List<HabilidadOferta> findHabilidadesBlandas(@Param("oferta") int idOferta);
+	List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(@Param("oferta") int idOferta);
 	
 	@Query(value="SELECT id_habilidad FROM habilidad "
 			+ "where not exists ( "
