@@ -97,7 +97,10 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	 */
 	@Override
 	public List<HabilidadCandidato> especializacionHabilidadesCandidato(List<Habilidad> habilidades, Candidato candidato) {
-		// TODO Auto-generated method stub
+		
+		for (Habilidad habilidad : habilidades) {
+			
+		}
 		return null;
 	}
 	
