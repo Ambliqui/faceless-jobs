@@ -20,59 +20,59 @@
 				    <p th:case="1" th:text="${errorMsg}" class="alert alert-warning"/>
 				    <p th:case="2" th:text="${errorMsg}" class="alert alert-danger"/>
 				</div>
-				<form th:action="@{/habilidadOferta/guardar}" th:object="${habilidadOferta}" method="POST">
-					<fieldset th:disabled="${errorType == 2} ?: 'disabled'">
-						<label for="habilidad">Habilidad: </label>
+				<form th:action="@{/app/empresa/oferta/habilidad/guardar}" th:object="${habilidadOferta}" method="POST">
+					<label for="habilidad">Habilidad: </label>
+					
+					<select id="habilidad" th:field="*{habilidad}" class="form-control" th:disabled="${!isAllowedToAdd}">
+						<optgroup label="DURAS">
+							<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
+						<optgroup label="BLANDAS">
+							<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
+					</select>	
+					
+					<label for="experiencia">Experiencia (meses): </label>
+					
+					<input id="experiencia" type="number" min="0" 
+						th:disabled="${!isAllowedToAdd}"
+						th:field="*{experienciaOferta}"
+						class="form-control"
+						required>
 						
-						<select id="habilidad" th:field="*{habilidad}" class="form-control">
-							<optgroup label="DURAS">
-								<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
-									th:value="${habilidadX.idHabilidad}"
-									th:text="${habilidadX.nombreHabilidad}">
-							</optgroup>
-							<optgroup label="BLANDAS">
-								<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
-									th:value="${habilidadX.idHabilidad}"
-									th:text="${habilidadX.nombreHabilidad}">
-							</optgroup>
-						</select>	
-						
-						<label for="experiencia">Experiencia (meses): </label>
-						
-						<input id="experiencia" type="number" min="0"
-							th:field="*{experienciaOferta}"
+					<label for="isObligatorio">Requerida:</label>
+					<select id="isObligatorio" name="isObligatorio" class="form-control" th:disabled="${!isAllowedToAdd}">
+						<option	value=true>Requisito</option>
+						<option value=false>Valorable</option>
+					</select>
+					
+					<label for="baremo">Baremo importancia:</label>
+					<input id="baremo" type="range" min="1" max="9"
+						th:disabled="${!isAllowedToAdd}"
+						th:field="*{baremo}"
+						style="width:100%"
+						required
+						onmousemove="valorBaremo.innerHTML=baremo.value">
+					<p class="text-center" id=valorBaremo th:value="${habilidadOferta.baremo}">5</p>
+					
+					<input type="hidden" name="ofertaEmpleo" th:disabled="${!isAllowedToAdd}"
+							th:value = "${ofertaEmpleo.idOfertaEmpleo}"
 							class="form-control"
-							required>
-							
-						<label for="isObligatorio">Requerida:</label>
-						<select id="isObligatorio" name="isObligatorio" class="form-control">
-							<option	value=true>Requisito</option>
-							<option value=false>Valorable</option>
-						</select>
+					/>
+					
 						
-						<label for="baremo">Baremo importancia:</label>
-						<input id="baremo" type="range" min="1" max="9"
-							th:field="*{baremo}"
-							style="width:100%"
-							required
-							onmousemove="valorBaremo.innerHTML=baremo.value">
-						<p class="text-center" id=valorBaremo th:value="${habilidadOferta.baremo}">5</p>
-						
-						<input type="hidden" name="ofertaEmpleo"
-								th:value = "${ofertaEmpleo.idOfertaEmpleo}"
-								class="form-control"
-						/>
-						
-							
-						<br>
-						
-						<div class="text-center">
-							<input th:disabled="${isAllowedToAdd} ? 'false' : 'true' "type="submit" th:value="Añadir"
-									class="btn btn-primary"/>
-									
-							<button class="btn btn-warning" th:formaction="@{/oferta/listado}" formNoValidate>Volver</button>
-						</div>
-					</fieldset>
+					<br>
+					
+					<div class="text-center">
+						<input th:disabled="${!isAllowedToAdd}" type="submit" th:value="Añadir"
+								class="btn btn-primary"/>
+								
+						<button class="btn btn-warning" th:formaction="@{/app/empresa/oferta/listado/}" formNoValidate>Volver</button>
+					</div>
 				</form>
 			</div>
 			
@@ -104,14 +104,14 @@
 								<td class="align-middle" th:text="${habilidad.baremo}"></td>
 								
 								<td class="align-middle">
-									<a th:href="@{'/habilidadOferta/modificar/'+ ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/empresa/oferta/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										class="btn btn-success btn-sm"
 										role="button"
 										title="Editar Habilidad">
 										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 									</a>
-									<a th:href="@{'/habilidadOferta/eliminar/' + ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/empresa/oferta/habilidad/eliminar/' + ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										onclick="return confirm('¿Estas seguro?')"
 										class="btn btn-danger btn-sm"
@@ -161,14 +161,14 @@
 								</td>
 								
 								<td class="align-middle">
-									<a th:href="@{'/habilidadOferta/modificar/'+ ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/empresa/oferta/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										class="btn btn-success btn-sm"
 										role="button"
 										title="Editar Habilidad">
 										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 									</a>
-									<a th:href="@{'/habilidadOferta/eliminar/' + ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/empresa/oferta/habilidad/eliminar/' + ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										onclick="return confirm('¿Estas seguro?')"
 										class="btn btn-danger btn-sm"
