@@ -45,8 +45,8 @@
 		<input th:type="${btn}" 
 			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
 			class="btn btn-success" id="btn" th:value="${'Inscribirse'}"/>
-		<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
-
+		<a href="/" class="btn btn-primary" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')">Volver</a>
+		<a href="/app/empresa/oferta/listado" class="btn btn-primary" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')">Volver</a>
 		</div>
 		
 	</form>

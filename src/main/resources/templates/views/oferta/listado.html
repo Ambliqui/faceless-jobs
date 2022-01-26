@@ -13,7 +13,7 @@
   <main class="container content">
 
  <div class="">
- <a class="btn btn-primary" th:href="@{/app/empresa/oferta/formulario}">Añadir</a>
+
  </div>
 
     <div class="row m-3">
@@ -38,6 +38,10 @@
             	th:text="${'Eliminar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-danger">Button</a>
+            	   <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Detalle'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-dark">Button</a>
           </div>
           <div class="card-footer text-muted bg-light" th:text="${oferta.fechaInicioOferta}">2 days ago</div>
         </div>
