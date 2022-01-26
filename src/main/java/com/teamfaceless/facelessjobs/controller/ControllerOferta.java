@@ -201,7 +201,7 @@ public class ControllerOferta {
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("hoy",hoy);
 			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
-			return "views/app/empresa/oferta/formulario";
+			return "views/app/empresa/oferta/formularioModificarOferta";
 		}
 
 		oferta.setFechaInicioOferta(hoy);
