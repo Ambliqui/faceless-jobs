@@ -14,4 +14,6 @@ public interface IHabilidadCandidatoService {
 	List<HabilidadCandidato> findHabilidadesCandidatoBlandasByCandidato(Candidato candidato);
 	List<Habilidad> findHabilidadesDurasRestantesByCandidato(Candidato candidato);
 	List<Habilidad> findHabilidadesBlandasRestantesByCandidato(Candidato candidato);
+	List<Habilidad> generalizacionHabilidadesCandidato (List<HabilidadCandidato> habilidadesCandidato);
+	List<HabilidadCandidato> especializacionHabilidadesCandidato (List<Habilidad> habilidades, Candidato candidato);
 }

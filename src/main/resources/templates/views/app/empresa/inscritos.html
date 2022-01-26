@@ -9,11 +9,24 @@
 	<h1 class="text-center">Inscritos Oferta</h1>
 	<hr>
 	<div class="container">
+	
+	
+	
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Puntuaciones</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Experiencia</a>
+  </li>
+</ul>
+	
+	
 	<div class="row">
-		<div class="col-2 border border-dark text-center">
-			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a>
-			<p>Aqui van los filtros</p>
-		</div>
+<!-- 		<div class="col-2 border border-dark text-center"> -->
+<!-- 			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a> -->
+<!-- 			<p>Aqui van los filtros</p> -->
+<!-- 		</div> -->
 		<div class="col">
 			<span th:if="${inscritos.size() < 1}">No hay candidatos inscritos</span>
 <!-- 			<tr th:each="insc : ${oferta.inscripcionOfertaList}"> -->

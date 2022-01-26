@@ -72,6 +72,34 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	public HabilidadCandidato findHabilidadCandidatoByCandidatoAndHabilidad(Candidato candidato, Habilidad habilidad) {
 		return repository.findHabilidadCandidatoByCandidatoAndHabilidad(candidato, habilidad);
 	}
+
+	/**
+	 * Devuelve una lista de Habilidad a partir de las habilidades del candidato
+	 * @param habilidadesCandidato
+	 * @return Lista Habilidad
+	 */
+	@Override
+	public List<Habilidad> generalizacionHabilidadesCandidato(List<HabilidadCandidato> habilidadesCandidato) {
+
+		//Desmonto en habilidades simples las habilidades del candidato
+		List<Habilidad> habilidadCandidatoSimple = new ArrayList<>();
+		for (HabilidadCandidato habCand  : habilidadesCandidato) {
+			habilidadCandidatoSimple.add(habCand.getHabilidad());
+		}
+		return habilidadCandidatoSimple;
+	}
+
+	/**
+	 * Devuelve una lsita de HabilidadCandidato a partir de una lista de Habilidad genérica
+	 * @param habilidades
+	 * @param candidato
+	 * @return Lista de HabilidadCandidato 
+	 */
+	@Override
+	public List<HabilidadCandidato> especializacionHabilidadesCandidato(List<Habilidad> habilidades, Candidato candidato) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
