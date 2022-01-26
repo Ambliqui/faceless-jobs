@@ -9,10 +9,11 @@
 		<h2 class="text-center">En pruebas</h2>
 		<hr>
 		<nav class="col-2 border border-dark">Esto seria un nav</nav>
+		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 		<section class="col-8 border border-dark text-center">
 			<section class="row inline-block">
 				<figure class="col">
-					<a href="/app/empresa/modificar/0"><img width="200" alt="Datos Empresa"
+					<a href="/app/empresa/modify"><img width="200" alt="Datos Empresa"
 						src="/images/app/DatosEmpresariales.png" role="button" class="rounded-circle">
 					<figcaption>Datos Empresariales</figcaption>
 					</a>
