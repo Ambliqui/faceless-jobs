@@ -1,5 +1,8 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 @RequestMapping("/habilidadOferta")
 public class ControllerHabilidadOferta {
 	
-//	private int limiteHabilidades = 5;
+	private int limiteHabilidades = 5;
 	
 	@Autowired
 	private IHabilidadService habService;
@@ -42,12 +45,49 @@ public class ControllerHabilidadOferta {
 		
 		model.addAttribute("habilidadOferta", new HabilidadOferta());
 		
-		model.addAttribute("habilidadesDurasAnadidas", habOfeService.findHabilidadesOfertaDurasByOferta(ofertaEmpleo));
-		model.addAttribute("habilidadesBlandasAnadidas", habOfeService.findHabilidadesOfertaBlandasByOferta(ofertaEmpleo));
+		List<HabilidadOferta> habilidadesDurasAnadidas = habOfeService.findHabilidadesOfertaDurasByOferta(ofertaEmpleo);
+		model.addAttribute("habilidadesDurasAnadidas", habilidadesDurasAnadidas);
+		List<HabilidadOferta> habilidadesBlandasAnadidas = habOfeService.findHabilidadesOfertaBlandasByOferta(ofertaEmpleo);
+		model.addAttribute("habilidadesBlandasAnadidas", habilidadesBlandasAnadidas);
 //		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
 		
-		model.addAttribute("listaHabilidadesBlandasRestante", habOfeService.findHabilidadesBlandasRestantesByOferta(ofertaEmpleo));
-		model.addAttribute("listaHabilidadesDurasRestante", habOfeService.findHabilidadesDurasRestantesByOferta(ofertaEmpleo));
+		boolean isMaxDuras = habilidadesDurasAnadidas.size()>=limiteHabilidades;
+		boolean isMaxBlandas = habilidadesBlandasAnadidas.size()>=limiteHabilidades;
+		boolean isAllowedToAdd = true;
+		
+		List<Habilidad> listaHabilidadesDurasRestante = new ArrayList<>();
+		List<Habilidad> listaHabilidadesBlandasRestante = new ArrayList<>();
+		
+		String errorMsg = "";
+		int errorType = 0;
+		
+		if(isMaxBlandas&&isMaxDuras) {
+			errorMsg="Máximo alcanzado, no se pueden añadir más de " + limiteHabilidades + " habilidades en cada categoría";
+			isAllowedToAdd=false;
+			errorType=2;
+		}
+		else {
+			if(!isMaxDuras) {
+				listaHabilidadesDurasRestante=habOfeService.findHabilidadesDurasRestantesByOferta(ofertaEmpleo);
+			}
+			else {
+				errorMsg="Máximo alcanzado, no se pueden añadir más de " + limiteHabilidades + " habilidades duras";
+				errorType=1;
+			}
+			if(!isMaxBlandas) {
+					listaHabilidadesBlandasRestante=habOfeService.findHabilidadesBlandasRestantesByOferta(ofertaEmpleo);
+			}
+			else {
+				errorMsg="Máximo alcanzado, no se pueden añadir más de " + limiteHabilidades + " habilidades blandas";
+				errorType=1;
+			}
+		}
+		
+		model.addAttribute("listaHabilidadesBlandasRestante", listaHabilidadesBlandasRestante);
+		model.addAttribute("listaHabilidadesDurasRestante", listaHabilidadesDurasRestante);
+		model.addAttribute("errorMsg", errorMsg);
+		model.addAttribute("isAllowedToAdd", isAllowedToAdd);
+		model.addAttribute("errorType", errorType);
 //		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
 		
 		return "views/app/empresa/oferta/formularioAdd";
