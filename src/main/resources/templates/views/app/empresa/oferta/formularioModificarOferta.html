@@ -16,9 +16,13 @@
 		<div class="row ">
 			<section class="col-2"></section>
 			<section class="col-8">
-				<form class="container row g-3" th:action="@{/app/empresa/oferta/guardar}"
+				<form class="container row g-3" th:action="@{/app/empresa/oferta/modificar}"
 					th:object="${oferta}" method="post">
 					<h5>Datos de oferta</h5>
+						<div class="col-md-12">
+ 	<input id="idOfertaEmpleo" type="hidden" th:field="*{idOfertaEmpleo}"  class="form-control"  />
+						
+					</div>
 					<div class="col-md-12">
 						<label for="titulOferta">Título</label> <input id="tituloOferta"
 							th:field="*{tituloOferta}" placeholder="Escribe el título de la oferta..." class="form-control" />
