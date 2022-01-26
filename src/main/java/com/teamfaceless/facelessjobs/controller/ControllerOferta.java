@@ -36,7 +36,7 @@ import com.teamfaceless.facelessjobs.services.ISectorService;
 import com.teamfaceless.facelessjobs.validations.IValidations;
 
 @Controller
-@RequestMapping("/oferta")
+@RequestMapping("/app/empresa/oferta")
 public class ControllerOferta {
 	@Autowired
 	private IOfertaService ofertaService;
@@ -123,7 +123,7 @@ public class ControllerOferta {
 		model.addAttribute("sectores", sectorService.findAll());
 		model.addAttribute("oferta", oferta);
 		model.addAttribute("hoy",hoy);
-		return "views/oferta/formulario";
+		return "views/app/empresa/oferta/formulario";
 	}
 
 	@GetMapping(value = "/formularioModificar/{idOfertaEmpleo}")
@@ -132,14 +132,14 @@ public class ControllerOferta {
 		if (idOfertaEmpleo > 0) {
 			oferta = ofertaService.findById(idOfertaEmpleo);
 		} else {
-			return "redirect:oferta/listado";
+			return "redirect:/app/empresa/oferta/listado";
 		}
 		model.addAttribute("provincias", provinciaService.findAll());
 		model.addAttribute("sectores", sectorService.findAll());
-		model.addAttribute("oferta", oferta);
+		model.addAttribute("oferta", oferta.get());
 		model.addAttribute("value", "Editar");
 		model.addAttribute("titulo", "Editar ofertas");
-		return "views/oferta/formularioModificar";
+		return "views/app/empresa/oferta/formularioModificarOferta";
 	}
 
 	@PostMapping(value = "/guardar")
@@ -156,7 +156,7 @@ public class ControllerOferta {
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("hoy",hoy);
 			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
-			return "views/oferta/formulario";
+			return "views/app/empresa/oferta/formulario";
 		} 
 		
 		if (rol.getNombre().equals("ROLE_EMPRESA")) {
@@ -169,7 +169,7 @@ public class ControllerOferta {
 		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
-		return "redirect:listado";
+		return "redirect:/app/empresa/oferta/listado";
 	}
 	@PostMapping(value = "/modificar")
 	public String modificarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,
@@ -185,7 +185,7 @@ public class ControllerOferta {
 			model.addAttribute("provincias", provinciaService.findAll());
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("hoy",hoy);
-			return "views/oferta/formularioModificar";
+			return "views/app/empresa/oferta/formularioModificarOferta";
 		} 
 		
 		if (rol.getNombre().equals("ROLE_EMPRESA")) {
@@ -201,12 +201,13 @@ public class ControllerOferta {
 			model.addAttribute("sectores", sectorService.findAll());
 			model.addAttribute("hoy",hoy);
 			model.addAttribute("msgErrorFecha","La fecha de fin no puede ser anterior a la fecha de hoy.");
-			return "views/oferta/formulario";
+			return "views/app/empresa/oferta/formulario";
 		}
+
 		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
 		System.out.println("Oferta añadida con exito.");
-		return "redirect:listado";
+		return "redirect:/app/empresa/oferta/listado";
 	}
 	
 
@@ -215,7 +216,7 @@ public class ControllerOferta {
 		ofertaService.delete(idOfertaEmpleo);
 		System.out.println("Oferta eliminada con exito.");
 
-		return "redirect:/oferta/listado";
+		return "redirect:/app/empresa/oferta/listado";
 	}
 
 	@GetMapping(value = "/confirmar/{idOfertaEmpleo}")
@@ -223,6 +224,6 @@ public class ControllerOferta {
 		model.addAttribute("pregunta", "¿Estás seguro/a de eliminar esta oferta?");
 		model.addAttribute("msg", "Una vez eliminada,¡no se prodrá restablecer!");
 		model.addAttribute("id", idOfertaEmpleo);
-		return "views/oferta/confirmar";
+		return "views/app/empresa/oferta/confirmar";
 	}
 }

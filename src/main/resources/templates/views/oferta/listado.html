@@ -12,7 +12,9 @@
   
   <main class="container content">
 
- 
+ <div class="">
+ <a class="btn btn-primary" th:href="@{/app/empresa/oferta/formulario}">Añadir</a>
+ </div>
 
     <div class="row m-3">
       <div th:each="oferta:${ofertas}" class="container">
@@ -24,7 +26,7 @@
             <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
               With supporting text below as a natural lead-in to additional content.
             </p>
-            <a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
+            <a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Editar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success">Button</a>
@@ -32,7 +34,7 @@
             	th:text="${'Ver Inscritos'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-warning">Button</a>
-            <a th:href="@{'/oferta/confirmar/' + ${oferta.idOfertaEmpleo}}"
+            <a th:href="@{'/app/empresa/oferta/confirmar/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Eliminar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-danger">Button</a>

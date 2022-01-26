@@ -60,14 +60,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/habilidad/**",
                         "/css/**")
-                        
                 .permitAll()
                 
                 .antMatchers(AUTH_WHITELIST).permitAll()
 
                 .antMatchers("/app/candidato/**").hasAnyAuthority("ROLE_CANDIDATO")
                 .antMatchers("/app/empresa/**").hasAnyAuthority("ROLE_EMPRESA")
-
+                
                 .anyRequest().authenticated()
 
                 .and().formLogin().loginPage("/login")
