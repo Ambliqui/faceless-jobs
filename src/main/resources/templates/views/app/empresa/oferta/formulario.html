@@ -74,7 +74,7 @@
 					<div class="col-md-4">
 						<label for="numeroVacantesOferta">Salario</label> <input
 							type="number" placeholder="Salario..." id="salarioOferta" th:field="*{salarioOferta}"
-							class="form-control" /> <label id="errorsalarioOferta"
+							class="form-control" step="500" /> <label id="errorsalarioOferta"
 							for="salarioOferta" th:if="${#fields.hasErrors('salarioOferta')}"
 							th:errors="*{salarioOferta}" class="form-text text-danger">
 						</label>

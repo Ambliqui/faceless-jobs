@@ -86,7 +86,7 @@
 					<div class="col-md-6" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 						<label for="numeroprioridadOferta">Prioridad</label> <input
 							type="number" id="numeroprioridadOferta"
-							th:field="*{prioridadOferta}" class="form-control" /> <label
+							th:field="*{prioridadOferta}" class="form-control"step="500" /> <label
 							id="errorprioridadOferta" for="prioridadOferta"
 							th:if="${#fields.hasErrors('prioridadOferta')}"
 							th:errors="*{prioridadOferta}" class="form-text text-danger">
