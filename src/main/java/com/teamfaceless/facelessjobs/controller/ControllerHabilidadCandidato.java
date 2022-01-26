@@ -20,7 +20,7 @@ import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
 
 @Controller
-@RequestMapping("/habilidadCandidato")
+@RequestMapping("/app/candidato/habilidad")
 public class ControllerHabilidadCandidato {
 
 	@Autowired
@@ -46,26 +46,30 @@ public class ControllerHabilidadCandidato {
 		model.addAttribute("listaHabilidadesBlandasRestante", habCanService.findHabilidadesBlandasRestantesByCandidato(candidato));
 		model.addAttribute("listaHabilidadesDurasRestante", habCanService.findHabilidadesDurasRestantesByCandidato(candidato));
 		
-		return "views/app/candidato/habilidades/formularioAdd";
+		return "views/app/candidato/habilidades/listadoAñadir";
 	}
 	@PostMapping("/{idOferta}")
 	public String goListadoPost(@PathVariable Integer idCandidato,Model model) {
-		return "redirect: /"+idCandidato;
+		return "redirect:/app/candidato/habilidad/"+idCandidato;
 	}
 	
 	@PostMapping("/guardar")
 	public String altaHabilidadCandidato(@Valid HabilidadCandidato habilidadCandidato, BindingResult result, Model model,String isDemostrable) {
 		if(result.hasErrors()) {
-				return "redirect:/habilidadCandidato/"+habilidadCandidato.getCandidato().getIdCandidato();
+				return "redirect:/app/candidato/habilidad/"+habilidadCandidato.getCandidato().getIdCandidato();
 			}
 		habilidadCandidato.setHabilidadCandidatoPK(new HabilidadCandidatoPK(habilidadCandidato.getCandidato().getIdCandidato(), habilidadCandidato.getHabilidad().getIdHabilidad()));
 		
 		Integer nota = (int) (100 - (Math.random()*10)*(Math.random()*10));
 		habilidadCandidato.setNotaHabilidadCandidato(nota);
 		
+		if(habilidadCandidato.isDemostrable()) {
+			habilidadCandidato.setDemostrable(false);
+		}
+		
 		habilidadCandidato.setDemostrable(Boolean.valueOf(isDemostrable));
 		habCanService.modify(habilidadCandidato);
-		return "redirect:/habilidadCandidato/"+habilidadCandidato.getCandidato().getIdCandidato();
+		return "redirect:/app/candidato/habilidad/"+habilidadCandidato.getCandidato().getIdCandidato();
 	}
 	
 	@GetMapping("/modificar/{idHabilidad}/{idCandidato}")
@@ -87,19 +91,23 @@ public class ControllerHabilidadCandidato {
 		model.addAttribute("habilidadesDurasAnadidas", habCanService.findHabilidadesCandidatoDurasByCandidato(candidato));
 		model.addAttribute("habilidadesBlandasAnadidas", habCanService.findHabilidadesCandidatoBlandasByCandidato(candidato));
 		
-		return "views/app/candidato/habilidades/formularioModificar";
+		return "views/app/candidato/habilidades/modificar";
 	}
 	
 	@PostMapping("/modificarConfirmado")
 	public String modificarHabilidadCandidatoConfirmado(@Valid HabilidadCandidato habilidadCandidato, BindingResult result, Model model,String isDemostrable) {
 		if(result.hasErrors()) {
-			return "redirect:/habilidadCandidato/"+habilidadCandidato.getCandidato().getIdCandidato();
+			return "redirect:/app/candidato/habilidad/"+habilidadCandidato.getCandidato().getIdCandidato();
 		}
 		habilidadCandidato.setHabilidadCandidatoPK(new HabilidadCandidatoPK(habilidadCandidato.getCandidato().getIdCandidato(), habilidadCandidato.getHabilidad().getIdHabilidad()));
 		
+		if(habilidadCandidato.isDemostrable()) {
+			habilidadCandidato.setDemostrable(false);
+		}
+		
 		habilidadCandidato.setDemostrable(Boolean.valueOf(isDemostrable));
 		habCanService.modify(habilidadCandidato);
-		return "redirect:/habilidadCandidato/"+habilidadCandidato.getCandidato().getIdCandidato();
+		return "redirect:/app/candidato/habilidad/"+habilidadCandidato.getCandidato().getIdCandidato();
 	}
 	
 	@GetMapping("/eliminar/{idHabilidad}/{idCandidato}")
@@ -111,6 +119,6 @@ public class ControllerHabilidadCandidato {
 		
 		habCanService.delete(habilidadCandidato);
 		
-		return "redirect:/habilidadCandidato/"+idCandidato;
+		return "redirect:/app/candidato/habilidad/"+idCandidato;
 	}
 }

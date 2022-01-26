@@ -14,7 +14,7 @@
 		<section class="row">
 			<div class="col-2"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
-				<form th:action="@{/habilidadCandidato/modificarConfirmado}" th:object="${habilidadCandidato}" method="POST">
+				<form th:action="@{/app/candidato/habilidad/modificarConfirmado}" th:object="${habilidadCandidato}" method="POST">
 					<label for="habilidad">Habilidad: </label>
 					<select disabled id="habilidad" th:field="*{habilidad}" class="form-control">
 						<option
@@ -56,7 +56,7 @@
 						<input type="submit" th:value="Modificar"
 								class="btn btn-primary"/>
 						
-						<a class="btn btn-warning" th:href="@{'/habilidadCandidato/' + ${candidato.idCandidato}}">Volver</a>
+						<a class="btn btn-warning" th:href="@{'/app/candidato/habilidad/' + ${candidato.idCandidato}}">Volver</a>
 					</div>
 				</form>
 			</div>
@@ -108,8 +108,6 @@
 									
 									<th>Experiencia</th>
 									
-									<th>Demostrable</th>
-									
 									<th>Nota</th>
 								</tr>
 							</thead>
@@ -120,11 +118,6 @@
 								</td>
 									
 								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"
-									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
-									style="background-color:#ff0000;">
-								</td>
-							
-								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>

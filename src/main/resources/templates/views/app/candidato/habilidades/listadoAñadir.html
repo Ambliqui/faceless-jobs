@@ -14,7 +14,7 @@
 		<section class="row">
 			<div class="col-2"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
-				<form th:action="@{/habilidadCandidato/guardar}" th:object="${habilidadCandidato}" method="POST">
+				<form th:action="@{/app/candidato/habilidad/guardar}" th:object="${habilidadCandidato}" method="POST">
 					<label for="habilidad">Habilidad: </label>
 					
 					<select id="habilidad" th:field="*{habilidad}" class="form-control">
@@ -59,7 +59,7 @@
 						<input type="submit" th:value="Añadir"
 								class="btn btn-primary"/>
 								
-						<button class="btn btn-warning" th:formaction="@{/candidato/perfil}" formNoValidate>Volver</button>
+						<button class="btn btn-warning" th:formaction="@{/app/candidato/habilidad/perfil}" formNoValidate>Volver</button>
 					</div>
 				</form>
 			</div>
@@ -92,14 +92,14 @@
 								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"></td>
 								
 								<td class="align-middle">
-									<a th:href="@{'/habilidadCandidato/modificar/'+ ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/candidato/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${candidato.idCandidato}}"
 										class="btn btn-success btn-sm"
 										role="button"
 										title="Editar Habilidad">
 										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 									</a>
-									<a th:href="@{'/habilidadCandidato/eliminar/' + ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/candidato/habilidad/eliminar/' + ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${candidato.idCandidato}}"
 										onclick="return confirm('¿Estas seguro?')"
 										class="btn btn-danger btn-sm"
@@ -120,8 +120,6 @@
 									
 									<th>Experiencia</th>
 									
-									<th>Demostrable</th>
-									
 									<th>Nota</th>
 									
 									<th>Gestión</th>
@@ -133,22 +131,19 @@
 									
 								<td class="align-middle" th:text="${habilidad.experienciaCandidato}">
 								</td>
-							
-								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'">
-								</td>
 								
 								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}">
 								</td>
 								
 								<td class="align-middle">
-									<a th:href="@{'/habilidadCandidato/modificar/'+ ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/candidato/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${candidato.idCandidato}}"
 										class="btn btn-success btn-sm"
 										role="button"
 										title="Editar Habilidad">
 										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
 									</a>
-									<a th:href="@{'/habilidadCandidato/eliminar/' + ${habilidad.habilidad.idHabilidad}
+									<a th:href="@{'/app/candidato/habilidad/eliminar/' + ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${candidato.idCandidato}}"
 										onclick="return confirm('¿Estas seguro?')"
 										class="btn btn-danger btn-sm"
