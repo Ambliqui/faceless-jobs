@@ -9,8 +9,8 @@
 	<main class="container content">
 		<h1 th:text="${pregunta}"></h1>
 		<h3 th:text="${msg}"></h3>
-		<a th:href="@{'/oferta/eliminar/' + ${id}}"  th:text="${'Si'}" class="btn btn-danger">Button</a>
-		<a th:href="@{/oferta/listado}"  th:text="${'No'}" class="btn btn-warning">Button</a>
+		<a th:href="@{'/app/empresa/oferta/eliminar/' + ${id}}"  th:text="${'Si'}" class="btn btn-danger">Button</a>
+		<a  href="/app/empresa/oferta/listado/"  th:text="${'No'}" class="btn btn-warning">Button</a>
 	</main>
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>

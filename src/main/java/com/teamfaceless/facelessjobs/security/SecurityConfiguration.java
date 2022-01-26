@@ -56,7 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/generic/**",
                         "/candidato/registro",
                         "/empresa/registro",
-                        "/oferta/**","/images/**",
+                        "/oferta/**",
+                        "/images/**",
                         "/habilidad/**")
                 .permitAll()
                 
@@ -64,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/app/candidato/**").hasAnyAuthority("ROLE_CANDIDATO")
                 .antMatchers("/app/empresa/**").hasAnyAuthority("ROLE_EMPRESA")
-
+                
                 .anyRequest().authenticated()
 
                 .and().formLogin().loginPage("/login")
