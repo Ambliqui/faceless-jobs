@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadOfertaRepository;
+import com.teamfaceless.facelessjobs.enums.Categoria;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
@@ -145,6 +146,54 @@ public class HabilidadOfertaService implements IHabilidadOfertaService {
 			}
 		}
 		return habilidadesComprobadas;
+	}
+
+	/**
+	 * @author Mefisto
+	 * Devuelve Las habilidades duras requeridas de una oferta
+	 */
+	@Override
+	public List<HabilidadOferta> habilidadesDurasRequeridas(List<HabilidadOferta> habilidadOfertas) {
+		
+		List<HabilidadOferta> habilidadesFiltradas = new ArrayList<>();
+		for (HabilidadOferta habOfer : habilidadOfertas) {
+			if (habOfer.isObligatorio() && habOfer.getHabilidad().getCategoriaHabilidad()==Categoria.DURA) {
+				habilidadesFiltradas.add(habOfer);
+			}
+		}
+		return habilidadesFiltradas;
+	}
+
+	/**
+	 * @author Mefisto
+	 * Devuelve las habilidades Duras no requeridas
+	 */
+	@Override
+	public List<HabilidadOferta> habilidadesDurasNoRequeridas(List<HabilidadOferta> habilidadOfertas) {
+		
+		List<HabilidadOferta> habilidadesFiltradas = new ArrayList<>();
+		for (HabilidadOferta habOfer : habilidadOfertas) {
+			if (habOfer.isObligatorio()==false && habOfer.getHabilidad().getCategoriaHabilidad()==Categoria.DURA) {
+				habilidadesFiltradas.add(habOfer);
+			}
+		}
+		return habilidadesFiltradas;
+	}
+
+	/**
+	 * @author Mefisto
+	 * Devuelve las habilidades Blandas requeridas
+	 */
+	@Override
+	public List<HabilidadOferta> habilidadesBlandasRequeridas(List<HabilidadOferta> habilidadOfertas) {
+		
+		List<HabilidadOferta> habilidadesFiltradas = new ArrayList<>();
+		for (HabilidadOferta habOfer : habilidadOfertas) {
+			if (habOfer.getHabilidad().getCategoriaHabilidad()==Categoria.BLANDA) {
+				habilidadesFiltradas.add(habOfer);
+			}
+		}
+		return habilidadesFiltradas;
 	}
 
 }

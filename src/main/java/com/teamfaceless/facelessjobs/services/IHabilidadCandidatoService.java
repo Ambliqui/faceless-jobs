@@ -5,6 +5,7 @@ import java.util.List;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
+import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 
 public interface IHabilidadCandidatoService {
 	void modify(HabilidadCandidato habilidadCandidato);
