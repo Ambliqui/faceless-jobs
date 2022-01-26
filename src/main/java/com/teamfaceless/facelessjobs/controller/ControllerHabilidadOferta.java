@@ -1,7 +1,5 @@
 package com.teamfaceless.facelessjobs.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 @RequestMapping("/habilidadOferta")
 public class ControllerHabilidadOferta {
 	
-	private int limiteHabilidades = 5;
+//	private int limiteHabilidades = 5;
 	
 	@Autowired
 	private IHabilidadService habService;
@@ -50,7 +48,7 @@ public class ControllerHabilidadOferta {
 		
 		model.addAttribute("listaHabilidadesBlandasRestante", habOfeService.findHabilidadesBlandasRestantesByOferta(ofertaEmpleo));
 		model.addAttribute("listaHabilidadesDurasRestante", habOfeService.findHabilidadesDurasRestantesByOferta(ofertaEmpleo));
-		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
+//		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
 		
 		return "views/app/empresa/oferta/formularioAdd";
 	}
@@ -96,7 +94,7 @@ public class ControllerHabilidadOferta {
 	}
 	
 	@PostMapping("/modificarConfirmado")
-	public String modificarHabilidadOfertaCOnfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
+	public String modificarHabilidadOfertaConfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
 			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 		}

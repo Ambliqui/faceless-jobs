@@ -8,7 +8,8 @@ import com.teamfaceless.facelessjobs.model.Candidato;
 
 
 public interface ICandidatoService {
-
+	
+	Candidato findById(Integer id);
 	List<Candidato> findAll();
 	void create(Candidato candidato) throws EmailExisteException;
 	List<Candidato> findByNombre(String nombre);

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: head">
+	<meta charset="utf-8">
+</head>
+<body>
+	<header></header>
+	
+	<nav th:replace="fragments/base :: navbar"></nav>
+	
+	<main>
+		<h1 class="text-center" th:text="'Habilidades para ' + ${candidato.nombreCandidato}"></h1>
+		<hr>
+		<section class="row">
+			<div class="col-2"></div>
+			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
+				<form th:action="@{/habilidadCandidato/modificarConfirmado}" th:object="${habilidadCandidato}" method="POST">
+					<label for="habilidad">Habilidad: </label>
+					<select disabled id="habilidad" th:field="*{habilidad}" class="form-control">
+						<option
+						th:value="${thisHabilidad.idHabilidad}"
+						th:text="${thisHabilidad.nombreHabilidad}">
+					</select>
+					<select hidden=true id="habilidad" th:field="*{habilidad}" class="form-control">
+						<option
+						th:value="${thisHabilidad.idHabilidad}"
+						th:text="${thisHabilidad.nombreHabilidad}">
+					</select>	
+					
+					<label for="experienciaCandidato">Experiencia (meses): </label>
+					<input id="experienciaCandidato" type="number" min="0"
+						name="experienciaCandidato"
+						class="form-control"
+						th:value="${thisExperiencia}"
+						required>
+					
+					<label for="isDemostrable">Demostrable:</label>
+					<select id="isDemostrable" name="isDemostrable" class="form-control">
+						<option	value=true th:selected="${thisIsDemostrable ? 'true' : 'false'}">SI</option>
+						<option value=false th:selected="${thisIsDemostrable ? 'false' : 'true'}">NO</option>
+					</select>
+					
+					<input id="notaHabilidadCandidato" type="hidden"
+						name="notaHabilidadCandidato"
+						th:value="${thisNota}"/>
+						
+					<input type="hidden" name="candidato"
+							th:value = "${candidato.idCandidato}"
+							class="form-control"
+					/>
+					
+						
+					<br>
+					
+					<div class="text-center">
+						<input type="submit" th:value="Modificar"
+								class="btn btn-primary"/>
+						
+						<a class="btn btn-warning" th:href="@{'/habilidadCandidato/' + ${candidato.idCandidato}}">Volver</a>
+					</div>
+				</form>
+			</div>
+			
+			<div class="container col-5">
+				<div class="row">
+					<div class="col">
+						<h2 class="text-center">Habilidades Duras</h2>
+						<table class="table table-hover table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>Habilidad</th>
+									
+									<th>Experiencia</th>
+									
+									<th>Demostrable</th>
+									
+									<th>Nota</th>
+								</tr>
+							</thead>
+							<tr th:each="habilidad:${habilidadesDurasAnadidas}">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+									
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+							
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+								
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+							</tr>
+						</table>
+						
+						<h2 class="text-center">Habilidades Blandas</h2>
+						<table class="table table-hover table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>Habilidad</th>
+									
+									<th>Experiencia</th>
+									
+									<th>Demostrable</th>
+									
+									<th>Nota</th>
+								</tr>
+							</thead>
+							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+									
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+							
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+								
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"
+									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
+									style="background-color:#ff0000;">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<aside></aside>
+	</main>
+	
+	<footer th:replace="fragments/base :: footer"></footer>
+  		
+  	<th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>

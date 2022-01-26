@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: head">
+	<meta charset="utf-8">
+</head>
+<body>
+	<header></header>
+	
+	<nav th:replace="fragments/base :: navbar"></nav>
+	
+	<main>
+		<h1 class="text-center" th:text="'Habilidades para ' + ${candidato.nombreCandidato}"></h1>
+		<hr>
+		<section class="row">
+			<div class="col-2"></div>
+			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
+				<form th:action="@{/habilidadCandidato/guardar}" th:object="${habilidadCandidato}" method="POST">
+					<label for="habilidad">Habilidad: </label>
+					
+					<select id="habilidad" th:field="*{habilidad}" class="form-control">
+						<optgroup label="DURAS">
+							<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
+						<optgroup label="BLANDAS">
+							<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
+								th:value="${habilidadX.idHabilidad}"
+								th:text="${habilidadX.nombreHabilidad}">
+						</optgroup>
+					</select>	
+					
+					<label for="experiencia">Experiencia (meses): </label>
+					
+					<input id="experiencia" type="number" min="0"
+						name="experienciaCandidato"
+						class="form-control"
+						value="0"
+						required>
+						
+					<label for="isDemostrable">Demostrable:</label>
+					<select id="isDemostrable" name="isDemostrable" class="form-control">
+						<option	value=true>SI</option>
+						<option value=false>NO</option>
+					</select>
+					
+					<input id="notaHabilidadCandidato" type="hidden"
+						name="notaHabilidadCandidato"
+						th:value="5"/>
+					
+					<input type="hidden" name="candidato"
+							th:value = "${candidato.idCandidato}"
+							class="form-control"/>
+					
+						
+					<br>
+					
+					<div class="text-center">
+						<input type="submit" th:value="Añadir"
+								class="btn btn-primary"/>
+								
+						<button class="btn btn-warning" th:formaction="@{/candidato/perfil}" formNoValidate>Volver</button>
+					</div>
+				</form>
+			</div>
+			
+			<div class="container col-5">
+				<div class="row">
+					<div class="col">
+						<h2 class="text-center">Habilidades Duras</h2>
+						<table class="table table-hover table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>Habilidad</th>
+									
+									<th>Experiencia</th>
+									
+									<th>Demostrable</th>
+									
+									<th>Nota</th>
+									
+									<th>Gestión</th>
+								</tr>
+							</thead>
+							<tr th:each="habilidad:${habilidadesDurasAnadidas}">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"></td>
+									
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"></td>
+								
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"></td>
+								
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"></td>
+								
+								<td class="align-middle">
+									<a th:href="@{'/habilidadCandidato/modificar/'+ ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${candidato.idCandidato}}"
+										class="btn btn-success btn-sm"
+										role="button"
+										title="Editar Habilidad">
+										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+									</a>
+									<a th:href="@{'/habilidadCandidato/eliminar/' + ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${candidato.idCandidato}}"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-danger btn-sm"
+										role="button"
+										title="Eliminar Habilidad">
+										<i class="fas fa-trash" aria-hidden="true"></i>
+									</a>
+								</td>
+							</tr>
+						</table>
+						
+						
+						<h2 class="text-center">Habilidades Blandas</h2>
+						<table class="table table-hover table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>Habilidad</th>
+									
+									<th>Experiencia</th>
+									
+									<th>Requerida</th>
+									
+									<th>Baremo</th>
+									
+									<th>Gestión</th>
+								</tr>
+							</thead>
+							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}">
+								</td>
+									
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}">
+								</td>
+							
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'">
+								</td>
+								
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}">
+								</td>
+								
+								<td class="align-middle">
+									<a th:href="@{'/habilidadCandidato/modificar/'+ ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${candidato.idCandidato}}"
+										class="btn btn-success btn-sm"
+										role="button"
+										title="Editar Habilidad">
+										<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+									</a>
+									<a th:href="@{'/habilidadCandidato/eliminar/' + ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${candidato.idCandidato}}"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-danger btn-sm"
+										role="button"
+										title="Eliminar Habilidad">
+										<i class="fas fa-trash" aria-hidden="true"></i>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+		<aside></aside>
+	</main>
+	
+	<footer th:replace="fragments/base :: footer"></footer>
+  		
+  	<th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>
