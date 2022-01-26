@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadRepository;
-import com.teamfaceless.facelessjobs.enums.Categoria;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
 
@@ -21,7 +20,17 @@ public class HabilidadService implements IHabilidadService{
 	public List<Habilidad> findAll() {
 		return repository.findAll();
 	}
+	
+	@Override
+	public List<Habilidad> findHabilidadesBlandas() {
+		return repository.findHabilidadesBlandas();
+	}
 
+	@Override
+	public List<Habilidad> findHabilidadesDuras() {
+		return repository.findHabilidadesDuras();
+	}
+	
 	@Override
 	public void create(Habilidad habilidad){
 		repository.save(habilidad);
@@ -40,10 +49,5 @@ public class HabilidadService implements IHabilidadService{
 	@Override
 	public void delete(Integer idHabilidad) {
 		repository.deleteById(idHabilidad);
-	}
-	
-	@Override
-	public List<Habilidad> findHabilidadByCategoria(Categoria categoria) {
-		return repository.findHabilidadByCategoria(categoria);
-	}
+	}	
 }

@@ -3,9 +3,6 @@ package com.teamfaceless.facelessjobs.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.repository.query.Param;
-
-import com.teamfaceless.facelessjobs.enums.Categoria;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 
 public interface IHabilidadService {
@@ -15,6 +12,6 @@ public interface IHabilidadService {
 	Optional<Habilidad> findById(Integer id);
 	void modify(Habilidad habilidad);
 	void delete(Integer idHabilidad);
-	//Optional<CategoriaHabilidad> findByCategoria(String categoria);
-	List<Habilidad> findHabilidadByCategoria(@Param("categoria") Categoria categoria);
+	List<Habilidad> findHabilidadesBlandas();
+	List<Habilidad> findHabilidadesDuras();
 }

@@ -13,4 +13,10 @@ public interface IHabilidadRepository extends JpaRepository<Habilidad, Integer>{
 	
 	@Query("FROM Habilidad WHERE categoriaHabilidad = :categoria")
 	List<Habilidad> findHabilidadByCategoria(@Param("categoria") Categoria categoria);
+	
+	@Query(value="SELECT * FROM habilidad WHERE categoria_habilidad=1 ORDER BY nombre_habilidad ASC",nativeQuery=true)
+	List<Habilidad> findHabilidadesDuras();
+	
+	@Query(value="SELECT * FROM habilidad WHERE categoria_habilidad=0 ORDER BY nombre_habilidad ASC",nativeQuery=true)
+	List<Habilidad> findHabilidadesBlandas();
 }

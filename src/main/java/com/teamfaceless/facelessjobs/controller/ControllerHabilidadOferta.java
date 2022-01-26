@@ -23,7 +23,7 @@ import com.teamfaceless.facelessjobs.services.IHabilidadService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 
 @Controller
-@RequestMapping("/habilidadOferta")
+@RequestMapping("/app/empresa/oferta/habilidad")
 public class ControllerHabilidadOferta {
 	
 	private int limiteHabilidades = 5;
@@ -90,7 +90,7 @@ public class ControllerHabilidadOferta {
 		model.addAttribute("errorType", errorType);
 //		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
 		
-		return "views/app/empresa/oferta/formularioAdd";
+		return "views/app/empresa/oferta/habilidad/listadoAñadir";
 	}
 	@PostMapping("/{idOferta}")
 	public String goListadoPost(@PathVariable Integer idOferta,Model model) {
@@ -101,19 +101,19 @@ public class ControllerHabilidadOferta {
 	@PostMapping("/guardar")
 	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
-				return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+				return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 			}
 		List<HabilidadOferta> habilidadesDurasAnadidas = habOfeService.findHabilidadesOfertaDurasByOferta(habilidadOferta.getOfertaEmpleo());
 		List<HabilidadOferta> habilidadesBlandasAnadidas = habOfeService.findHabilidadesOfertaBlandasByOferta(habilidadOferta.getOfertaEmpleo());
 		if(habilidadesDurasAnadidas.size()>=limiteHabilidades&&habilidadesBlandasAnadidas.size()>=limiteHabilidades) {
-			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+			return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 		}
 		
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
-		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
 	
 	@GetMapping("/modificar/{idHabilidad}/{idOferta}")
@@ -136,19 +136,19 @@ public class ControllerHabilidadOferta {
 		model.addAttribute("habilidadesBlandasAnadidas", habOfeService.findHabilidadesOfertaBlandasByOferta(ofertaEmpleo));
 //		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
 		
-		return "views/app/empresa/oferta/formularioModificar";
+		return "views/app/empresa/oferta//habilidad/modificar";
 	}
 	
 	@PostMapping("/modificarConfirmado")
 	public String modificarHabilidadOfertaConfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
-			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+			return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 		}
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
-		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
 	
 	@GetMapping("/eliminar/{idHabilidad}/{idOferta}")
@@ -160,6 +160,6 @@ public class ControllerHabilidadOferta {
 		
 		habOfeService.delete(habilidadOferta);
 		
-		return "redirect:/habilidadOferta/"+idOferta;
+		return "redirect:/app/empresa/oferta/habilidad/"+idOferta;
 	}
 }
