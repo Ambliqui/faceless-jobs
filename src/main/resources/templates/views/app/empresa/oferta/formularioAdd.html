@@ -14,57 +14,65 @@
 		<section class="row">
 			<div class="col-2"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
+				
+				<div th:switch="${errorType}">
+				    <p th:case="0" hidden=true/>
+				    <p th:case="1" th:text="${errorMsg}" class="alert alert-warning"/>
+				    <p th:case="2" th:text="${errorMsg}" class="alert alert-danger"/>
+				</div>
 				<form th:action="@{/habilidadOferta/guardar}" th:object="${habilidadOferta}" method="POST">
-					<label for="habilidad">Habilidad: </label>
-					
-					<select id="habilidad" th:field="*{habilidad}" class="form-control">
-						<optgroup label="DURAS">
-							<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
-								th:value="${habilidadX.idHabilidad}"
-								th:text="${habilidadX.nombreHabilidad}">
-						</optgroup>
-						<optgroup label="BLANDAS">
-							<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
-								th:value="${habilidadX.idHabilidad}"
-								th:text="${habilidadX.nombreHabilidad}">
-						</optgroup>
-					</select>	
-					
-					<label for="experiencia">Experiencia (meses): </label>
-					
-					<input id="experiencia" type="number" min="0"
-						th:field="*{experienciaOferta}"
-						class="form-control"
-						required>
+					<fieldset th:disabled="${errorType == 2} ?: 'disabled'">
+						<label for="habilidad">Habilidad: </label>
 						
-					<label for="isObligatorio">Requerida:</label>
-					<select id="isObligatorio" name="isObligatorio" class="form-control">
-						<option	value=true>Requisito</option>
-						<option value=false>Valorable</option>
-					</select>
-					
-					<label for="baremo">Baremo importancia:</label>
-					<input id="baremo" type="range" min="1" max="9"
-						th:field="*{baremo}"
-						style="width:100%"
-						required
-						onmousemove="valorBaremo.innerHTML=baremo.value">
-					<p class="text-center" id=valorBaremo th:value="${habilidadOferta.baremo}">5</p>
-					
-					<input type="hidden" name="ofertaEmpleo"
-							th:value = "${ofertaEmpleo.idOfertaEmpleo}"
+						<select id="habilidad" th:field="*{habilidad}" class="form-control">
+							<optgroup label="DURAS">
+								<option th:each="habilidadX:${listaHabilidadesDurasRestante}"
+									th:value="${habilidadX.idHabilidad}"
+									th:text="${habilidadX.nombreHabilidad}">
+							</optgroup>
+							<optgroup label="BLANDAS">
+								<option th:each="habilidadX:${listaHabilidadesBlandasRestante}"
+									th:value="${habilidadX.idHabilidad}"
+									th:text="${habilidadX.nombreHabilidad}">
+							</optgroup>
+						</select>	
+						
+						<label for="experiencia">Experiencia (meses): </label>
+						
+						<input id="experiencia" type="number" min="0"
+							th:field="*{experienciaOferta}"
 							class="form-control"
-					/>
-					
+							required>
+							
+						<label for="isObligatorio">Requerida:</label>
+						<select id="isObligatorio" name="isObligatorio" class="form-control">
+							<option	value=true>Requisito</option>
+							<option value=false>Valorable</option>
+						</select>
 						
-					<br>
-					
-					<div class="text-center">
-						<input type="submit" th:value="Añadir"
-								class="btn btn-primary"/>
-								
-						<button class="btn btn-warning" th:formaction="@{/oferta/listado}" formNoValidate>Volver</button>
-					</div>
+						<label for="baremo">Baremo importancia:</label>
+						<input id="baremo" type="range" min="1" max="9"
+							th:field="*{baremo}"
+							style="width:100%"
+							required
+							onmousemove="valorBaremo.innerHTML=baremo.value">
+						<p class="text-center" id=valorBaremo th:value="${habilidadOferta.baremo}">5</p>
+						
+						<input type="hidden" name="ofertaEmpleo"
+								th:value = "${ofertaEmpleo.idOfertaEmpleo}"
+								class="form-control"
+						/>
+						
+							
+						<br>
+						
+						<div class="text-center">
+							<input th:disabled="${isAllowedToAdd} ? 'false' : 'true' "type="submit" th:value="Añadir"
+									class="btn btn-primary"/>
+									
+							<button class="btn btn-warning" th:formaction="@{/oferta/listado}" formNoValidate>Volver</button>
+						</div>
+					</fieldset>
 				</form>
 			</div>
 			

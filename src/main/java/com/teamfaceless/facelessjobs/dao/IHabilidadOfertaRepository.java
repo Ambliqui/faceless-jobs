@@ -29,13 +29,15 @@ public interface IHabilidadOfertaRepository extends JpaRepository<HabilidadOfert
 	@Query(value="SELECT habilidad_id_habilidad,oferta_id_habilidad,experiencia_oferta,baremo_habilidad_oferta,is_obligatorio_habilidad_oferta FROM habilidad "
 			+ "inner join habilidad_oferta "
 			+ "on habilidad.id_habilidad = habilidad_oferta.habilidad_id_habilidad "
-			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 1",nativeQuery = true)
+			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 1 "
+			+ "order by habilidad_oferta.baremo_habilidad_oferta desc",nativeQuery = true)
 	List<HabilidadOferta> findHabilidadesOfertaDurasByOferta(@Param("oferta") int idOferta);
 	
 	@Query(value="SELECT habilidad_id_habilidad,oferta_id_habilidad,experiencia_oferta,baremo_habilidad_oferta,is_obligatorio_habilidad_oferta FROM habilidad "
 			+ "inner join habilidad_oferta "
 			+ "on habilidad.id_habilidad = habilidad_oferta.habilidad_id_habilidad "
-			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 0",nativeQuery = true)
+			+ "where habilidad_oferta.oferta_id_habilidad = ?1 and habilidad.categoria_habilidad = 0 "
+			+ "order by habilidad_oferta.baremo_habilidad_oferta desc",nativeQuery = true)
 	List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(@Param("oferta") int idOferta);
 	
 	@Query(value="SELECT id_habilidad FROM habilidad "
