@@ -94,7 +94,7 @@ public class InscriptionService implements IInscriptionService{
 			//Guardamos las propiedades del candidato inscrito
 			inscritoDto.setIdCandidato(inscripcion.getCandidato().getIdCandidato());
 			inscritoDto.setProvincia(inscripcion.getCandidato().getProvinciaCandidato().getNombreProvincia());
-			inscritoDto.setLocalidad(inscripcion.getCandidato().getLocalidadCandidato());			
+//			inscritoDto.setLocalidad(inscripcion.getCandidato().getLocalidadCandidato());			
 			
 			List<HabilidadCandidato> habilidadesCandidato = inscripcion.getCandidato().getHabilidadCandidatoList();
 			//Desmonto en habilidades simples las habilidades del candidato

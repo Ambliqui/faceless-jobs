@@ -58,7 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/empresa/registro",
                         "/oferta/**",
                         "/images/**",
-                        "/habilidad/**")
+                        "/habilidad/**",
+                        "/css/**")
                 .permitAll()
                 
                 .antMatchers(AUTH_WHITELIST).permitAll()

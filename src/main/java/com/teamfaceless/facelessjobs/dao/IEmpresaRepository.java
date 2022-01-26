@@ -17,5 +17,9 @@ public interface IEmpresaRepository extends JpaRepository<Empresa, Integer> {
 	Empresa findEmpresa(OfertaEmpleo oferta);
 	
 	Empresa findBycIFempresa(String cif);
+
+	//query wich return a empresa with find by id
+	@Query("FROM Empresa WHERE credencial.id = :idEmpresa")
+	Optional<Empresa> buscarPorId(Integer idEmpresa);
 	
 }

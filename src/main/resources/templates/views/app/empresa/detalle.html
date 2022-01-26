@@ -9,14 +9,14 @@
 	<main class="row">
 		<div class="col-2"></div>
 		<formulario class="col-8">
-			<form class="container row g-3" th:action="@{/empresa/modificar}" th:object="${empresa}" method="post">
+			<form class="container row g-3" th:action="@{/app/empresa/modificar}" th:object="${empresa}" method="post">
 				<h5>Datos Empresa</h5>
 
 					<input id="idEmpresa" type="hidden" th:field="*{idEmpresa}"
 						class="form-control">
 						
-					<input id="credencial" type="hidden" th:field="*{credencial}"
-						class="form-control">
+<!-- 					<input id="credencial" type="hidden" th:field="*{credencial}" -->
+<!-- 						class="form-control"> -->
 						
 				<nombre class="col-md-5">
 					<label for="nombreEmpresa">Nombre </label>
@@ -155,12 +155,18 @@
 					<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 					
 					<conmutador th:switch="${botonera}" class="form-group col-md-6 text-center">
-						<button type="submit" th:case="alta" th:value="Alta"
-							class="btn btn-warning" th:formaction="@{/empresa/guardar}">Alta</button>
-						<button type="submit" th:case="editar" th:value="Editar"
-							class="btn btn-warning" th:formaction="@{/empresa/editar}">Editar</button>
-						<button type="submit" th:case="modificar"th:value="Modificar"
-							class="btn btn-warning" th:formaction="@{/empresa/modificar}" >Modificar</button>
+						<button type="submit" th:case="alta"
+							th:value="Alta"
+							class="btn btn-warning"
+							th:formaction="@{/empresa/guardar}">Alta</button>
+						<button type="submit" th:case="editar"
+							th:value="Editar"
+							class="btn btn-warning"
+							th:formaction="@{/empresa/editar}">Editar</button>
+						<button type="submit" th:case="modificar"
+							th:value="Modificar"
+							class="btn btn-warning"
+							th:formaction="@{/app/empresa/modificar}" >Cosas</button>
 					</conmutador>
 				</campo>
 				<hr>

@@ -9,12 +9,12 @@
 	<nav th:replace="fragments/base :: navbar"></nav>
 	
 	<main>
-		<h1 class="text-center" th:text="'Habilidades para ' + ${ofertaEmpleo.tituloOferta}"></h1>
+		<h1 class="text-center" th:text="'Habilidades para ' + ${candidato.nombreCandidato}"></h1>
 		<hr>
 		<section class="row">
 			<div class="col-2"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
-				<form th:action="@{/habilidadOferta/modificarConfirmado}" th:object="${habilidadOferta}" method="POST">
+				<form th:action="@{/habilidadCandidato/modificarConfirmado}" th:object="${habilidadCandidato}" method="POST">
 					<label for="habilidad">Habilidad: </label>
 					<select disabled id="habilidad" th:field="*{habilidad}" class="form-control">
 						<option
@@ -27,29 +27,25 @@
 						th:text="${thisHabilidad.nombreHabilidad}">
 					</select>	
 					
-					<label for="experiencia">Experiencia (meses): </label>
-					<input id="experiencia" type="number" min="0"
-						name="experienciaOferta"
+					<label for="experienciaCandidato">Experiencia (meses): </label>
+					<input id="experienciaCandidato" type="number" min="0"
+						name="experienciaCandidato"
 						class="form-control"
 						th:value="${thisExperiencia}"
 						required>
 					
-					<label for="isObligatorio">Requerida:</label>
-					<select id="isObligatorio" name="isObligatorio" class="form-control">
-						<option	value=true th:selected="${thisIsObligatorio ? 'true' : 'false'}">Requisito</option>
-						<option value=false th:selected="${thisIsObligatorio ? 'false' : 'true'}">Valorable</option>
+					<label for="isDemostrable">Demostrable:</label>
+					<select id="isDemostrable" name="isDemostrable" class="form-control">
+						<option	value=true th:selected="${thisIsDemostrable ? 'true' : 'false'}">SI</option>
+						<option value=false th:selected="${thisIsDemostrable ? 'false' : 'true'}">NO</option>
 					</select>
 					
-					<label for="baremo">Baremo importancia:</label>
-					<input id="baremo" type="range" min="1" max="9"
-						name="baremo" th:value="${thisBaremo}"
-						style="width:100%"
-						required
-						onmousemove="valorBaremo.innerHTML=baremo.value">
-					<p class="text-center" id=valorBaremo th:text="${thisBaremo}"></p>
-					
-					<input type="hidden" name="ofertaEmpleo"
-							th:value = "${ofertaEmpleo.idOfertaEmpleo}"
+					<input id="notaHabilidadCandidato" type="hidden"
+						name="notaHabilidadCandidato"
+						th:value="${thisNota}"/>
+						
+					<input type="hidden" name="candidato"
+							th:value = "${candidato.idCandidato}"
 							class="form-control"
 					/>
 					
@@ -60,7 +56,7 @@
 						<input type="submit" th:value="Modificar"
 								class="btn btn-primary"/>
 						
-						<a class="btn btn-warning" th:href="@{'/habilidadOferta/' + ${ofertaEmpleo.idOfertaEmpleo}}">Volver</a>
+						<a class="btn btn-warning" th:href="@{'/habilidadCandidato/' + ${candidato.idCandidato}}">Volver</a>
 					</div>
 				</form>
 			</div>
@@ -76,9 +72,9 @@
 									
 									<th>Experiencia</th>
 									
-									<th>Requerida</th>
+									<th>Demostrable</th>
 									
-									<th>Baremo</th>
+									<th>Nota</th>
 								</tr>
 							</thead>
 							<tr th:each="habilidad:${habilidadesDurasAnadidas}">
@@ -87,17 +83,17 @@
 									style="background-color:#ff0000;">
 								</td>
 									
-								<td class="align-middle" th:text="${habilidad.experienciaOferta}"
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>
 							
-								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>
 								
-								<td class="align-middle" th:text="${habilidad.baremo}"
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>
@@ -112,9 +108,9 @@
 									
 									<th>Experiencia</th>
 									
-									<th>Requerida</th>
+									<th>Demostrable</th>
 									
-									<th>Baremo</th>
+									<th>Nota</th>
 								</tr>
 							</thead>
 							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
@@ -123,17 +119,17 @@
 									style="background-color:#ff0000;">
 								</td>
 									
-								<td class="align-middle" th:text="${habilidad.experienciaOferta}"
+								<td class="align-middle" th:text="${habilidad.experienciaCandidato}"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>
 							
-								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"
+								<td class="align-middle" th:text="${habilidad.isDemostrable} ? 'SI' : 'NO'"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>
 								
-								<td class="align-middle" th:text="${habilidad.baremo}"
+								<td class="align-middle" th:text="${habilidad.notaHabilidadCandidato}"
 									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
 									style="background-color:#ff0000;">
 								</td>

@@ -1,7 +1,7 @@
 package com.teamfaceless.facelessjobs.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,20 +23,20 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	@Autowired
 	private IHabilidadService habService;
 	
-	@Override
-	public List<HabilidadOferta> findAll() {
-		return repository.findAll();
-	}
+//	@Override
+//	public List<HabilidadOferta> findAll() {
+//		return repository.findAll();
+//	}
 
-	@Override
-	public void create(HabilidadOferta habilidadOferta) {
-		repository.save(habilidadOferta);		
-	}
+//	@Override
+//	public void create(HabilidadOferta habilidadOferta) {
+//		repository.save(habilidadOferta);		
+//	}
 
-	@Override
-	public Optional<HabilidadOferta> findById(Integer id) {
-		return repository.findById(id);
-	}
+//	@Override
+//	public Optional<HabilidadOferta> findById(Integer id) {
+//		return repository.findById(id);
+//	}
 
 	@Override
 	public void modify(HabilidadOferta habilidadOferta) {
@@ -51,30 +51,59 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 		repository.deleteHabilidadOferta(oferta, habilidad);
 	}
 
-	@Override
-	public List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta) {
-		return repository.findHabilidadesOfertaByOferta(oferta);
-	}
+//	@Override
+//	public List<HabilidadOferta> findHabilidadesOfertaByOferta(OfertaEmpleo oferta) {
+//		return repository.findHabilidadesOfertaByOferta(oferta);
+//	}
 
-	@Override
-	public List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta) {
-		return repository.findHabilidadesByOferta(oferta);
-	}
+//	@Override
+//	public List<Habilidad> findHabilidadesByOferta(OfertaEmpleo oferta) {
+//		return repository.findHabilidadesByOferta(oferta);
+//	}
 
-	@Override
-	public List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta) {
-		List<Habilidad> listaCompleta = habService.findAll();
-		List<Habilidad> listaHabilidadEnOferta = findHabilidadesByOferta(oferta);
-		listaCompleta.removeAll(listaHabilidadEnOferta);
-		return listaCompleta;
-	}
+//	@Override
+//	public List<Habilidad> findHabilidadesRestantesByOferta(OfertaEmpleo oferta) {
+//		List<Habilidad> listaCompleta = habService.findAll();
+//		List<Habilidad> listaHabilidadEnOferta = findHabilidadesByOferta(oferta);
+//		listaCompleta.removeAll(listaHabilidadEnOferta);
+//		return listaCompleta;
+//	}
 
 	@Override
 	public HabilidadOferta findHabilidadOfertaByOfertaAndHabilidad(OfertaEmpleo oferta, Habilidad habilidad) {
 		return repository.findHabilidadOfertaByOfertaAndHabilidad(oferta, habilidad);
 	}
-	
-	
 
+	@Override
+	public List<HabilidadOferta> findHabilidadesOfertaDurasByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesOfertaDurasByOferta(oferta.getIdOfertaEmpleo());
+	}
+	
+	@Override
+	public List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(OfertaEmpleo oferta) {
+		return repository.findHabilidadesOfertaBlandasByOferta(oferta.getIdOfertaEmpleo());
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesDurasRestantesByOferta(OfertaEmpleo oferta) {
+		List<Integer> listaId = repository.findHabilidadesDurasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Habilidad> listaHabilidades = new ArrayList<>();
+		for(Integer id : listaId) {
+			Habilidad nuevaHabilidad = habService.findById(id).get();
+			listaHabilidades.add(nuevaHabilidad);
+		}
+		return listaHabilidades;
+	}
+
+	@Override
+	public List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta) {
+		List<Integer> listaId = repository.findHabilidadesBlandasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Habilidad> listaHabilidades = new ArrayList<>();
+		for(Integer id : listaId) {
+			Habilidad nuevaHabilidad = habService.findById(id).get();
+			listaHabilidades.add(nuevaHabilidad);
+		}
+		return listaHabilidades;
+	}
 	
 }
