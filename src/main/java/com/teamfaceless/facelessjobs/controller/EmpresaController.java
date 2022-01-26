@@ -121,6 +121,7 @@ public class EmpresaController {
 		empresaModifyDto.setIdEmpresa(empresaTemp.getIdEmpresa());
 
 		Empresa empresa = iEmpresaMapper.empresaModifyDtoToEmpresa(empresaModifyDto);
+		empresa.setOfertasEmpleos(empresaTemp.getOfertasEmpleos());
 		iEmpresaService.modify(empresa);
 
 		httpSession.setAttribute("userSession", empresa);
@@ -138,20 +139,20 @@ public class EmpresaController {
 // 		return "/views/app/empresa/detalle";
 // 	}
 	
-	// @PostMapping("/modificar")
-	// public String modificarEmpresa(Model model, @Valid Empresa empresa, BindingResult result) {
-	// 	if (result.hasErrors()) {
-	// 		model.addAttribute("empresa", empresa);
-	// 		model.addAttribute("provincias", iProvinciaService.findAll());
-	// 		model.addAttribute("sectores", iSectorService.findAll());
-	// 		return "/views/app/empresa/detalle";
-	// 	}
-	// 	Empresa empresaAnterior = iEmpresaService.findById(empresa.getIdEmpresa()).get();
-	// 	empresa.setOfertasEmpleos(empresaAnterior.getOfertasEmpleos());
-	// 	empresa.setCredencial(empresaAnterior.getCredencial());
-	// 	iEmpresaService.modify(empresa);
-	// 	return "redirect:/app/empresa/listado";
-	// }
+//	 @PostMapping("/modificar")
+//	 public String modificarEmpresa(Model model, @Valid Empresa empresa, BindingResult result) {
+//	 	if (result.hasErrors()) {
+//	 		model.addAttribute("empresa", empresa);
+//	 		model.addAttribute("provincias", iProvinciaService.findAll());
+//	 		model.addAttribute("sectores", iSectorService.findAll());
+//	 		return "/views/app/empresa/detalle";
+//	 	}
+//	 	Empresa empresaAnterior = iEmpresaService.findById(empresa.getIdEmpresa()).get();
+//	 	empresa.setOfertasEmpleos(empresaAnterior.getOfertasEmpleos());
+//	 	empresa.setCredencial(empresaAnterior.getCredencial());
+//	 	iEmpresaService.modify(empresa);
+//	 	return "redirect:/app/empresa/listado";
+//	 }
 	
 	@GetMapping("/borrar/{idEmpresa}")
 	public String formBaja(@PathVariable Integer idEmpresa) {
