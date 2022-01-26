@@ -115,6 +115,7 @@ public class InscriptionService implements IInscriptionService{
 				}
 			}
 			inscritoDto.setHabilidades(matchHabilidad);
+			//TODO Reconvertir la lista a habilidades de candidato
 			candidatosInscritos.add(inscritoDto);
 		}
 		

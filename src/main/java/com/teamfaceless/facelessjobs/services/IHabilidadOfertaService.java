@@ -25,4 +25,7 @@ public interface IHabilidadOfertaService {
 	List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta);
 	List<Habilidad> generalizacionHabilidadesOferta (List<HabilidadOferta> habilidadesOferta);
 	List<HabilidadOferta> especializacionHabilidadesOferta (List<Habilidad> habilidades, OfertaEmpleo OfertaEmpleo);
+	List<HabilidadOferta> habilidadesDurasRequeridas (List<HabilidadOferta> habilidadOfertas);
+	List<HabilidadOferta> habilidadesDurasNoRequeridas (List<HabilidadOferta> habilidadOfertas);
+	List<HabilidadOferta> habilidadesBlandasRequeridas (List<HabilidadOferta> habilidadOfertas);
 }
