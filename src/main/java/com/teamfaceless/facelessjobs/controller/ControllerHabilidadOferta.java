@@ -103,8 +103,14 @@ public class ControllerHabilidadOferta {
 		if(result.hasErrors()) {
 				return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 			}
+		List<HabilidadOferta> habilidadesDurasAnadidas = habOfeService.findHabilidadesOfertaDurasByOferta(habilidadOferta.getOfertaEmpleo());
+		List<HabilidadOferta> habilidadesBlandasAnadidas = habOfeService.findHabilidadesOfertaBlandasByOferta(habilidadOferta.getOfertaEmpleo());
+		if(habilidadesDurasAnadidas.size()>=limiteHabilidades&&habilidadesBlandasAnadidas.size()>=limiteHabilidades) {
+			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		}
+		
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
-		//TODO
+		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
@@ -139,7 +145,7 @@ public class ControllerHabilidadOferta {
 			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 		}
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
-		//TODO
+		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
@@ -151,7 +157,7 @@ public class ControllerHabilidadOferta {
 		Habilidad habilidad = habService.findById(idHabilidad).get();
 		
 		HabilidadOferta habilidadOferta = habOfeService.findHabilidadOfertaByOfertaAndHabilidad(ofertaEmpleo, habilidad);
-		//TODO El método delete no persiste el borrado, tampoco da error
+		
 		habOfeService.delete(habilidadOferta);
 		
 		return "redirect:/habilidadOferta/"+idOferta;
