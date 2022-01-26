@@ -2,16 +2,14 @@ package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,12 +43,15 @@ public class HabilidadCandidato implements Serializable {
     @ManyToOne(optional = false)
     private Habilidad habilidad;
     
+    @Min(0)
     @Column(name = "experiencia_candidato")
     private Integer experienciaCandidato;
     
     @Column(name = "is_demostrable")
     private boolean isDemostrable;
     
+    @Min(1)
+    @Max(100)
     @Column(name = "nota_habilidad_candidato")
     private int notaHabilidadCandidato;
 

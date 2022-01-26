@@ -24,7 +24,9 @@ import com.teamfaceless.facelessjobs.services.IOfertaService;
 @Controller
 @RequestMapping("/habilidadOferta")
 public class ControllerHabilidadOferta {
-
+	
+	private int limiteHabilidades = 5;
+	
 	@Autowired
 	private IHabilidadService habService;
 	
@@ -42,7 +44,12 @@ public class ControllerHabilidadOferta {
 		
 		model.addAttribute("habilidadOferta", new HabilidadOferta());
 		
-		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
+		model.addAttribute("habilidadesDurasAnadidas", habOfeService.findHabilidadesOfertaDurasByOferta(ofertaEmpleo));
+		model.addAttribute("habilidadesBlandasAnadidas", habOfeService.findHabilidadesOfertaBlandasByOferta(ofertaEmpleo));
+//		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
+		
+		model.addAttribute("listaHabilidadesBlandasRestante", habOfeService.findHabilidadesBlandasRestantesByOferta(ofertaEmpleo));
+		model.addAttribute("listaHabilidadesDurasRestante", habOfeService.findHabilidadesDurasRestantesByOferta(ofertaEmpleo));
 		model.addAttribute("listaHabilidadesRestante", habOfeService.findHabilidadesRestantesByOferta(ofertaEmpleo));
 		
 		return "views/app/empresa/oferta/formularioAdd";
@@ -54,12 +61,13 @@ public class ControllerHabilidadOferta {
 	
 	
 	@PostMapping("/guardar")
-	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model) {
+	public String altaHabilidadOferta(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
 				return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 			}
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		//TODO
+		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
@@ -73,22 +81,28 @@ public class ControllerHabilidadOferta {
 		Habilidad habilidad = habService.findById(idHabilidad).get();
 		model.addAttribute("thisHabilidad", habilidad);
 		
+		HabilidadOferta thisHabilidadOferta = habOfeService.findHabilidadOfertaByOfertaAndHabilidad(ofertaEmpleo, habilidad);
+		model.addAttribute("thisExperiencia", thisHabilidadOferta.getExperienciaOferta());
+		model.addAttribute("thisIsObligatorio", thisHabilidadOferta.isObligatorio());
+		model.addAttribute("thisBaremo",thisHabilidadOferta.getBaremo());
+		
 		model.addAttribute("habilidadOferta", new HabilidadOferta());
 		
-		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
+		model.addAttribute("habilidadesDurasAnadidas", habOfeService.findHabilidadesOfertaDurasByOferta(ofertaEmpleo));
+		model.addAttribute("habilidadesBlandasAnadidas", habOfeService.findHabilidadesOfertaBlandasByOferta(ofertaEmpleo));
+//		model.addAttribute("habilidadesAnadidasEnLaOferta", ofertaEmpleo.getHabilidadOfertaList());
 		
 		return "views/app/empresa/oferta/formularioModificar";
 	}
 	
 	@PostMapping("/modificarConfirmado")
-	public String modificarHabilidadOfertaCOnfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model) {
+	public String modificarHabilidadOfertaCOnfirmado(@Valid HabilidadOferta habilidadOferta, BindingResult result, Model model,String isObligatorio) {
 		if(result.hasErrors()) {
-			return "redirect:/habilidadOferta/modificar/"
-					+ habilidadOferta.getHabilidad().getIdHabilidad() + "/"
-					+ habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+			return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 		}
 		habilidadOferta.setHabilidadOfertaPK(new HabilidadOfertaPK(habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo(), habilidadOferta.getHabilidad().getIdHabilidad()));
 		//TODO
+		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
 		return "redirect:/habilidadOferta/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
