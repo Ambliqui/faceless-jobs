@@ -9,20 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.teamfaceless.facelessjobs.dao.IHabilidadOfertaRepository;
 import com.teamfaceless.facelessjobs.model.Habilidad;
+import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
 
 @Service
-public class HabilidadOfertaService implements IHabilidadOfertaService{
-	
+public class HabilidadOfertaService implements IHabilidadOfertaService {
+
 	@Autowired
 	private IHabilidadOfertaRepository repository;
-	
+
 	@Autowired
 	private IHabilidadService habService;
-	
+
 //	@Override
 //	public List<HabilidadOferta> findAll() {
 //		return repository.findAll();
@@ -40,7 +41,7 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 
 	@Override
 	public void modify(HabilidadOferta habilidadOferta) {
-		repository.save(habilidadOferta);		
+		repository.save(habilidadOferta);
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	public List<HabilidadOferta> findHabilidadesOfertaDurasByOferta(OfertaEmpleo oferta) {
 		return repository.findHabilidadesOfertaDurasByOferta(oferta.getIdOfertaEmpleo());
 	}
-	
+
 	@Override
 	public List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(OfertaEmpleo oferta) {
 		return repository.findHabilidadesOfertaBlandasByOferta(oferta.getIdOfertaEmpleo());
@@ -88,7 +89,7 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	public List<Habilidad> findHabilidadesDurasRestantesByOferta(OfertaEmpleo oferta) {
 		List<Integer> listaId = repository.findHabilidadesDurasRestantesByOferta(oferta.getIdOfertaEmpleo());
 		List<Habilidad> listaHabilidades = new ArrayList<>();
-		for(Integer id : listaId) {
+		for (Integer id : listaId) {
 			Habilidad nuevaHabilidad = habService.findById(id).get();
 			listaHabilidades.add(nuevaHabilidad);
 		}
@@ -99,11 +100,51 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 	public List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta) {
 		List<Integer> listaId = repository.findHabilidadesBlandasRestantesByOferta(oferta.getIdOfertaEmpleo());
 		List<Habilidad> listaHabilidades = new ArrayList<>();
-		for(Integer id : listaId) {
+		for (Integer id : listaId) {
 			Habilidad nuevaHabilidad = habService.findById(id).get();
 			listaHabilidades.add(nuevaHabilidad);
 		}
 		return listaHabilidades;
 	}
+
+	/**
+	 * @author Mefisto
+	 * Devuelve la lista de Habilidades de una oferta
+	 * @param habilidadesOferta
+	 * @return Lista de Habilidad de una oferta
+	 */
+	@Override
+	public List<Habilidad> generalizacionHabilidadesOferta(List<HabilidadOferta> habilidadesOferta) {
+		// Desmonto las habilidades de la oferta a habilidades simples
+		List<Habilidad> habilidadesRequeridas = new ArrayList<>();
+		for (HabilidadOferta habOfer : habilidadesOferta) {
+			habilidadesRequeridas.add(habOfer.getHabilidad());
+		}
+		return habilidadesRequeridas;
+	}
+
+	/**
+	 * @author Mefisto
+	 * Devuelve la especificacion de de las habilidades de una oferta
+	 * @param habilidades
+	 * @param OfertaEmpleo
+	 * @return Lista HabilidadOferta
+	 */
+	@Override
+	public List<HabilidadOferta> especializacionHabilidadesOferta(List<Habilidad> habilidades, OfertaEmpleo ofertaEmpleo) {
 	
+		List<HabilidadOferta> habilidadesOferta = ofertaEmpleo.getHabilidadOfertaList();
+		List<HabilidadOferta> habilidadesComprobadas = new ArrayList<>();
+		
+		for (Habilidad habilidad : habilidades) {
+			for (HabilidadOferta habOfer : habilidadesOferta) {
+				if (habOfer.getHabilidad().equals(habilidad)) {
+					habilidadesComprobadas.add(habOfer);
+					break;
+				}
+			}
+		}
+		return habilidadesComprobadas;
+	}
+
 }

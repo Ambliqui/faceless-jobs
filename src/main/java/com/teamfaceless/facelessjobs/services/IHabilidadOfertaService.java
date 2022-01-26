@@ -3,6 +3,7 @@ package com.teamfaceless.facelessjobs.services;
 import java.util.List;
 
 import com.teamfaceless.facelessjobs.model.Habilidad;
+import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
@@ -22,4 +23,6 @@ public interface IHabilidadOfertaService {
 	List<HabilidadOferta> findHabilidadesOfertaBlandasByOferta(OfertaEmpleo oferta);
 	List<Habilidad> findHabilidadesDurasRestantesByOferta(OfertaEmpleo oferta);
 	List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta);
+	List<Habilidad> generalizacionHabilidadesOferta (List<HabilidadOferta> habilidadesOferta);
+	List<HabilidadOferta> especializacionHabilidadesOferta (List<Habilidad> habilidades, OfertaEmpleo OfertaEmpleo);
 }
