@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,8 @@ public class ControllerOferta {
 	private IRolService rolService;
 	@Autowired
 	private IValidations iValidations;
+	@Autowired
+	private HttpSession httpSession;
 
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
@@ -168,6 +171,9 @@ public class ControllerOferta {
 	
 		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
+		Empresa empresaTemp = (Empresa) httpSession.getAttribute("userSession");
+		empresaTemp.addOfertaEmpleo(oferta);
+		httpSession.setAttribute("userSession", empresaTemp);
 		System.out.println("Oferta añadida con exito.");
 		return "redirect:/app/empresa/oferta/listado";
 	}
@@ -206,6 +212,13 @@ public class ControllerOferta {
 
 		oferta.setFechaInicioOferta(hoy);
 		ofertaService.create(oferta);
+		
+		//Modificar la lista de Ofertas de la empresa de session
+		Empresa empresaTemp = (Empresa) httpSession.getAttribute("userSession");
+		List<OfertaEmpleo> ofertasActuales = ofertaService.findOfertaByEmpresa(empresaTemp.getIdEmpresa());
+		empresaTemp.setOfertasEmpleos(ofertasActuales);
+		httpSession.setAttribute("userSession", empresaTemp);
+		
 		System.out.println("Oferta añadida con exito.");
 		return "redirect:/app/empresa/oferta/listado";
 	}
