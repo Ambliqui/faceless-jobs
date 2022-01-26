@@ -19,6 +19,21 @@ public interface IInscriptionService{
 	void delete (Integer idInscripcionOferta);
 	void modify (InscripcionOferta inscripcionOferta);
 	boolean isPresent(InscripcionOferta inscripcionOferta);
+	
+	/**
+	 * @author Mefisto
+	 * Busca una inscripcion por la clave compuesta
+	 * @param pk Clave compuesta de la Inscripcion
+	 * @return Optional<InscripcionOfertaPK> Clave embebida 
+	 */
 	Optional<InscripcionOfertaPK> findByInscripcionOfertaPK(InscripcionOfertaPK pk);
+	
+	/**
+	 * @author Mefisto
+	 * Devuelve un DTO de las inscripciones de una oferta
+	 * con datos sesgados del usuario y una lista de habilidades genericas coincidentes con la oferta
+	 * @param ofertaEmpleo
+	 * @return List<InscripcionOfertaInscritoDto>
+	 */
 	List<InscripcionOfertaInscritoDto> inscritosOfertaConHabilidades(OfertaEmpleo ofertaEmpleo);
 }

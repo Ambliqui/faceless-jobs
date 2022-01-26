@@ -39,7 +39,7 @@
 					<td th:text="${insc.provincia}"></td>
 					<td th:text="${insc.localidad}"></td>
 					<td th:each="hab : ${insc.habilidades}"
-						th:text="${hab.nombreHabilidad}"
+						th:text="${hab.notaHabilidadCandidato}"
 						class="text-center">
 					</td>
 					<td class="text-center">75%</td>
@@ -77,14 +77,12 @@
 				Esta es mi tabla de	descartados
 			</div>
 		</div>
-
-
-		<div class="row">
+<!-- 		<div class="row"> -->
 <!-- 		<div class="col-2 border border-dark text-center"> -->
 <!-- 			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a> -->
 <!-- 			<p>Aqui van los filtros</p> -->
 <!-- 		</div> -->
-		</div>
+<!-- 		</div> -->
 	</div>
 <!-- 	<footer th:replace="plantilla/template :: footer"></footer> -->
   <footer th:replace="fragments/base :: footer"></footer>

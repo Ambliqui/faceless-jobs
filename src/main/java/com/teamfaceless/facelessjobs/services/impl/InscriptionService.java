@@ -16,6 +16,7 @@ import com.teamfaceless.facelessjobs.model.HabilidadOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
+import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
 import com.teamfaceless.facelessjobs.services.IInscriptionService;
 
 @Service
@@ -24,6 +25,9 @@ public class InscriptionService implements IInscriptionService{
 	@Autowired
 	IInscriptionRepository repository;
 
+	@Autowired
+	private IHabilidadCandidatoService habCandidatoService;
+	
 	@Override
 	public List<InscripcionOferta> findAll() {
 		return repository.findAll();
@@ -114,8 +118,8 @@ public class InscriptionService implements IInscriptionService{
 					matchHabilidad.add(relleno);
 				}
 			}
-			inscritoDto.setHabilidades(matchHabilidad);
-			//TODO Reconvertir la lista a habilidades de candidato
+			List<HabilidadCandidato> habilidadesEncontradas = habCandidatoService.especializacionHabilidadesCandidatoRellenos(matchHabilidad, inscripcion.getCandidato());
+			inscritoDto.setHabilidades(habilidadesEncontradas);
 			candidatosInscritos.add(inscritoDto);
 		}
 		

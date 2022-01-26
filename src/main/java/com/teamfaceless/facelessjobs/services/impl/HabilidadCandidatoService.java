@@ -74,6 +74,7 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	}
 
 	/**
+	 * @author Mefisto
 	 * Devuelve una lista de Habilidad a partir de las habilidades del candidato
 	 * @param habilidadesCandidato
 	 * @return Lista Habilidad
@@ -90,13 +91,14 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 	}
 
 	/**
-	 * Devuelve una lista de HabilidadCandidato a partir de una lista de Habilidad genérica
+	 * @author Mefisto
+	 * Devuelve una lista de HabilidadCandidato COINCIDENTES a partir de una lista de Habilidad genérica
 	 * @param habilidades
 	 * @param candidato
 	 * @return Lista de HabilidadCandidato 
 	 */
 	@Override
-	public List<HabilidadCandidato> especializacionHabilidadesCandidato(List<Habilidad> habilidades, Candidato candidato) {
+	public List<HabilidadCandidato> especializacionHabilidadesCandidatoCoincidentes(List<Habilidad> habilidades, Candidato candidato) {
 		
 		List<HabilidadCandidato> habilidadesCandidato = candidato.getHabilidadCandidatoList();
 		List<HabilidadCandidato> habilidadesComprobadas = new ArrayList<>();
@@ -107,6 +109,32 @@ public class HabilidadCandidatoService implements IHabilidadCandidatoService{
 					habilidadesComprobadas.add(habCand);
 					break;
 				}
+			}
+		}
+		return habilidadesComprobadas;
+	}
+	
+	public List<HabilidadCandidato> especializacionHabilidadesCandidatoRellenos(List<Habilidad> habilidades, Candidato candidato) {
+		
+		List<HabilidadCandidato> habilidadesCandidato = candidato.getHabilidadCandidatoList();
+		List<HabilidadCandidato> habilidadesComprobadas = new ArrayList<>();
+		
+		for (Habilidad habilidad : habilidades) {
+			Boolean bandera = true;
+			for (HabilidadCandidato habCand : habilidadesCandidato) {
+				if (habCand.getHabilidad().equals(habilidad)) {
+					habilidadesComprobadas.add(habCand);
+					bandera = false;
+					break;
+				}
+			}
+			if (bandera) {
+				HabilidadCandidato relleno = new HabilidadCandidato();
+				Habilidad masRelleno = new Habilidad();
+				masRelleno.setNombreHabilidad("No disponible");
+				relleno.setNotaHabilidadCandidato(0);
+				relleno.setHabilidad(masRelleno);
+				habilidadesComprobadas.add(relleno);
 			}
 		}
 		return habilidadesComprobadas;
