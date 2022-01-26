@@ -83,6 +83,10 @@ public class EmpresaController {
 	@GetMapping("/perfil")
 	public String goPerfil(Model model) {
 		model.addAttribute("titulo", "Perfil de Empresa");
+
+		Empresa empresa = (Empresa) httpSession.getAttribute("userSession");
+		model.addAttribute("idEmpresa", empresa.getIdEmpresa());
+		
 		return "views/app/empresa/perfil";
 	}
 	
