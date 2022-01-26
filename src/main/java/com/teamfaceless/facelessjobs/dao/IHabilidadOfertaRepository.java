@@ -49,8 +49,13 @@ public interface IHabilidadOfertaRepository extends JpaRepository<HabilidadOfert
 			+ ") "
 			+ "and "
 			+ "habilidad.categoria_habilidad = 1",nativeQuery=true)
-	List<Habilidad> findHabilidadesDurasRestantesByOferta(@Param("oferta") int idOferta);
+	List<Integer> findHabilidadesDurasRestantesByOferta(@Param("oferta") int idOferta);
 	
+//	@Query("FROM Habilidad where not exists "
+//			+ "(select 1 FROM HabilidadOferta WHERE habilidad_oferta.habilidad_id_habilidad = habilidad.id_habilidad AND ofertaEmpleo := oferta)"
+//			+ " and categoria = 1")
+//	List<Habilidad> findHabilidadesDurasRestantesByOferta(@Param("oferta") OfertaEmpleo oferta);
+//	
 	@Query(value="SELECT id_habilidad FROM habilidad "
 			+ "where not exists ( "
 			+ "	select 1 "
@@ -62,7 +67,12 @@ public interface IHabilidadOfertaRepository extends JpaRepository<HabilidadOfert
 			+ ") "
 			+ "and "
 			+ "habilidad.categoria_habilidad = 0",nativeQuery=true)
-	List<Habilidad> findHabilidadesBlandasRestantesByOferta(@Param("oferta") int idOferta);
+	List<Integer> findHabilidadesBlandasRestantesByOferta(@Param("oferta") int idOferta);
+	
+//	@Query("FROM Habilidad where not exists "
+//			+ "(select 1 FROM HabilidadOferta WHERE habilidad_oferta.habilidad_id_habilidad = habilidad.id_habilidad AND ofertaEmpleo := oferta)"
+//			+ " and categoria = 1")
+//	List<Habilidad> findHabilidadesBlandasRestantesByOferta(@Param("oferta") OfertaEmpleo oferta);
 	/*
 	 * SELECT id_habilidad FROM habilidad
 inner join habilidad_oferta

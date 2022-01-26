@@ -1,5 +1,6 @@
 package com.teamfaceless.facelessjobs.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,12 +87,24 @@ public class HabilidadOfertaService implements IHabilidadOfertaService{
 
 	@Override
 	public List<Habilidad> findHabilidadesDurasRestantesByOferta(OfertaEmpleo oferta) {
-		return repository.findHabilidadesDurasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Integer> listaId = repository.findHabilidadesDurasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Habilidad> listaHabilidades = new ArrayList<>();
+		for(Integer id : listaId) {
+			Habilidad nuevaHabilidad = habService.findById(id).get();
+			listaHabilidades.add(nuevaHabilidad);
+		}
+		return listaHabilidades;
 	}
 
 	@Override
 	public List<Habilidad> findHabilidadesBlandasRestantesByOferta(OfertaEmpleo oferta) {
-		return repository.findHabilidadesBlandasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Integer> listaId = repository.findHabilidadesBlandasRestantesByOferta(oferta.getIdOfertaEmpleo());
+		List<Habilidad> listaHabilidades = new ArrayList<>();
+		for(Integer id : listaId) {
+			Habilidad nuevaHabilidad = habService.findById(id).get();
+			listaHabilidades.add(nuevaHabilidad);
+		}
+		return listaHabilidades;
 	}
 	
 }
