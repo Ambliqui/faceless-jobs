@@ -30,7 +30,7 @@
 							th:text="${hab.habilidad.nombreHabilidad}"
 							class="bg-primary text-center"></th>
 						
-						<th class="text-center">Puntuación</th>
+						<th class="text-center">Afinidad</th>
 						<th class="text-center">Gestión</th>
 					</tr>
 				</thead>
@@ -42,7 +42,7 @@
 						th:text="${hab.notaHabilidadCandidato}"
 						class="text-center">
 					</td>
-					<td class="text-center">75%</td>
+					<td class="text-center" th:text="${insc.afinidad}+'%'"></td>
 					<td class="text-center align-middle">
 						<a th:href="@{'#'}"
 							class="btn btn-success btn-sm"
