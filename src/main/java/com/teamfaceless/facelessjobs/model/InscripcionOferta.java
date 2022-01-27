@@ -3,22 +3,21 @@ package com.teamfaceless.facelessjobs.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import com.teamfaceless.facelessjobs.enums.EstadoInscripcion;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -63,6 +62,14 @@ public class InscripcionOferta implements Serializable {
 //    @ManyToOne(optional = false)
     private OfertaEmpleo ofertaEmpleo;
 
+    @Default
+    @Column(name="estado_inscripcion", columnDefinition = "integer default 0")
+    private EstadoInscripcion estadoInscripcion=EstadoInscripcion.INSCRITO;
+    
+    @Column(name="comentario",columnDefinition = "text")
+    private String comentario;
+    
+    
     public InscripcionOferta(InscripcionOfertaPK inscripcionOfertaPK) {
         this.inscripcionOfertaPK = inscripcionOfertaPK;
     }
