@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.validations;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,7 +20,6 @@ import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosExceptio
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
 import com.teamfaceless.facelessjobs.model.HabilidadOferta;
-import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
@@ -125,12 +125,21 @@ public class ValidationsImpl implements IValidations {
 
 		if (!habilidadOfertaDuraReqList.isEmpty()) {
 			List<HabilidadCandidato> habilidadCandidatoDuraReqList = habCandidatoService.especializacionHabilidadesCandidatoCoincidentes(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaDuraReqList), candidato);
-			if (!habilidadCandidatoDuraReqList.isEmpty()) {
+			List<HabilidadCandidato> habilidadCandidato = new ArrayList<HabilidadCandidato>();
+
+			for (HabilidadCandidato habCand : habilidadCandidatoDuraReqList) {
+				if (habCand.isDemostrable()) {
+					habilidadCandidato.add(habCand);
+				}
+			}
+
+			if (!habilidadCandidato.isEmpty()) {
 				return Optional.empty();
 			} else {
 				InscripcionSinRequisitosException exception = new InscripcionSinRequisitosException("No cumple los requisitos para inscribirse en esta oferta");
 				return Optional.of(exception);
 			}
+
 		} else {
 			return Optional.empty();
 		}
