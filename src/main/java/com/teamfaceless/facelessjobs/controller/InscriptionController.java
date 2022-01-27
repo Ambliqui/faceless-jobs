@@ -55,7 +55,7 @@ public class InscriptionController {
 				.inscripcionOfertaPK(keyInscription)
 				.fechaInscripcion(new Date())
 				.build();
-//			inscriptionService.create(inscription);
+			inscriptionService.create(inscription);
 			return "redirect:/";
 		}
 	}
