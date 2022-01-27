@@ -1,6 +1,7 @@
 package com.teamfaceless.facelessjobs.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.teamfaceless.facelessjobs.dtos.empresa.mapper.IEmpresaMapper;
 import com.teamfaceless.facelessjobs.model.Candidato;
@@ -21,40 +22,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/inscription")
-public class InscriptionController { 
-	
+public class InscriptionController {
+
 	@Autowired
 	private ICandidatoService candidatoService;
-	
-	@Autowired
-	private IInscriptionService inscriptionService;
-	
 	@Autowired
 	private IOfertaService ofertaService;
-	
+	@Autowired
+	private IInscriptionService inscriptionService;
+
 	@PostMapping("/save")
-	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth) {
-	
-		
+	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth, RedirectAttributes redirect) {
+
 		String nombre = auth.getName();
 		Candidato candidato = candidatoService.findByEmail(nombre).get();
 		OfertaEmpleo oferta = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
-		//TODO Validar Que el usuario cumple los requisiatos requeridos
 		
-		InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(), candidato.getIdCandidato());
-		InscripcionOferta inscription= InscripcionOferta.builder()
-			.candidato(candidato)
-			.ofertaEmpleo(oferta)
-			.inscripcionOfertaPK(keyInscription)
-			.fechaInscripcion(new Date())
-			.build();
-			
-		inscriptionService.create(inscription);
-		//return "/views/app/candidato/perfil/";
-		return "redirect:/";
+		// Validar que el usuario cumple los requisiatos requeridos
+		Map<String, String> mapaErrores = inscriptionService.validadorInscripcion(oferta, candidato);
+		if (!mapaErrores.isEmpty()) {
+			redirect.addFlashAttribute("error", "No cumples los requisitos exigidos para esta oferta");
+			return "redirect:/oferta/detalle/" + oferta.getIdOfertaEmpleo();
+		} else {
+			InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(),candidato.getIdCandidato());
+			InscripcionOferta inscription = InscripcionOferta.builder()
+				.candidato(candidato)
+				.ofertaEmpleo(oferta)
+				.inscripcionOfertaPK(keyInscription)
+				.fechaInscripcion(new Date())
+				.build();
+//			inscriptionService.create(inscription);
+			return "redirect:/";
+		}
 	}
 
 }

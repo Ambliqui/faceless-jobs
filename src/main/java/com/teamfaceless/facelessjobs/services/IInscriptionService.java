@@ -48,7 +48,7 @@ public interface IInscriptionService{
 	 * @param candidato
 	 * @return Mapa de errores
 	 */
-	Map<String, String> validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato); 
+	Map<String, String> validadorInscripcion(OfertaEmpleo ofertaEmpleo, Candidato candidato); 
 	
 	/**
 	 * @author Mefisto

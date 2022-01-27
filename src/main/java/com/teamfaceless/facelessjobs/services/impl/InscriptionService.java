@@ -139,22 +139,24 @@ public class InscriptionService implements IInscriptionService{
 			inscritoDto.setAfinidad(calcularAfinidadCandidato(inscripcion));
 			//Se añade el DTO a la lista
 			candidatosInscritos.add(inscritoDto);
-		}
-		
-		
+		}		
 		return candidatosInscritos;
 	}
 
 	@Override
-	public Map<String, String> validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato) {
+	public Map<String, String> validadorInscripcion(OfertaEmpleo ofertaEmpleo, Candidato candidato) {
 		
 		Map<String, String> mapaErrores = new HashMap<>();
+		validations.inscripcionRequisitosNoCoincidentes(ofertaEmpleo, candidato)
+			.ifPresent((error) -> mapaErrores.put("ErrorSinRequisitos", error.getMessage()));
+		validations.inscripcionExistente(ofertaEmpleo, candidato)
+			.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
 		
 		return mapaErrores;
 	}
 
 	public Integer calcularAfinidadCandidato(InscripcionOferta inscripcion) {
-		// TODO Auto-generated method stub
+		
 		//Se calcula el apartado de Habilidades Duras Y Requeridas
 	    
 	    List<HabilidadOferta> habilidadOfertaDuraReqList = habOfeService.habilidadesDurasRequeridas(inscripcion.getOfertaEmpleo().getHabilidadOfertaList());
