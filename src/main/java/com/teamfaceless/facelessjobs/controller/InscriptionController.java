@@ -54,7 +54,7 @@ public class InscriptionController {
 			
 		inscriptionService.create(inscription);
 		//return "/views/app/candidato/perfil/";
-		return "redirect:/oferta/listado";
+		return "redirect:/";
 	}
 
 }
