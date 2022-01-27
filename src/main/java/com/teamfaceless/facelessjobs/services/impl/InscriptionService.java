@@ -111,7 +111,7 @@ public class InscriptionService implements IInscriptionService{
 			
 			InscripcionOfertaInscritoDto inscritoDto = new InscripcionOfertaInscritoDto();
 			//Guardamos las propiedades del candidato inscrito
-			inscritoDto.setIdCandidato(inscripcion.getCandidato().getIdCandidato());
+			inscritoDto.setIdCandidato(inscripcion.getCandidato().codificarNombre());
 			inscritoDto.setProvincia(inscripcion.getCandidato().getProvinciaCandidato().getNombreProvincia());
 //			inscritoDto.setLocalidad(inscripcion.getCandidato().getLocalidadCandidato());			
 			

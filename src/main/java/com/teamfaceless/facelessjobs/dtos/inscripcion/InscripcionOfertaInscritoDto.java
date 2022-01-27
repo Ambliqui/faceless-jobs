@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class InscripcionOfertaInscritoDto {
 	
-	private Integer idCandidato;
+	private String idCandidato;
 	private String provincia;
 	private String localidad;
 	private List<HabilidadCandidato> habilidades;
