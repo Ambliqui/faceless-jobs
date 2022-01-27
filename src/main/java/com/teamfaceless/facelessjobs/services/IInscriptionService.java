@@ -1,11 +1,13 @@
 package com.teamfaceless.facelessjobs.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
+import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
@@ -41,10 +43,18 @@ public interface IInscriptionService{
 	/**
 	 * @author Mefisto
 	 * Valida si un candidato puede optar a la oferta de trabajo
-	 * Devolvera un boolean si cumple las reglas de negocio
-	 * 
+	 * Devolvera un mapa de errores con nombre error y valor
+	 * @param inscripcionOferta
+	 * @param candidato
+	 * @return Mapa de errores
 	 */
-	String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato); 
+	Map<String, String> validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato); 
 	
-  Integer calcularAfinidadCandidato(InscripcionOferta inscripcion);
+	/**
+	 * @author Mefisto
+	 * Calcula la afinidad de un candidato con la oferta inscrita
+	 * @param inscripcion
+	 * @return Integer con la nota de afinidad
+	 */
+	Integer calcularAfinidadCandidato(InscripcionOferta inscripcion);
 }

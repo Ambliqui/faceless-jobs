@@ -49,6 +49,7 @@ public class ControllerCandidato {
 	public String registrar(@Valid @ModelAttribute("candidato") CandidatoRegistroDto candidatoRegistroDto,
 			BindingResult result, Model model, RedirectAttributes redirect) {
 
+		model.addAttribute("provincias", iProvinciaService.findAll());
 		if (result.hasErrors()) {
 			System.out.println("HAY ERRORES");
 			return "views/candidato/registro";
