@@ -2,7 +2,6 @@ package com.teamfaceless.facelessjobs.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,21 +15,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.teamfaceless.facelessjobs.enums.EstadoOferta;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -111,4 +108,8 @@ public class OfertaEmpleo implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ofertaEmpleo")
 	private List<InscripcionOferta> inscripcionOfertaList;
 
+	@Default
+	@Column(name="estadoOferta", columnDefinition = "integer default 1")
+	private EstadoOferta estadoOferta=EstadoOferta.ARCHIVADA;
+	
 }
