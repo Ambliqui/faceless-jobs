@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
-import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
@@ -22,7 +20,7 @@ public interface IInscriptionService{
 	void delete (Integer idInscripcionOferta);
 	void modify (InscripcionOferta inscripcionOferta);
 	boolean isPresent(InscripcionOferta inscripcionOferta);
-	
+	InscripcionOferta save(InscripcionOferta inscripcion);
 	/**
 	 * @author Mefisto
 	 * Busca una inscripcion por la clave compuesta

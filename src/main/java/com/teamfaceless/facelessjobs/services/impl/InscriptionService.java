@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.IInscriptionRepository;
 import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
-import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
@@ -21,7 +20,6 @@ import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
-import com.teamfaceless.facelessjobs.services.IHabilidadService;
 import com.teamfaceless.facelessjobs.services.IInscriptionService;
 import com.teamfaceless.facelessjobs.validations.IValidations;
 
@@ -37,8 +35,8 @@ public class InscriptionService implements IInscriptionService{
 	@Autowired
 	private IHabilidadOfertaService habOfeService;
 	
-	@Autowired
-	private IHabilidadService habService;
+//	@Autowired
+//	private IHabilidadService habService;
 	
 	@Autowired
 	private IValidations validations;
@@ -58,6 +56,12 @@ public class InscriptionService implements IInscriptionService{
 	public void create(InscripcionOferta inscripcionOferta) {
 		repository.save(inscripcionOferta);
 		
+	}
+
+	@Override
+	public InscripcionOferta save(InscripcionOferta inscripcion) {
+		InscripcionOferta resultado = repository.save(inscripcion);
+		return resultado;
 	}
 
 	@Override
