@@ -38,10 +38,12 @@ public class InscriptionController {
 	@PostMapping("/save")
 	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth) {
 	
+		
 		String nombre = auth.getName();
 		Candidato candidato = candidatoService.findByEmail(nombre).get();
-		//TODO recoger oferta de 
 		OfertaEmpleo oferta = ofertaService.findById(offert.getIdOfertaEmpleo()).get();
+		//TODO Validar Que el usuario cumple los requisiatos requeridos
+		
 		InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(), candidato.getIdCandidato());
 		InscripcionOferta inscription= InscripcionOferta.builder()
 			.candidato(candidato)

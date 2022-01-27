@@ -139,6 +139,11 @@ public class InscriptionService implements IInscriptionService{
 	}
 
 	@Override
+	public String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public Integer calcularAfinidadCandidato(InscripcionOferta inscripcion) {
 		// TODO Auto-generated method stub
 		//Se calcula el apartado de Habilidades Duras Y Requeridas
