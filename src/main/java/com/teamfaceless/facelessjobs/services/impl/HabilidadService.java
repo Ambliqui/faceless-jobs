@@ -49,5 +49,5 @@ public class HabilidadService implements IHabilidadService{
 	@Override
 	public void delete(Integer idHabilidad) {
 		repository.deleteById(idHabilidad);
-	}	
+	}
 }

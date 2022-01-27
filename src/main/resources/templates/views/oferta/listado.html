@@ -17,6 +17,13 @@
  </div>
 
     <div class="row m-3">
+    	<div class="card-body text-center">
+		    <a th:href="@{'/app/empresa/oferta/formulario'}"
+	           	th:text="${'Añadir oferta'}"
+	           	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+	           	class="btn btn-success"
+	           	style="width:200px">Button</a>
+        </div>
       <div th:each="oferta:${ofertas}" class="container">
         <div class="card text-center">
           <div class="card-header bg-info"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
@@ -39,6 +46,10 @@
             	th:text="${'Eliminar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-danger">Button</a>
+           	<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Ver Habilidades'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-warning">Button</a>
             	   <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Detalle'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
