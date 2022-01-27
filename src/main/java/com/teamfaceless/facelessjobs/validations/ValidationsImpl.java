@@ -118,21 +118,22 @@ public class ValidationsImpl implements IValidations {
 	}
 
 	@Override
-	public Optional<InscripcionSinRequisitosException> inscripcionRequisitosNoCoincidentes(OfertaEmpleo ofertaEmpleo,Candidato candidato) {
+	public Optional<InscripcionSinRequisitosException> inscripcionRequisitosNoCoincidentes(OfertaEmpleo ofertaEmpleo,
+			Candidato candidato) {
 
-//		List<HabilidadOferta> habilidadOfertaDuraReqList = habOfeService.habilidadesDurasRequeridas(ofertaEmpleo.getHabilidadOfertaList());
-//		
-//		if (!habilidadOfertaDuraReqList.isEmpty()) {
-//			List<HabilidadCandidato> habilidadCandidatoDuraReqList = habCandidatoService.especializacionHabilidadesCandidatoCoincidentes(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaDuraReqList), candidato);
-//			if (!habilidadCandidatoDuraReqList.isEmpty()) {
-//				return Optional.empty();
-//			}else {
-			InscripcionSinRequisitosException exception = new InscripcionSinRequisitosException("No cumple los requisitos para inscribirse en esta oferta");
-			return Optional.of(exception);
+		List<HabilidadOferta> habilidadOfertaDuraReqList = habOfeService.habilidadesDurasRequeridas(ofertaEmpleo.getHabilidadOfertaList());
+
+		if (!habilidadOfertaDuraReqList.isEmpty()) {
+			List<HabilidadCandidato> habilidadCandidatoDuraReqList = habCandidatoService.especializacionHabilidadesCandidatoCoincidentes(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaDuraReqList), candidato);
+			if (!habilidadCandidatoDuraReqList.isEmpty()) {
+				return Optional.empty();
+			} else {
+				InscripcionSinRequisitosException exception = new InscripcionSinRequisitosException("No cumple los requisitos para inscribirse en esta oferta");
+				return Optional.of(exception);
 			}
-//		}else {
-//			return Optional.empty();
-//		}
-//	}
+		} else {
+			return Optional.empty();
+		}
+	}
 
 }

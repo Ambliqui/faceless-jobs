@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/inscription")
@@ -33,11 +34,9 @@ public class InscriptionController {
 	private IOfertaService ofertaService;
 	@Autowired
 	private IInscriptionService inscriptionService;
-	@Autowired
-	private IValidations validations;
 
 	@PostMapping("/save")
-	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth) {
+	public String saveInscription(@ModelAttribute("oferta") OfertaEmpleo offert, Authentication auth, RedirectAttributes redirect) {
 
 		String nombre = auth.getName();
 		Candidato candidato = candidatoService.findByEmail(nombre).get();
@@ -46,7 +45,8 @@ public class InscriptionController {
 		// Validar que el usuario cumple los requisiatos requeridos
 		Map<String, String> mapaErrores = inscriptionService.validadorInscripcion(oferta, candidato);
 		if (!mapaErrores.isEmpty()) {
-			return "views/oferta/detalle/" + oferta.getIdOfertaEmpleo();
+			redirect.addFlashAttribute("error", "No cumples los requisitos exigidos para esta oferta");
+			return "redirect:/oferta/detalle/" + oferta.getIdOfertaEmpleo();
 		} else {
 			InscripcionOfertaPK keyInscription = new InscripcionOfertaPK(offert.getIdOfertaEmpleo(),candidato.getIdCandidato());
 			InscripcionOferta inscription = InscripcionOferta.builder()

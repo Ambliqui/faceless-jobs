@@ -22,6 +22,7 @@ import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
 import com.teamfaceless.facelessjobs.validations.IValidations;
+
 @Controller
 @RequestMapping("/oferta")
 public class ControllerOferta2 {
@@ -35,12 +36,13 @@ public class ControllerOferta2 {
 	private IEmpresaService empresaService;
 	@Autowired
 	private ICandidatoService candidatoService;
+
 	@GetMapping(value = "/detalle/{idOfertaEmpleo}")
 	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model,
 			Authentication auth) {
 
 		Optional<OfertaEmpleo> oferta = null;
-		oferta =ofertaService.findById(idOfertaEmpleo);
+		oferta = ofertaService.findById(idOfertaEmpleo);
 		Map<String, String> mapaErrores = new HashMap<>();
 
 		if (!Objects.isNull(auth)) {
@@ -51,24 +53,24 @@ public class ControllerOferta2 {
 				Integer idCandidato = candidato.getIdCandidato();
 
 				if (iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato).isPresent()) {
-//				iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato)
-//					.ifPresent((error) -> mapaErrores.put("ErrorYaInscrito", error.getMessage()));
 					model.addAttribute("msg", mapaErrores);
 					model.addAttribute("error", "¡YA ESTAS INSCRITO/A A ESTA OFERTA!");
+					model.addAttribute("btn", "hidden");
+				} else if (iValidations.inscripcionRequisitosNoCoincidentes(oferta.get(), candidato).isPresent()) {
+					model.addAttribute("msg", mapaErrores);
+					model.addAttribute("error", "No cumples los requisitos para inscribirte de esta oferta");
 					model.addAttribute("btn", "hidden");
 				} else {
 					model.addAttribute("btn", "submit");
 				}
 			}
-//			if (!iValidations.inscripcionExistente(idOfertaEmpleo, idCandidato).isPresent()) {
-//				model.addAttribute("btn", "submit");
-//			}
 		}
 
 		model.addAttribute("oferta", oferta.get());
 
 		return "views/oferta/detalle";
 	}
+
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
 		String email = auth.getName();
