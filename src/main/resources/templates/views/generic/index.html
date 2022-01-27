@@ -10,17 +10,18 @@
 	<nav th:replace="fragments/base :: navbar"></nav>
 	<h1 class="text-center align-middle text-secondary mt-3 display-3">Ofertas
 		de empleo disponibles</h1>
-
+		<h5 th:text="${msgError}" class="form-text text-danger" style="text-align: center;"></h5>
+	<hr>
 	<main class="container content">
-		<section class="row">
-			<div class="col-2">
-<h1 th:text="${'Filtro'}"></h1>
-				<form action="/" method="get">
+		<section class="row text-center">
+			<div class="col-3">
+			<form action="/" method="get">
 					<div class="form-group">
 						<label for="tituloOferta">Título</label> <input type="text"
-							class="form-control" id="tituloOferta" placeholder="Título..."
+							class="form-control" id="tituloOferta" th:value="${tituloOferta}" placeholder="Título..."
 							name="titulo">
 					</div>
+					<!--  
 					<div class="form-group">
 						<label for="palabraClave">Palabra clave</label> <input type="text"
 							class="form-control" id="palabraClave"
@@ -41,40 +42,43 @@
 								th:value="${s.nombreSectorLaboral}"
 								th:text="${s.nombreSectorLaboral}"></option>
 						</select>
+					
 					</div>
+						-->
 					<div class="form-group">
 						<label for="salario">Salario Minimo</label> <input type="number"
-							step="500" class="form-control" id="salario"
-							placeholder="Salario minimo..." name="salarioMinimo">
+						min="0" class="form-control" id="salario"
+							placeholder="Salario minimo..." th:value="${salarioOferta}" name="salarioMinimo">
 					</div>
 
 					<br>
+					<div class="text-align-center">
 					<button type="submit" class="btn btn-primary">Filtrar</button>
-					<button type="submit" formaction="/limpiarFiltro" class="btn btn-dark">Limpiar filtro</button>
-				</form>
-			</div>
-		<div class="col-8">
-			<div th:each="oferta:${ofertas}">
-				<div class="card text-center">
-					<header class="card-header"
-						th:text="${oferta.empresa.nombreEmpresa}"></header>
-					<div class="card-body">
-						<h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
-						<p class="recortar-contenido card-text"
-							th:text="${oferta.descripcionOferta}"></p>
-						<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
-							class="btn btn-primary">Detalle</a>
+					<button type="submit" formaction="/limpiarFiltro" class="btn btn-dark">Ver todas</button>
+					
 					</div>
-					<footer class="card-footer text-muted"
-						th:text="${oferta.fechaInicioOferta}"></footer>
-				</div>
-				<br>
+				</form>
+			
 			</div>
+			<div class="col-7 row inline-block">
+				<div th:each="oferta:${ofertas}" class="col-6">
+					<div class="card text-center">
+						<header class="card-header"
+							th:text="${oferta.empresa.nombreEmpresa}"></header>
+						<div class="card-body">
+							<h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
+							<p class="recortar-contenido card-text"
+								th:text="${oferta.descripcionOferta}"></p>
+							<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+								class="btn btn-primary">Detalle</a>
+						</div>
+						<footer class="card-footer text-muted"
+							th:text="${oferta.fechaInicioOferta}"></footer>
+					</div>
+					<br>
+				</div>
 			</div>
 		</section>
-		<p class="form-text text-danger text-center align-middle"
-			th:text="${msgError}"></p>
-
 	</main>
 
 	<nav class="d-flex justify-content-center">

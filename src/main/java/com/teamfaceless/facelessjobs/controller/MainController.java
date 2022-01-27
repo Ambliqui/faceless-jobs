@@ -102,15 +102,18 @@ private ISectorService sectorService;
 		}
 		Filtro filtro3=(Filtro)session.getAttribute("filtro");
 		
-		Page<OfertaEmpleo>ofertas=ofertaService.findByTituloAndDescripcion(//
+		Page<OfertaEmpleo>ofertas=ofertaService.findByTituloAndDescripcion(
 				filtro3.getTitulo(),filtro3.getDescripcion(),filtro3.getProvincia(),filtro3.getSector(),filtro3.getSalarioMinimo(),filtro3.getSalarioMaximo(),filtro3.getNPagina(),N_ELEMENTOS);
 		PageRender<OfertaEmpleo> pageRender = new PageRender<>("/", ofertas);
+		String tituloOferta=filtro3.getTitulo();
+		Integer salario=filtro3.getSalarioMinimo();
 		if(ofertas.isEmpty()) {
 			model.addAttribute("msgError","No se encontró ningun resultado asociado a su busqueda.");
 		}
 		List<Provincia> provincias=provinciaService.findAll();
 		List<SectorLaboral>sectores=sectorService.findAll();
-		
+		model.addAttribute("tituloOferta",tituloOferta);
+		model.addAttribute("salarioOferta",salario);
 		model.addAttribute("ofertas",ofertas);
 		model.addAttribute("page", pageRender);
 		model.addAttribute("pageTitle","Inicio");
