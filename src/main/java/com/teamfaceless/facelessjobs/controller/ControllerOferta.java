@@ -172,12 +172,19 @@ public class ControllerOferta {
 		}
 	
 		oferta.setFechaInicioOferta(hoy);
-		ofertaService.create(oferta);
+		oferta = ofertaService.save(oferta);
 		Empresa empresaTemp = (Empresa) httpSession.getAttribute("userSession");
-		empresaTemp.addOfertaEmpleo(oferta);
+		
+		//Modificar la lista de Ofertas de la empresa de session
+//		Empresa empresaTemp = (Empresa) httpSession.getAttribute("userSession");
+		List<OfertaEmpleo> ofertasActuales = ofertaService.findOfertaByEmpresa(empresaTemp.getIdEmpresa());
+		empresaTemp.setOfertasEmpleos(ofertasActuales);
 		httpSession.setAttribute("userSession", empresaTemp);
+		
+//		empresaTemp.addOfertaEmpleo(oferta);
+//		httpSession.setAttribute("userSession", empresaTemp);
 		System.out.println("Oferta añadida con exito.");
-		return "redirect:/app/empresa/oferta/listado";
+		return "redirect:/app/empresa/oferta/habilidad/"+oferta.getIdOfertaEmpleo();
 	}
 	@PostMapping(value = "/modificar")
 	public String modificarOferta(@Valid @ModelAttribute("oferta") OfertaEmpleo oferta, BindingResult result,

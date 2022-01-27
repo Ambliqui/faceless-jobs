@@ -76,6 +76,12 @@ public class OfertaService implements IOfertaService {
 					sector,salarioMinimo,salarioMaximo,PageRequest.of(nPagina, nElementos,Sort.by("fechaInicioOferta").descending()));
 		}
 
+		@Override
+		public OfertaEmpleo save(OfertaEmpleo oferta) {
+			
+			return repository.save(oferta);
+		}
+
 	
 
 	

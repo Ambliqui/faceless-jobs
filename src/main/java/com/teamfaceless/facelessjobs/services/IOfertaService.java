@@ -33,4 +33,5 @@ public interface IOfertaService {
 			String titulo, String descrpcion,String provincia,
 			String sector,Integer salarioMinimo, Integer salarioMaximo,Integer nPagina,Integer nElementos);
 	
+	OfertaEmpleo save(OfertaEmpleo oferta);
 }
