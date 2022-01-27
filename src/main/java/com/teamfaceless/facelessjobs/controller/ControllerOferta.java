@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,6 +56,7 @@ public class ControllerOferta {
 	private IValidations iValidations;
 	@Autowired
 	private HttpSession httpSession;
+	
 
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
@@ -77,7 +79,7 @@ public class ControllerOferta {
 	public String goListadoPost(Model model, Authentication auth) {
 		return "redirect:/oferta/listado";
 	}
-	
+
 	@GetMapping(value = "/detalle/{idOfertaEmpleo}")
 	public String mostrarDetalle(@PathVariable(value = "idOfertaEmpleo") Integer idOfertaEmpleo, Model model,
 			Authentication auth) {

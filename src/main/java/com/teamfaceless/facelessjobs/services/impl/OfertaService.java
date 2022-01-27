@@ -70,7 +70,7 @@ public class OfertaService implements IOfertaService {
 		}
 
 
-		public List<OfertaEmpleo> findByTituloAndDescripcion(String titulo, String descrpcion,String provincia,
+		public Page<OfertaEmpleo> findByTituloAndDescripcion(String titulo, String descrpcion,String provincia,
 				String sector,Integer salarioMinimo, Integer salarioMaximo,Integer nPagina,Integer nElementos) {
 			return repository.findByTituloAndDescripcion(titulo, descrpcion, provincia, 
 					sector,salarioMinimo,salarioMaximo,PageRequest.of(nPagina, nElementos,Sort.by("fechaInicioOferta").descending()));
