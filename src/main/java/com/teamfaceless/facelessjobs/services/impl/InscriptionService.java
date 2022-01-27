@@ -17,6 +17,8 @@ import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
+import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
+import com.teamfaceless.facelessjobs.services.IHabilidadService;
 import com.teamfaceless.facelessjobs.services.IInscriptionService;
 
 @Service
@@ -27,6 +29,12 @@ public class InscriptionService implements IInscriptionService{
 
 	@Autowired
 	private IHabilidadCandidatoService habCandidatoService;
+	
+	@Autowired
+	private IHabilidadOfertaService habOfeService;
+	
+	@Autowired
+	private IHabilidadService habService;
 	
 	@Override
 	public List<InscripcionOferta> findAll() {
@@ -120,8 +128,12 @@ public class InscriptionService implements IInscriptionService{
 			}
 			List<HabilidadCandidato> habilidadesEncontradas = habCandidatoService.especializacionHabilidadesCandidatoRellenos(matchHabilidad, inscripcion.getCandidato());
 			inscritoDto.setHabilidades(habilidadesEncontradas);
+			//Se calcula la afinidad
+			inscritoDto.setAfinidad(calcularAfinidadCandidato(inscripcion));
+			//Se añade el DTO a la lista
 			candidatosInscritos.add(inscritoDto);
 		}
+		
 		
 		return candidatosInscritos;
 	}
@@ -132,4 +144,41 @@ public class InscriptionService implements IInscriptionService{
 		return null;
 	}
 
+	public Integer calcularAfinidadCandidato(InscripcionOferta inscripcion) {
+		// TODO Auto-generated method stub
+		//Se calcula el apartado de Habilidades Duras Y Requeridas
+	    
+	    List<HabilidadOferta> habilidadOfertaDuraReqList = habOfeService.habilidadesDurasRequeridas(inscripcion.getOfertaEmpleo().getHabilidadOfertaList());
+	    List<HabilidadCandidato> habilidadCandidatoDuraReqList = habCandidatoService.especializacionHabilidadesCandidatoRellenos(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaDuraReqList),inscripcion.getCandidato());
+	    double n1 = multiplicacionCartesiana(habilidadOfertaDuraReqList, habilidadCandidatoDuraReqList);		
+		//Se calcula el apartado de Habilidades Duras Y Valorables
+		
+		List<HabilidadOferta> habilidadOfertaDuraValList = habOfeService.habilidadesDurasNoRequeridas(inscripcion.getOfertaEmpleo().getHabilidadOfertaList());
+	    List<HabilidadCandidato> habilidadCandidatoDuraValList = habCandidatoService.especializacionHabilidadesCandidatoRellenos(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaDuraValList),inscripcion.getCandidato());
+	    double n2 = multiplicacionCartesiana(habilidadOfertaDuraValList, habilidadCandidatoDuraValList);
+		//Se calcula el apartado de Habilidades Blandas
+		
+		List<HabilidadOferta> habilidadOfertaBlandaList = habOfeService.habilidadesBlandasRequeridas(inscripcion.getOfertaEmpleo().getHabilidadOfertaList());
+	    List<HabilidadCandidato> habilidadCandidatoBlandaList = habCandidatoService.especializacionHabilidadesCandidatoRellenos(habOfeService.generalizacionHabilidadesOferta(habilidadOfertaBlandaList),inscripcion.getCandidato());
+	    double n3 = multiplicacionCartesiana(habilidadOfertaBlandaList, habilidadCandidatoBlandaList);
+		
+		//Se calcula la nota final uniendo las 3
+		Integer nFinal=(int)(n1/2+n2/5+n3*(3d/10d));
+		
+		return nFinal;
+	}
+	
+	private double multiplicacionCartesiana(List<HabilidadOferta> ofertaList,List<HabilidadCandidato> candidatoList) {
+		double numerador = 0;
+		double denominador = 0;
+		int l = ofertaList.size();
+		if(l==0) {
+			return 100;
+		}
+		for(int i=0;i<l;i++) {
+			numerador += ofertaList.get(i).getBaremo()*candidatoList.get(i).getNotaHabilidadCandidato();
+			denominador += ofertaList.get(i).getBaremo();
+		}
+		return (numerador/denominador);
+	}
 }

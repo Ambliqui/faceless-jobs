@@ -24,5 +24,6 @@ public class InscripcionOfertaInscritoDto {
 	private String provincia;
 	private String localidad;
 	private List<HabilidadCandidato> habilidades;
+	private Integer afinidad;
 
 }

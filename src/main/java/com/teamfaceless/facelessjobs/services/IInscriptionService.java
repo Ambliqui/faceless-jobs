@@ -37,6 +37,7 @@ public interface IInscriptionService{
 	 * @return List<InscripcionOfertaInscritoDto>
 	 */
 	List<InscripcionOfertaInscritoDto> inscritosOfertaConHabilidades(OfertaEmpleo ofertaEmpleo);
+  
 	/**
 	 * @author Mefisto
 	 * Valida si un candidato puede optar a la oferta de trabajo
@@ -44,4 +45,6 @@ public interface IInscriptionService{
 	 * 
 	 */
 	String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato); 
+	
+  Integer calcularAfinidadCandidato(InscripcionOferta inscripcion);
 }
