@@ -7,7 +7,9 @@ import com.teamfaceless.facelessjobs.exceptions.CIFExisteException;
 import com.teamfaceless.facelessjobs.exceptions.CamposNoCoincidentesException;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.exceptions.InscripcionExisteException;
+import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
+import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
 public interface IValidations{
@@ -19,4 +21,5 @@ public interface IValidations{
 	Optional<CIFExisteException> cifPreExistente(String cifActual, String nuevoCif);
 	Optional<InscripcionExisteException> inscripcionExistente(Integer idOferta, Integer idCandidato);
 	Optional<InscripcionExisteException> inscripcionExistente(OfertaEmpleo ofertaEmpleo, Candidato candidato);
+	Optional<InscripcionSinRequisitosException> inscripcionRequisitosNoCoincidentes(InscripcionOferta inscripcionOferta);
 }

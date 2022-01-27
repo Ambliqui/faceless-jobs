@@ -1,7 +1,9 @@
 package com.teamfaceless.facelessjobs.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamfaceless.facelessjobs.dao.IInscriptionRepository;
 import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
+import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Habilidad;
 import com.teamfaceless.facelessjobs.model.HabilidadCandidato;
@@ -20,6 +23,7 @@ import com.teamfaceless.facelessjobs.services.IHabilidadCandidatoService;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
 import com.teamfaceless.facelessjobs.services.IHabilidadService;
 import com.teamfaceless.facelessjobs.services.IInscriptionService;
+import com.teamfaceless.facelessjobs.validations.IValidations;
 
 @Service
 public class InscriptionService implements IInscriptionService{
@@ -35,6 +39,9 @@ public class InscriptionService implements IInscriptionService{
 	
 	@Autowired
 	private IHabilidadService habService;
+	
+	@Autowired
+	private IValidations validations;
 	
 	@Override
 	public List<InscripcionOferta> findAll() {
@@ -139,9 +146,11 @@ public class InscriptionService implements IInscriptionService{
 	}
 
 	@Override
-	public String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, String> validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato) {
+		
+		Map<String, String> mapaErrores = new HashMap<>();
+		
+		return mapaErrores;
 	}
 
 	public Integer calcularAfinidadCandidato(InscripcionOferta inscripcion) {

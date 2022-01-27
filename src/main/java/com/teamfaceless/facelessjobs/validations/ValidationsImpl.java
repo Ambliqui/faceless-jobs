@@ -14,7 +14,9 @@ import com.teamfaceless.facelessjobs.exceptions.CIFExisteException;
 import com.teamfaceless.facelessjobs.exceptions.CamposNoCoincidentesException;
 import com.teamfaceless.facelessjobs.exceptions.EmailExisteException;
 import com.teamfaceless.facelessjobs.exceptions.InscripcionExisteException;
+import com.teamfaceless.facelessjobs.exceptions.InscripcionSinRequisitosException;
 import com.teamfaceless.facelessjobs.model.Candidato;
+import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 
@@ -137,6 +139,17 @@ public class ValidationsImpl implements IValidations{
 	public Optional<InscripcionExisteException> inscripcionExistente(OfertaEmpleo ofertaEmpleo, Candidato candidato) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Optional<InscripcionSinRequisitosException> inscripcionRequisitosNoCoincidentes(InscripcionOferta inscripcionOferta) {
+		
+		
+		if(true){
+			return Optional.empty();
+		}
+		InscripcionSinRequisitosException exception = new InscripcionSinRequisitosException("No cumple los requisitos para inscribirse en esta oferta");
+		return Optional.of(exception);
 	}
 
 }
