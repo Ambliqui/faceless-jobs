@@ -126,4 +126,10 @@ public class InscriptionService implements IInscriptionService{
 		return candidatosInscritos;
 	}
 
+	@Override
+	public String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

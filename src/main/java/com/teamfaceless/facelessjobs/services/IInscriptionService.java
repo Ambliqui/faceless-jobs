@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.teamfaceless.facelessjobs.dtos.inscripcion.InscripcionOfertaInscritoDto;
+import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
@@ -36,4 +37,11 @@ public interface IInscriptionService{
 	 * @return List<InscripcionOfertaInscritoDto>
 	 */
 	List<InscripcionOfertaInscritoDto> inscritosOfertaConHabilidades(OfertaEmpleo ofertaEmpleo);
+	/**
+	 * @author Mefisto
+	 * Valida si un candidato puede optar a la oferta de trabajo
+	 * Devolvera un boolean si cumple las reglas de negocio
+	 * 
+	 */
+	String validadorInscripcion(InscripcionOferta inscripcionOferta, Candidato candidato); 
 }
