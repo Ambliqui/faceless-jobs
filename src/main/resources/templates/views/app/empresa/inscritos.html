@@ -41,7 +41,7 @@
 						
 						<th class="text-center">Afinidad</th>
 						<th class="text-center">Estado</th>
-						<th class="text-center">Gestión</th>
+						<th class="text-center" th:if="${oferta.estadoOferta.id==0}">Gestión</th>
 					</tr>
 				</thead>
 				<tr th:each="insc : ${inscritos}">
@@ -70,7 +70,7 @@
 						<td th:case="En_Proceso" style="color:white;background-color:darkgreen;font-weight: bold;" class="text-center" >En Proceso</td>
 					</th:block>
 					
-					<td class="text-center align-middle">
+					<td class="text-center align-middle" th:if="${oferta.estadoOferta.id==0}">
 					<!--
 					"@{'/app/candidato/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${candidato.idCandidato}}"

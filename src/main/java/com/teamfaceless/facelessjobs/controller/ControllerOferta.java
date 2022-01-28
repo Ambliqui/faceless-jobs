@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teamfaceless.facelessjobs.enums.EstadoOferta;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Empresa;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.model.Rol;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
+import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
@@ -56,7 +58,8 @@ public class ControllerOferta {
 	private IValidations iValidations;
 	@Autowired
 	private HttpSession httpSession;
-	
+	@Autowired
+	private IHabilidadOfertaService habOfeService;
 
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
@@ -111,7 +114,8 @@ public class ControllerOferta {
 		}
 
 		model.addAttribute("oferta", oferta.get());
-
+		model.addAttribute("rol", (int)httpSession.getAttribute("rol"));
+		
 		return "views/oferta/detalle";
 	}
 
@@ -247,5 +251,60 @@ public class ControllerOferta {
 		model.addAttribute("msg", "Una vez eliminada,¡no se prodrá restablecer!");
 		model.addAttribute("id", idOfertaEmpleo);
 		return "views/app/empresa/oferta/confirmar";
+	}
+	
+	@GetMapping(value="/activar/{idOfertaEmpleo}")
+	public String activarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+		OfertaEmpleo oferta = ofertaService.findById(idOfertaEmpleo).get();
+		if(habOfeService.findHabilidadesOfertaDurasByOferta(oferta).isEmpty()) {
+			return "redirect:/app/empresa/oferta/habilidad/"+oferta.getIdOfertaEmpleo();
+		}
+		if(oferta.getEstadoOferta().getId()==1) {
+			oferta.setEstadoOferta(EstadoOferta.ACTIVA);
+			ofertaService.save(oferta);
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","Se ha activado su oferta de empleo");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		if(oferta.getEstadoOferta().ordinal()==2) {
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","No se puede activar una oferta cerrada");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		if(oferta.getEstadoOferta().ordinal()==0) {
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","La oferta ya se encontraba activa");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		//TODO
+		return "redirect:/app/empresa/oferta/listado";
+	}
+	
+	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
+	public String desactivarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+		OfertaEmpleo oferta = ofertaService.findById(idOfertaEmpleo).get();
+		if(oferta.getEstadoOferta().getId()==0) {
+			oferta.setEstadoOferta(EstadoOferta.DESACTIVADA);
+			ofertaService.save(oferta);
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","Se ha desactivado su oferta de empleo");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		if(oferta.getEstadoOferta().ordinal()==2) {
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","No se puede desactivar una oferta cerrada");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		if(oferta.getEstadoOferta().ordinal()==1) {
+			model.addAttribute("ofertaCambiada", true);
+			model.addAttribute("msg","La oferta ya se encontraba desactivada");
+			return "redirect:/app/empresa/oferta/listado";
+		}
+		return "redirect:/app/empresa/oferta/listado";
+	}
+	@PostMapping(value="/desactivar/{idOfertaEmpleo}")
+	public String desactivarOfertaPost(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+		model.addAttribute("idOfertaEmpleo", idOfertaEmpleo);
+		return "redirect:/app/empresa/oferta/desactivar/"+idOfertaEmpleo;
 	}
 }

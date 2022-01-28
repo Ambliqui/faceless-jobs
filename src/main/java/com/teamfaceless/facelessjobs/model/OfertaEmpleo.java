@@ -110,6 +110,6 @@ public class OfertaEmpleo implements Serializable {
 
 	@Default
 	@Column(name="estadoOferta", columnDefinition = "integer default 1")
-	private EstadoOferta estadoOferta=EstadoOferta.ARCHIVADA;
+	private EstadoOferta estadoOferta=EstadoOferta.DESACTIVADA;
 	
 }

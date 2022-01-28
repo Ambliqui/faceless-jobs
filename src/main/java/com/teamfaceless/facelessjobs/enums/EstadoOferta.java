@@ -1,7 +1,7 @@
 package com.teamfaceless.facelessjobs.enums;
 
 public enum EstadoOferta {
-ACTIVA("Activa"),ARCHIVADA("Archivada");
+ACTIVA("Activa"),DESACTIVADA("Desactivada"),CERRADA("Cerrada");
 	
 	private String texto;
 	
@@ -11,5 +11,9 @@ ACTIVA("Activa"),ARCHIVADA("Archivada");
 	
 	public String getTexto() {
 		return texto;
+	}
+	
+	public int getId() {
+		return this.ordinal();
 	}
 }

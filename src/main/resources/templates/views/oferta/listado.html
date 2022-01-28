@@ -24,12 +24,17 @@
 	           	class="btn btn-success"
 	           	style="width:200px">Button</a>
         </div>
+        <div class="alert alert-warning" th:text="${msg}"
+           	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+           	style="width:200px;margin:auto"
+           	th:if="${isAviso}"></div>
       <div th:each="oferta:${ofertas}" class="container">
-        <div class="card text-center">
-          <div class="card-header bg-info"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
-          <div class="card-header bg-info"th:text="${'Código Oferta = ' + oferta.idOfertaEmpleo}">Featured</div>
-          <div class="card-body">
-          	<p th:if="${oferta.estadoOferta.texto=='Archivada'}" class="alert alert-danger">Oferta Archivada</p>
+        <div class="card">
+          <div class="card-header bg-info text-center"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
+          <div class="card-header bg-info text-center"th:text="${'Código Oferta = ' + oferta.idOfertaEmpleo}">Featured</div>
+          <div class="card-body text-center">
+          	<p th:if="${oferta.estadoOferta.id>=1}" 
+          		th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="width:200px;margin:auto" class="alert alert-danger"></p>
             <h5 class="card-title" th:text="${oferta.tituloOferta}">Special title treatment</h5>
             <p th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos.'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"></p>
             <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
@@ -39,15 +44,26 @@
             	th:text="${'Editar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success"
-            	th:disabled="${oferta.estadoOferta.text=='Archivada'}">Button</a>
+            	th:if="${oferta.estadoOferta.id==0}">Button</a>
+           	<a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Editar'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-success disabled" style="pointer-events: none"
+            	th:if="${oferta.estadoOferta.id>=0}">Button</a>
             <a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Inscritos'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-warning">Button</a>
-            <a th:href="@{'/app/empresa/oferta/confirmar/' + ${oferta.idOfertaEmpleo}}"
-            	th:text="${'Eliminar'}"
+            <a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Activar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-            	class="btn btn-danger">Button</a>
+            	class="btn btn-success"
+            	th:if="${oferta.estadoOferta.id==1}">Activar</a>
+            <a th:href="@{'/app/empresa/oferta/desactivar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Desactivar'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-danger"
+            	th:if="${oferta.estadoOferta.id==0}">Desactivar</a>
            	<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Habilidades'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
