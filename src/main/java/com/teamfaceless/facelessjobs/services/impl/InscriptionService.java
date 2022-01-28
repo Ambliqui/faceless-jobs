@@ -182,7 +182,8 @@ public class InscriptionService implements IInscriptionService{
 	    double n3 = multiplicacionCartesiana(habilidadOfertaBlandaList, habilidadCandidatoBlandaList);
 		
 		//Se calcula la nota final uniendo las 3
-		Integer nFinal=(int)(n1/2+n2/5+n3*(3d/10d));
+//		Integer nFinal=(int)(n1/2+n2/5+n3*(3d/10d));
+		Integer nFinal=(int)((n1*0.7+n2*0.3)*0.85+(n3)*0.15);
 		
 		return nFinal;
 	}

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamfaceless.facelessjobs.enums.EstadoOferta;
 import com.teamfaceless.facelessjobs.model.Candidato;
@@ -278,6 +274,12 @@ public class ControllerOferta {
 		}
 		//TODO
 		return "redirect:/app/empresa/oferta/listado";
+	}
+	
+	@GetMapping(value="/cerrar/{idOfertaEmpleo}")
+	public String cerrarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+		ofertaService.cerrarOferta(idOfertaEmpleo);
+		return "redirect:/app/empresa/inscritos/"+idOfertaEmpleo;
 	}
 	
 //	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
