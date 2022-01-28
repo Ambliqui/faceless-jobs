@@ -44,12 +44,7 @@
             	th:text="${'Editar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success"
-            	th:if="${oferta.estadoOferta.id==0}">Button</a>
-           	<a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
-            	th:text="${'Editar'}"
-            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-            	class="btn btn-success disabled" style="pointer-events: none"
-            	th:if="${oferta.estadoOferta.id>=0}">Button</a>
+            	th:if="${oferta.estadoOferta.id<=1}">Button</a>
             <a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Inscritos'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"

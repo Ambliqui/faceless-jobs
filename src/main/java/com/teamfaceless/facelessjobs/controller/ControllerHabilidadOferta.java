@@ -169,7 +169,7 @@ public class ControllerHabilidadOferta {
 		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
-		return "redirect:redirect:/app/empresa/oferta/habilidad/desactivar/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
 	
 	@GetMapping("/eliminar/{idHabilidad}/{idOferta}")
