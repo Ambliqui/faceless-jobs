@@ -1,7 +1,7 @@
 package com.teamfaceless.facelessjobs.enums;
 
 public enum EstadoInscripcion {
-INSCRITO("Inscrito"),DESCARTADO("Descartado"),EN_PROCESO("En Proceso");
+INSCRITO("Inscrito"),DESCARTADO("Descartado"),EN_PROCESO("En_Proceso");
 	
 	private String texto;
 
