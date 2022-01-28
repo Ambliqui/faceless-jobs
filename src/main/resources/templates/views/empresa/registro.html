@@ -2,23 +2,13 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/base :: head">
-
-
-
+	<meta charset="UTF-8">
+</head>
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
-
-
 	<h4 class="my-5 text-center">Registro empresas</h4>
-
-
-
 	<main class="container content">
-
 		<hr>
-
-
-
 		<form class="container row g-3" th:action="@{/empresa/registro}" th:object="${empresaRegistroDto}"
 			autocomplete="off" method="post">
 
@@ -179,7 +169,7 @@
 				</label>
 			</div>
 			<div class="col-md-12">
-				<label for="direccionEmpresa" class="form-label">Direccion </label>
+				<label for="direccionEmpresa" class="form-label">Dirección</label>
 				<input id="direccionEmpresa" type="text" th:field="*{direccionEmpresa}" class="form-control"
 					placeholder="Dirección de empresa">
 				<label id="errorDireccionEmpresa" for="direccionEmpresa"

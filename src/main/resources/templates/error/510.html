@@ -1,47 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="plantilla/template :: head">
+	<head th:replace="fragments/base :: head">
+		<meta charset="UTF-8">
 	</head>
 	<body>
 		<nav th:replace="fragments/base :: navbar"></nav>
-		
 		<main>
-		
 			<div class="container">
 				<div class="card">
-		          <h4 class="card-header"><strong>Ocurrió un error en la aplicación</strong> </h4>              
-		          
+		          <h4 class="card-header"><strong>OcurriÃ³ un error en la aplicaciÃ³n</strong></h4>
 		          <div class="card-body">
 					<div class="col-md-12 order-md-2 mb-4">
 		              <ul class="list-group mb-3">
 		              	<li class="list-group-item d-flex justify-content-between lh-condensed">
 		                  <div>
-		                    <small class="text-muted">ERROR HTTP 505 - VERSIÓN DE HTTP NO SOPORTADA</small>
+		                    <small class="text-muted" th:text="'RECURSO: ' + ${path}"></small>
 		                  </div>
-		                </li>                                                                                                              
-		                
+						</li>
 		                <li class="list-group-item d-flex justify-content-between lh-condensed">
 		                  <div>
 		                    <small class="text-muted" th:text="'RECURSO: ' + ${path}"></small>
 		                  </div>
-		                </li>      
-		                
+		                </li>
 		                <li class="list-group-item d-flex justify-content-between lh-condensed">
 		                  <div>
 		                    <small class="text-muted" th:text="'FECHA: ' + ${#dates.format(timestamp, 'dd-MM-yyyy HH:mm')}"></small>
 		                  </div>
 		                </li>                                                                                                                 
 		              </ul>
-		              
 		              <a class="btn btn-primary" role="button" th:href="@{/}">Ir a Inicio</a>
+		              <a href="javascript: history.go(-1)" class="btn btn-secondary">Volver</a>
 		            </div>			
 		          </div>
 		        </div>
 		      </div>
 		</main>
-		
-		<footer th:replace="fragments/base :: footer"></footer>
-  		
-  		<th:block th:replace="fragments/base :: script"></th:block>
 	</body>
 </html>
