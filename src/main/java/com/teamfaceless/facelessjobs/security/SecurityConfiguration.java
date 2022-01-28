@@ -52,14 +52,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers(
                         "/",
+                        "/images/**",
+                        "/js/**",
+                        "/css/**",
                         "/logout",
                         "/generic/**",
                         "/candidato/registro",
                         "/empresa/registro",
                         "/oferta/**",
-                        "/images/**",
-                        "/habilidad/**","/limpiarFiltro/**",
-                        "/css/**")
+                        "/habilidad/**",
+                        "/limpiarFiltro/**")
                 .permitAll()
                 
                 .antMatchers(AUTH_WHITELIST).permitAll()
