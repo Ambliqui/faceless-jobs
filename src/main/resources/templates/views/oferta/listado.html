@@ -54,11 +54,13 @@
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success"
             	th:if="${oferta.estadoOferta.id==1}">Activar</a>
+            <!--
             <a th:href="@{'/app/empresa/oferta/desactivar/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Desactivar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-danger"
             	th:if="${oferta.estadoOferta.id==0}">Desactivar</a>
+            -->
            	<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Habilidades'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
