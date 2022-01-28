@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="html://www.thymeleaf.org">
+<head th:replace="fragments/base :: head">
+	<meta charset="utf-8">
+</head>
+<body>
+	<nav th:replace="fragments/base :: navbar"></nav>
+	<hr>
+	<h1 class="text-center">Inscritos Oferta</h1>
+	
+	<hr>
+	
+	<div class="container">
+		<div class="card-body text-center">
+	    	<a th:href="@{'/app/empresa/oferta/listado'}"
+	          	th:text="${'Volver'}"
+	          	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+	          	class="btn btn-success"
+	          	style="width:200px">Button</a>
+	    </div>
+		<nav>
+			<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-puntuaciones" type="button" role="tab" aria-controls="nav-puntuaciones" aria-selected="true">Puntuaciones</button>
+				<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-seleccionados" type="button" role="tab" aria-controls="nav-seleccionados" aria-selected="false">Seleccionados</button>
+				<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-descartados" type="button" role="tab" aria-controls="nav-descartados" aria-selected="false">Descartados</button>
+			</div>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade show active" id="nav-puntuaciones" role="tabpanel" aria-labelledby="nav-puntuaciones-tab">
+				<table class="table table-hover table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th>Candidato</th>
+						<th class="text-center">Provincia</th>
+						<th>Localidad</th>
+						
+						<!-- LISTA DE HABILIDADES DE LA OFERTA -->
+						<th th:each="hab : ${oferta.habilidadOfertaList}"
+							th:text="${hab.habilidad.nombreHabilidad}"
+							class="bg-primary text-center"></th>
+						
+						<th class="text-center">Afinidad</th>
+						<th class="text-center">Estado</th>
+						<th class="text-center" th:if="${oferta.estadoOferta.texto=='Activa'}">Gestión</th>
+					</tr>
+				</thead>
+				<tr th:each="insc : ${inscritos}">
+					<td th:text="${insc.idCandidato}"
+						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"						
+						></td>
+					<td th:text="${insc.provincia}"
+						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"
+						></td>
+					<td th:text="${insc.localidad}"
+						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"
+						></td>
+						
+					<td th:each="hab : ${insc.habilidades}"
+						th:text="${hab.notaHabilidadCandidato}"
+						class="text-center"
+						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"
+						></td>
+					
+					<td class="text-center" th:text="${insc.afinidad}+'%'"
+						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"
+						></td>
+					<th:block class="text-center" th:switch="${insc.estadoInscripcion.texto}">
+						<td th:case="Inscrito">Inscrito</td>
+						<td th:case="Descartado" style="color:white;background-color:grey;font-weight: bold;" class="text-center" >Descartado</td>
+						<td th:case="En_Proceso" style="color:white;background-color:darkgreen;font-weight: bold;" class="text-center" >En Proceso</td>
+					</th:block>
+					
+					<td class="text-center align-middle" th:if="${oferta.estadoOferta.texto=='Activa'}">
+					<!--
+					"@{'/app/candidato/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
+										+ '/' + ${candidato.idCandidato}}"
+					-->
+						<a th:href="@{'/inscription/seleccionar/'+ ${oferta.idOfertaEmpleo} + '/' + ${insc.numeroId}}"
+							class="btn btn-success btn-sm"
+							role="button"
+							title="Aceptar Candidato">
+							<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+						</a>
+						<a th:href="@{'/inscription/descartar/'+ ${oferta.idOfertaEmpleo} + '/' + ${insc.numeroId}}"
+							
+							class="btn btn-danger btn-sm"
+							role="button"
+							title="Descartar Candidato">
+							<i class="fas fa-trash" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			</table>
+			<div class="col">
+				<div id="warningVacio"
+					role="alert"
+					th:if="${inscritos.size() < 1}" 
+					class="alert alert-danger col-md-12  text-center align-middle">No hay candidatos inscritos
+				</div>
+			</div>
+			</div>
+<!-- Panel de seleccionados -->
+			<div class="tab-pane fade" id="nav-seleccionados" role="tabpanel" aria-labelledby="nav-seleccionados-tab">
+				Esta es mi tabla de seleccionados
+			</div>
+<!-- Panel de descartados -->
+			<div class="tab-pane fade" id="nav-descartados" role="tabpanel" aria-labelledby="nav-descartados-tab">
+				Esta es mi tabla de	descartados
+			</div>
+		</div>
+<!-- 		<div class="row"> -->
+<!-- 		<div class="col-2 border border-dark text-center"> -->
+<!-- 			<a th:href="@{'/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}" class="btn btn-primary btn-block" role="button">Modificar Oferta</a> -->
+<!-- 			<p>Aqui van los filtros</p> -->
+<!-- 		</div> -->
+<!-- 		</div> -->
+	</div>
+<!-- 	<footer th:replace="plantilla/template :: footer"></footer> -->
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>
