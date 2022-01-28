@@ -184,29 +184,29 @@ public class ControllerHabilidadOferta {
 		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+idOferta;
 	}
 	
-	//TODO 
-	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
-	public String cerrarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
-		OfertaEmpleo oferta = ofeService.findById(idOfertaEmpleo).get();
-		if(oferta.getEstadoOferta().getId()==0) {
-			oferta.setEstadoOferta(EstadoOferta.DESACTIVADA);
-			ofeService.save(oferta);
-			model.addAttribute("ofertaCambiada", true);
-			model.addAttribute("msg","Se ha desactivado su oferta de empleo");
-			return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
-		}
-		if(oferta.getEstadoOferta().ordinal()==2) {
-			model.addAttribute("ofertaCambiada", true);
-			model.addAttribute("msg","No se puede desactivar una oferta cerrada");
-			return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
-		}
-		return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
-	}
-	@PostMapping(value="/desactivar/{idOfertaEmpleo}")
-	public String desactivarOfertaPost(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
-		model.addAttribute("idOfertaEmpleo", idOfertaEmpleo);
-		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+idOfertaEmpleo;
-	}
+//	//TODO 
+//	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
+//	public String cerrarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+//		OfertaEmpleo oferta = ofeService.findById(idOfertaEmpleo).get();
+//		if(oferta.getEstadoOferta().getId()==0) {
+//			oferta.setEstadoOferta(EstadoOferta.DESACTIVADA);
+//			ofeService.save(oferta);
+//			model.addAttribute("ofertaCambiada", true);
+//			model.addAttribute("msg","Se ha desactivado su oferta de empleo");
+//			return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
+//		}
+//		if(oferta.getEstadoOferta().ordinal()==2) {
+//			model.addAttribute("ofertaCambiada", true);
+//			model.addAttribute("msg","No se puede desactivar una oferta cerrada");
+//			return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
+//		}
+//		return "redirect:/app/empresa/oferta/habilidad/"+idOfertaEmpleo;
+//	}
+//	@PostMapping(value="/desactivar/{idOfertaEmpleo}")
+//	public String desactivarOfertaPost(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+//		model.addAttribute("idOfertaEmpleo", idOfertaEmpleo);
+//		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+idOfertaEmpleo;
+//	}
 	
 	@GetMapping(value="/activar/{idOfertaEmpleo}")
 	public String activarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
