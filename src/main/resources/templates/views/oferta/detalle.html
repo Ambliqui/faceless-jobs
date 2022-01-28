@@ -8,7 +8,7 @@
 	<nav th:replace="fragments/base :: navbar"></nav><br>
 	<main class="container content">
 	<div class="text-center">
-		<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error!=null&&oferta.estadoOferta.id==0}" id="div" style="width:300px;margin:auto"></div>
+		<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error!=null&&oferta.estadoOferta.id<=1}" id="div" style="width:300px;margin:auto"></div>
 		<div class="alert alert-warning" th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'" th:if="${oferta.estadoOferta.id>=1&&rol==0}" style="width:300px;margin:10px auto"></div>
 	</div>
 	<div class="col-md-12">
