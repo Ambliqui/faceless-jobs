@@ -89,9 +89,8 @@ public class InscriptionService implements IInscriptionService{
 	}
 
 	@Override
-	public Optional<InscripcionOfertaPK> findByInscripcionOfertaPK(InscripcionOfertaPK pk) {
-		// TODO Auto-generated method stub
-		return null;
+	public InscripcionOferta findByInscripcionOfertaPK(InscripcionOfertaPK pk) {
+		return repository.findByInscripcionOfertaPK(pk);
 	}
 	
 	@Override
@@ -139,8 +138,13 @@ public class InscriptionService implements IInscriptionService{
 			}
 			List<HabilidadCandidato> habilidadesEncontradas = habCandidatoService.especializacionHabilidadesCandidatoRellenos(matchHabilidad, inscripcion.getCandidato());
 			inscritoDto.setHabilidades(habilidadesEncontradas);
+			
 			//Se calcula la afinidad
 			inscritoDto.setAfinidad(calcularAfinidadCandidato(inscripcion));
+			
+			//Se añade el estado de la Inscripcion
+			inscritoDto.setEstadoInscripcion(inscripcion.getEstadoInscripcion());
+						
 			//Se añade el DTO a la lista
 			candidatosInscritos.add(inscritoDto);
 		}		

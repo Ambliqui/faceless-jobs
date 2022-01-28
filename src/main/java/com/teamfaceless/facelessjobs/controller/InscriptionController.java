@@ -65,20 +65,22 @@ public class InscriptionController {
 	}
 	
 	
-	@GetMapping("/seleccionar/{idOferta}/{idInscripcion}")
-	public String seleccionarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idInscripcion") int idInscripcion,Model model) {
-		InscripcionOferta inscripcion = inscriptionService.findById(idInscripcion).get();
+	@GetMapping("/seleccionar/{idOferta}/{idCandidato}")
+	public String seleccionarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idCandidato") int idCandidato,Model model) {
+		InscripcionOfertaPK idInscripcion = new InscripcionOfertaPK(idOferta, idCandidato);
+		InscripcionOferta inscripcion = inscriptionService.findByInscripcionOfertaPK(idInscripcion);
 		inscripcion.setEstadoInscripcion(EstadoInscripcion.EN_PROCESO);
 		inscriptionService.save(inscripcion);
-		return "/app/empresa/inscritos/"+idOferta;
+		return "redirect:/app/empresa/inscritos/"+idOferta;
 	}
 	
-	@GetMapping("/descartar/{idOferta}/{idInscripcion}")
-	public String descartarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idInscripcion") int idInscripcion,Model model) {
-		InscripcionOferta inscripcion = inscriptionService.findById(idInscripcion).get();
+	@GetMapping("/descartar/{idOferta}/{idCandidato}")
+	public String descartarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idCandidato") int idCandidato,Model model) {
+		InscripcionOfertaPK idInscripcion = new InscripcionOfertaPK(idOferta, idCandidato);
+		InscripcionOferta inscripcion = inscriptionService.findByInscripcionOfertaPK(idInscripcion);
 		inscripcion.setEstadoInscripcion(EstadoInscripcion.DESCARTADO);
 		inscriptionService.save(inscripcion);
-		return "/app/empresa/inscritos/"+idOferta;
+		return "redirect:/app/empresa/inscritos/"+idOferta;
 	}
 	
 	

@@ -27,7 +27,7 @@ public interface IInscriptionService{
 	 * @param pk Clave compuesta de la Inscripcion
 	 * @return Optional<InscripcionOfertaPK> Clave embebida 
 	 */
-	Optional<InscripcionOfertaPK> findByInscripcionOfertaPK(InscripcionOfertaPK pk);
+	InscripcionOferta findByInscripcionOfertaPK(InscripcionOfertaPK pk);
 	
 	/**
 	 * @author Mefisto
