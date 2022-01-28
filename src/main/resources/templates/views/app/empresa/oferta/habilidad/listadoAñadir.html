@@ -10,10 +10,19 @@
 	
 	<main>
 		<h1 class="text-center" th:text="'Habilidades para ' + ${ofertaEmpleo.tituloOferta}"></h1>
-		<hr>
+		
+		
+	    <hr>
+	    <div class="text-center">
+	    <a th:href="@{'/app/empresa/oferta/habilidad/activar/' + ${ofertaEmpleo.idOfertaEmpleo}}"
+            	th:text="${'Activar'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-primary" style="margin:auto"
+            	th:if="${ofertaEmpleo.estadoOferta.id==1}">Activar</a>
+        </div>
 		<section class="row">
-			<div class="col-2"></div>
-			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;">
+			<div class="col-2" th:if="${ofertaEmpleo.estadoOferta.id<=1}"></div>
+			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;" th:if="${ofertaEmpleo.estadoOferta.id<=1}">
 				
 				<div th:switch="${errorType}">
 				    <p th:case="0" hidden=true/>
@@ -79,6 +88,8 @@
 			<div class="container col-5">
 				<div class="row">
 					<div class="col">
+						<p th:text="${errorMsg}" class="alert alert-warning text-center" th:if="${ofertaEmpleo.estadoOferta.id==2}"/>
+						
 						<h2 class="text-center">Habilidades Duras</h2>
 						<table class="table table-hover table-bordered">
 							<thead class="table-dark">
@@ -91,7 +102,7 @@
 									
 									<th>Baremo</th>
 									
-									<th>Gestión</th>
+									<th th:if="${ofertaEmpleo.estadoOferta.id<=1}">Gestión</th>
 								</tr>
 							</thead>
 							<tr th:each="habilidad:${habilidadesDurasAnadidas}">
@@ -103,7 +114,7 @@
 								
 								<td class="align-middle" th:text="${habilidad.baremo}"></td>
 								
-								<td class="align-middle">
+								<td class="align-middle" th:if="${ofertaEmpleo.estadoOferta.id<=1}">
 									<a th:href="@{'/app/empresa/oferta/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										class="btn btn-success btn-sm"
@@ -136,7 +147,7 @@
 									
 									<th>Baremo</th>
 									
-									<th>Gestión</th>
+									<th th:if="${ofertaEmpleo.estadoOferta.id<=1}">Gestión</th>
 								</tr>
 							</thead>
 							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
@@ -160,7 +171,7 @@
 									style="background-color:#ff0000;">
 								</td>
 								
-								<td class="align-middle">
+								<td class="align-middle" th:if="${ofertaEmpleo.estadoOferta.id<=1}">
 									<a th:href="@{'/app/empresa/oferta/habilidad/modificar/'+ ${habilidad.habilidad.idHabilidad}
 										+ '/' + ${ofertaEmpleo.idOfertaEmpleo}}"
 										class="btn btn-success btn-sm"
@@ -183,7 +194,13 @@
 				</div>
 			</div>
 		</section>
-	
+		<div class="card-body text-center">
+	    	<a th:href="@{'/app/empresa/oferta/listado'}"
+	          	th:text="${'Volver'}"
+	          	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+	          	class="btn btn-success"
+	          	style="width:200px;margin:auto">Button</a>
+	    </div>
 		<aside></aside>
 	</main>
 	

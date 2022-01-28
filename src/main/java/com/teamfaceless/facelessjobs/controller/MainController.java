@@ -34,6 +34,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -162,6 +163,10 @@ private ISectorService sectorService;
         }
         return "views/generic/login";
     }
+    @PostMapping("/login")
+    public String formLoginPost(Model model, @RequestParam(value = "error", required = false) String error) {
+    	return "redirect:/login";
+    }
 
     @GetMapping("/afterlogin")
     public String formLogin(Model model, HttpServletRequest request) {
@@ -182,6 +187,7 @@ private ISectorService sectorService;
                         model.addAttribute("candidato", candidato.get());
                         httpSession.setAttribute("userSession", candidato.get());
                         httpSession.setAttribute("credencialSession", credencial.get());
+                        httpSession.setAttribute("rol", 0);
                         return "redirect:/";
                     }
                 }
@@ -195,15 +201,21 @@ private ISectorService sectorService;
                         model.addAttribute("empresa", empresa.get());
                         httpSession.setAttribute("userSession", empresa.get());
                         httpSession.setAttribute("credencialSession", credencial.get());
+                        httpSession.setAttribute("rol", 1);
                         return "redirect:/";
                     }
                 }
             }
+            //
+            else if (roles.get(0).getAuthority().equals("ROLE_ADMIN")) {
+                httpSession.setAttribute("rol", 2);
+                return "redirect:/";
+            }
         }
-
-        return "/login";
+        return "redirect:/login";
 
     }
+    
 
     @GetMapping("/credencial/modify")
     public String goToCredencialModify(Model model) {

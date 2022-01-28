@@ -79,6 +79,20 @@ public class ControllerOferta2 {
 			Empresa empresa = empresaService.findByEmailEmpresa(email).get();
 			model.addAttribute("ofertas", empresa.getOfertasEmpleos());
 			model.addAttribute("titulo", "Mis ofertas publicadas");
+			//Se recoge un posible aviso de haber modificado el estado de una oferta
+			boolean isAviso = false;
+			Object isAux=model.getAttribute("ofertaCambiada");
+			if(isAux!=null) {
+				isAviso=true;
+			}
+			model.addAttribute("isAviso", isAviso);
+			//Se recoge un posible mensaje de aviso de haber modificado el estado de una oferta
+			String msg="";
+			String msgAux = (String) model.getAttribute("msg");
+			if(msgAux!=null) {
+				msg=msgAux;
+			}
+			model.addAttribute("msg",msg);
 
 		} else if (rol.getNombre().equals("ROLE_CANDIDATO")) {
 			Candidato candidato = candidatoService.findByEmail(email).get();
