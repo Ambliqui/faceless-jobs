@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.teamfaceless.facelessjobs.dao.IOfertaRepository;
+import com.teamfaceless.facelessjobs.enums.EstadoInscripcion;
+import com.teamfaceless.facelessjobs.enums.EstadoOferta;
+import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 
@@ -80,6 +83,24 @@ public class OfertaService implements IOfertaService {
 		public OfertaEmpleo save(OfertaEmpleo oferta) {
 			
 			return repository.save(oferta);
+		}
+
+		@Override
+		public void cerrarOferta(Integer idOferta) {
+			cerrarOferta(findById(idOferta).get());
+		}
+
+		@Override
+		public void cerrarOferta(OfertaEmpleo oferta) {
+			oferta.setEstadoOferta(EstadoOferta.CERRADA);
+			List<InscripcionOferta> inscripciones = oferta.getInscripcionOfertaList();
+			for (InscripcionOferta inscripcionOferta : inscripciones) {
+				if(inscripcionOferta.getEstadoInscripcion().equals(EstadoInscripcion.INSCRITO)) {
+					inscripcionOferta.setEstadoInscripcion(EstadoInscripcion.DESCARTADO);
+					
+				}				
+			}
+			save(oferta);
 		}
 
 	

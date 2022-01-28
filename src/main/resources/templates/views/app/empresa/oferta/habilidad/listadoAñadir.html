@@ -13,13 +13,6 @@
 		
 		
 	    <hr>
-	    <div class="text-center">
-	    <a th:href="@{'/app/empresa/oferta/habilidad/activar/' + ${ofertaEmpleo.idOfertaEmpleo}}"
-            	th:text="${'Activar'}"
-            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-            	class="btn btn-primary" style="margin:auto"
-            	th:if="${ofertaEmpleo.estadoOferta.id==1}">Activar</a>
-        </div>
 		<section class="row">
 			<div class="col-2" th:if="${ofertaEmpleo.estadoOferta.id<=1}"></div>
 			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;" th:if="${ofertaEmpleo.estadoOferta.id<=1}">
@@ -79,8 +72,6 @@
 					<div class="text-center">
 						<input th:disabled="${!isAllowedToAdd}" type="submit" th:value="Añadir"
 								class="btn btn-primary"/>
-								
-						<button class="btn btn-warning" th:formaction="@{/app/empresa/oferta/listado/}" formNoValidate>Volver</button>
 					</div>
 				</form>
 			</div>
@@ -194,12 +185,18 @@
 				</div>
 			</div>
 		</section>
+		<hr/>
 		<div class="card-body text-center">
+			<a th:href="@{'/app/empresa/oferta/habilidad/activar/' + ${ofertaEmpleo.idOfertaEmpleo}}"
+            	th:text="${'Publicar Oferta'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-primary" style="margin:auto;width: 200px"
+            	th:if="${ofertaEmpleo.estadoOferta.id==1}">Publicar Oferta</a>
 	    	<a th:href="@{'/app/empresa/oferta/listado'}"
 	          	th:text="${'Volver'}"
 	          	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
 	          	class="btn btn-success"
-	          	style="width:200px;margin:auto">Button</a>
+	          	style="width:200px;margin:auto">Volver</a>
 	    </div>
 		<aside></aside>
 	</main>

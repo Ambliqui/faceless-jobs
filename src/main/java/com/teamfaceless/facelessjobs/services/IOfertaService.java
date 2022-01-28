@@ -34,4 +34,8 @@ public interface IOfertaService {
 			String sector,Integer salarioMinimo, Integer salarioMaximo,Integer nPagina,Integer nElementos);
 	
 	OfertaEmpleo save(OfertaEmpleo oferta);
+	
+	void cerrarOferta(Integer idOferta);
+	
+	void cerrarOferta(OfertaEmpleo oferta);
 }

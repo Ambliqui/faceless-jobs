@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -166,7 +167,7 @@ public class EmpresaController {
 		return "redirect:/app/empresa/listado";
 	}
 	
-	@GetMapping("/inscritos/{idOferta}")
+	@RequestMapping(value="/inscritos/{idOferta}",method = {RequestMethod.GET,RequestMethod.POST})
 	public String goInscritos(@PathVariable Integer idOferta, Model model) {
 		
 		//TODO esto sobra
