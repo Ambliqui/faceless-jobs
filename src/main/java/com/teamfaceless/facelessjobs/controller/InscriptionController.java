@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.teamfaceless.facelessjobs.dtos.empresa.mapper.IEmpresaMapper;
+import com.teamfaceless.facelessjobs.enums.EstadoInscripcion;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.InscripcionOferta;
 import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
@@ -19,7 +20,10 @@ import com.teamfaceless.facelessjobs.validations.IValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -59,5 +63,24 @@ public class InscriptionController {
 			return "redirect:/";
 		}
 	}
+	
+	
+	@GetMapping("/seleccionar/{idOferta}/{idInscripcion}")
+	public String seleccionarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idInscripcion") int idInscripcion,Model model) {
+		InscripcionOferta inscripcion = inscriptionService.findById(idInscripcion).get();
+		inscripcion.setEstadoInscripcion(EstadoInscripcion.EN_PROCESO);
+		inscriptionService.save(inscripcion);
+		return "/app/empresa/inscritos/"+idOferta;
+	}
+	
+	@GetMapping("/descartar/{idOferta}/{idInscripcion}")
+	public String descartarCandidato(@PathVariable("idOferta")int idOferta,@PathVariable("idInscripcion") int idInscripcion,Model model) {
+		InscripcionOferta inscripcion = inscriptionService.findById(idInscripcion).get();
+		inscripcion.setEstadoInscripcion(EstadoInscripcion.DESCARTADO);
+		inscriptionService.save(inscripcion);
+		return "/app/empresa/inscritos/"+idOferta;
+	}
+	
+	
 
 }
