@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamfaceless.facelessjobs.enums.EstadoOferta;
 import com.teamfaceless.facelessjobs.model.Candidato;
@@ -280,31 +276,37 @@ public class ControllerOferta {
 		return "redirect:/app/empresa/oferta/listado";
 	}
 	
-	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
-	public String desactivarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
-		OfertaEmpleo oferta = ofertaService.findById(idOfertaEmpleo).get();
-		if(oferta.getEstadoOferta().getId()==0) {
-			oferta.setEstadoOferta(EstadoOferta.DESACTIVADA);
-			ofertaService.save(oferta);
-			model.addAttribute("ofertaCambiada", true);
-			model.addAttribute("msg","Se ha desactivado su oferta de empleo");
-			return "redirect:/app/empresa/oferta/listado";
-		}
-		if(oferta.getEstadoOferta().ordinal()==2) {
-			model.addAttribute("ofertaCambiada", true);
-			model.addAttribute("msg","No se puede desactivar una oferta cerrada");
-			return "redirect:/app/empresa/oferta/listado";
-		}
-		if(oferta.getEstadoOferta().ordinal()==1) {
-			model.addAttribute("ofertaCambiada", true);
-			model.addAttribute("msg","La oferta ya se encontraba desactivada");
-			return "redirect:/app/empresa/oferta/listado";
-		}
-		return "redirect:/app/empresa/oferta/listado";
+	@GetMapping(value="/cerrar/{idOfertaEmpleo}")
+	public String cerrarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+		ofertaService.cerrarOferta(idOfertaEmpleo);
+		return "redirect:/app/empresa/inscritos/"+idOfertaEmpleo;
 	}
-	@PostMapping(value="/desactivar/{idOfertaEmpleo}")
-	public String desactivarOfertaPost(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
-		model.addAttribute("idOfertaEmpleo", idOfertaEmpleo);
-		return "redirect:/app/empresa/oferta/desactivar/"+idOfertaEmpleo;
-	}
+	
+//	@GetMapping(value="/desactivar/{idOfertaEmpleo}")
+//	public String desactivarOferta(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+//		OfertaEmpleo oferta = ofertaService.findById(idOfertaEmpleo).get();
+//		if(oferta.getEstadoOferta().getId()==0) {
+//			oferta.setEstadoOferta(EstadoOferta.DESACTIVADA);
+//			ofertaService.save(oferta);
+//			model.addAttribute("ofertaCambiada", true);
+//			model.addAttribute("msg","Se ha desactivado su oferta de empleo");
+//			return "redirect:/app/empresa/oferta/listado";
+//		}
+//		if(oferta.getEstadoOferta().ordinal()==2) {
+//			model.addAttribute("ofertaCambiada", true);
+//			model.addAttribute("msg","No se puede desactivar una oferta cerrada");
+//			return "redirect:/app/empresa/oferta/listado";
+//		}
+//		if(oferta.getEstadoOferta().ordinal()==1) {
+//			model.addAttribute("ofertaCambiada", true);
+//			model.addAttribute("msg","La oferta ya se encontraba desactivada");
+//			return "redirect:/app/empresa/oferta/listado";
+//		}
+//		return "redirect:/app/empresa/oferta/listado";
+//	}
+//	@PostMapping(value="/desactivar/{idOfertaEmpleo}")
+//	public String desactivarOfertaPost(@PathVariable("idOfertaEmpleo") Integer idOfertaEmpleo, Model model) {
+//		model.addAttribute("idOfertaEmpleo", idOfertaEmpleo);
+//		return "redirect:/app/empresa/oferta/desactivar/"+idOfertaEmpleo;
+//	}
 }

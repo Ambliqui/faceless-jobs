@@ -54,11 +54,11 @@
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success"
             	th:if="${oferta.estadoOferta.id==1}">Activar</a>
-            <a th:href="@{'/app/empresa/oferta/desactivar/' + ${oferta.idOfertaEmpleo}}"
-            	th:text="${'Desactivar'}"
+            <a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Cerrar Proceso'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-danger"
-            	th:if="${oferta.estadoOferta.id==0}">Desactivar</a>
+            	th:if="${oferta.estadoOferta.id==0}">Cerrar Proceso</a>
            	<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Habilidades'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
