@@ -20,7 +20,7 @@
 		</div>
 		<section class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
 			<section class="row">
-				<div class="col-1 align-middle">
+				<div class="col-md-auto align-middle">
 					<img alt="logo" src="/images/empresa/logo/noimage.png" height="100px">	
 				</div>
 				<div class="col align-middle">
@@ -30,8 +30,8 @@
 <!-- 				<div class="col align-middle"> -->
 					
 <!-- 				</div> -->
-				<div class="col align-middle">
-					<p style="font-weight: bold;"
+				<div class="col align-middle" style="align-self: center;">
+					<p style="font-weight: bold;float: right;margin: 0px;"
 						th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}">
 					</p>
 				</div>	
@@ -43,6 +43,11 @@
 			<!-- COLUMNA DE DETALLES -->
 			<div class="col-5">
 				<h5 class="alert alert-primary">Detalles</h5>
+				<style>
+				    li{
+				        list-style: none;
+				    }
+				</style>
 				<fieldset class="shadow-lg p-3 mb-5 bg-body rounded">
 				<ul>
 					<li><i class="fas fa-map-marker-alt text-primary" aria-hidden="No" style=""></i><strong> Localización</strong></li>
