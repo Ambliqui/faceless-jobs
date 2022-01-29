@@ -15,24 +15,24 @@
 		
 		<section class="col-8 border border-dark text-center">
 			<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
-			<section class="row inline-block">
+			<section class="row inline-block" style="margin:10px 0">
 				<figure class="col">
 					<a href="/candidato/modify"><img width="200" alt="Datos personales"
-						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+						src="/images/candidato/DatosPersonales.png" role="button" class="rounded-circle">
 					<figcaption>Datos Personales</figcaption>
 					</a>
 				</figure>
 				<figure class="col">
 					<a href="/oferta/listado">
 					<img width="200" alt="Mis Ofertas"
-						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+						src="/images/candidato/Ofertas.png" role="button" class="rounded-circle">
 					<figcaption>Mis Ofertas</figcaption>
 					</a>
 				</figure>
-				<figure class="col">
+				<figure class="col" style="margin-top:10px">
 					<a th:href="@{'/app/candidato/habilidad/'+${idCandidato}}">				
-					<img width="200" alt="Habilidades"
-						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
+					<img width="180" alt="Habilidades"
+						src="/images/candidato/Habilidades2.png" role="button" class="rounded-circle" style="margin-bottom:10px">
 					<figcaption>Mis Habilidades</figcaption></a>
 				</figure>
 			</section>
