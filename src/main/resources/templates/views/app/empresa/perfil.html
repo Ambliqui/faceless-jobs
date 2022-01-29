@@ -7,19 +7,18 @@
 	<main class="row">
 		<hr>
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
-		<h2 class="text-center">En pruebas</h2>
 		<hr>
 		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 		<nav class="col-2 border border-dark">Esto seria un nav</nav>
 		<section class="col-8 border border-dark text-center">
 			<section class="row inline-block">
 				<figure class="col">
-					<a href="/app/empresa/modify"><img width="200" alt="Datos Empresa"
+					<a href="/app/empresa/modify">
+					<img width="200" alt="Datos Empresa"
 						src="/images/app/DatosEmpresariales.png" role="button" class="rounded-circle">
 					<figcaption>Datos Empresariales</figcaption>
 					</a>
 				</figure>
-
 				<figure class="col">
 					<a href="/app/empresa/oferta/listado/"><img width="200" alt="Ofertas"
 						src="/images/app/MisOfertas.png" role="button" class="rounded-circle">
@@ -27,27 +26,11 @@
 					</a>
 				</figure>			
 				<figure class="col">
-					<a href="/test/listado/"><img width="200" alt="Ofertas"
+<!-- 					<a href="/test/listado/"> -->
+						<img width="200" alt="Ofertas"
 						src="/images/app/MisTest.png" role="button" class="rounded-circle">
 					<figcaption>Mis test</figcaption>
-					</a>
-				</figure>
-			</section>
-			<section class="row">
-				<figure class="col">
-					<img width="200" alt="Habilidades"
-						src="/images/candidato/datos_personales.jpg" role="button" class="rounded-circle">
-					<figcaption>Mis Habilidades</figcaption>
-				</figure>
-				<figure class="col">
-					<img width="200" alt="Datos personales"
-						src="/images/candidato/datos_personales.jpg" role="button">
-					<figcaption>Datos Personales</figcaption>
-				</figure>
-				<figure class="col">
-					<img width="200" alt="Datos personales"
-						src="/images/candidato/datos_personales.jpg" role="button">
-					<figcaption>Datos Personales</figcaption>
+<!-- 					</a> -->
 				</figure>
 			</section>
 		</section>
