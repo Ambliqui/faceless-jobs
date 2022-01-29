@@ -31,23 +31,23 @@
 		<!-- GRID TODOS LOS DETALLES -->
 		<section class="row">
 			<!-- COLUMNA DE DETALLES -->
-			<div class="col">
+			<div class="col-5">
 				<h5 class="alert alert-primary">Detalles</h5>
 				<fieldset class="shadow-lg p-3 mb-5 bg-body rounded">
 				<ul>
-					<li>Localización</li>
+					<li><i class="fas fa-map-marker-alt text-primary" aria-hidden="No" style=""></i><strong> Localización</strong></li>
 					<ul>
 						<li th:text="${oferta.provinciaOferta.nombreProvincia} + ${', '} + ${oferta.localidadOferta} + ${'(España)'}"></li>
 					</ul>
-					<li>Publicada</li>
+					<li ><i class="far fa-calendar-check text-primary" aria-hidden="No"></i><strong> Publicada</strong></li>
 					<ul>
-						<li th:text=" ${'Publicada el' } + ' ' + ${oferta.fechaInicioOferta}"></li>
+						<li th:text=" ${'Publicada el' } + ' ' + ${oferta.fechaInicioOfertaOrdenada}"></li>
 					</ul>
-					<li>Finalización</li>
+					<li><i class="far fa-calendar-times text-primary" aria-hidden="No"></i><strong> Finalización</strong></li>
 					<ul>
-						<li th:text=" ${'Termina el' } + ' '  + ${oferta.fechaFinOferta}"></li>
+						<li th:text=" ${'Termina el' } + ' '  + ${oferta.fechaFinOfertaOrdenada}"></li>
 					</ul>
-					<li>Salario</li>
+					<li><i class="fas fa-comment-dollar text-primary" aria-hidden="No"></i><strong> Salario</strong></li>
 					<ul>
 						<li	th:text="${'El Salario es'} + ' ' + ${oferta.salarioOferta} + ${'€'} + ' ' + ${'Bruto/mes.'}"></li>
 					</ul>
@@ -99,9 +99,9 @@
 		</section>
 		<h5 class="alert alert-primary">Descripción</h5>
 		<div class="col-md-12">
-			<textarea th:text="${oferta.descripcionOferta}"
-				class="form-control h-25" rows="4" readonly>
-			</textarea>
+			<p th:text="${oferta.descripcionOferta}"
+                class="form-control" style="height:160px" readonly>
+            </p>
 		</div>
 		<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">
 			<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
