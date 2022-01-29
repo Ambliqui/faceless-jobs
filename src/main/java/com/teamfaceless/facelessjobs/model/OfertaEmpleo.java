@@ -112,4 +112,16 @@ public class OfertaEmpleo implements Serializable {
 	@Column(name="estadoOferta", columnDefinition = "integer default 1")
 	private EstadoOferta estadoOferta=EstadoOferta.DESACTIVADA;
 	
+	public String getFechaInicioOfertaOrdenada() {
+        return fechaInicioOferta.getDayOfMonth() + "-"
+                + fechaInicioOferta.getMonthValue() + "-"
+                + fechaInicioOferta.getYear();
+    }
+
+    public String getFechaFinOfertaOrdenada() {
+        return fechaFinOferta.getDayOfMonth() + "-"
+                + fechaFinOferta.getMonthValue() + "-"
+                + fechaFinOferta.getYear();
+    }
+	
 }
