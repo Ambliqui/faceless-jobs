@@ -18,23 +18,21 @@
 				th:if="${oferta.estadoOferta.id>=1&&rol==0}">
 			</div>
 		</div>
-		<div class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded">
-		<div class="row">
-			<h1 th:text="${oferta.tituloOferta}" class="col"></h1>
-			<p th:text="${oferta.empresa.nombreEmpresa}" class="col"></p>
-			<p style="font-weight: bold;"
-				th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}"
-				class="col">
-			</p>
-		</div>
+		<div class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
+			<div class="row">
+				<h1 th:text="${oferta.tituloOferta}" class="col"></h1>
+				<p th:text="${oferta.empresa.nombreEmpresa}" class="col"></p>
+				<p style="font-weight: bold;"
+					th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}"
+					class="col text-center align-middle"></p>
+			</div>
 		</div>
 		<hr>
 		<!-- GRID TODOS LOS DETALLES -->
 		<section class="row">
 			<!-- COLUMNA DE DETALLES -->
 			<div class="col">
-				<h5>Detalles</h5>
-				<hr>
+				<h5 class="alert alert-primary">Detalles</h5>
 				<fieldset class="shadow-lg p-3 mb-5 bg-body rounded">
 				<ul>
 					<li>Localización</li>
@@ -58,18 +56,17 @@
 			</div>
 			<!-- COLUMNA DE REQUISITOS -->
 			<div class="col">
-				<h5>Requisitos</h5>
-				<hr>
+				<h5 class="alert alert-primary">Requisitos</h5>
 				<!-- FILA DE HABILIDADES -->
 				<div class="row">
 					<!-- HABILIDADES DURAS -->
 					<div class="col">
 						<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
-							<thead class="table-primary">
+							<thead class="table-info">
 								<tr>
-									<th>Habilidad</th>
-									<th>Experiencia</th>
-									<th>Titulación requerida</th>
+									<th colspan="3" class="text-center">Conocimientos</th>
+<!-- 									<th>Experiencia</th> -->
+<!-- 									<th>Titulación requerida</th> -->
 								</tr>
 							</thead>
 							<tr th:each="hab : ${oferta.habilidadOfertaList}"
@@ -85,9 +82,9 @@
 					<!-- HABILIDADES BLANDAS -->
 					<div class="col">
 					<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
-							<thead class="table-primary">
+							<thead class="table-info">
 								<tr>
-									<th class="text-center">Habilidad</th>
+									<th class="text-center">Personalidad</th>
 								</tr>
 							</thead>
 							<tr th:each="hab : ${oferta.habilidadOfertaList}"
@@ -100,22 +97,23 @@
 				</div>
 			</div>
 		</section>
-		<h5>Descripción</h5>
+		<h5 class="alert alert-primary">Descripción</h5>
 		<div class="col-md-12">
 			<textarea th:text="${oferta.descripcionOferta}"
-				class="form-control h-25" rows="4" readonly></textarea>
+				class="form-control h-25" rows="4" readonly>
+			</textarea>
 		</div>
 		<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">
 			<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
 			<hr>
 			<div class="col-md-12  text-center align-middle">
 				<input th:type="${btn}" th:if="${oferta.estadoOferta.id==0}"
-					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
+					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
 					class="btn btn-success" id="btn" th:value="${'Inscribirse'}" />
 				<input
 					th:type="${submit}"
 					th:if="${oferta.estadoOferta.id>=1||btn=='hidden'}"
-					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
+					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
 					class="btn btn-success disabled" disabled id="btn"
 					th:value="${'Inscribirse'}" />
 				<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
