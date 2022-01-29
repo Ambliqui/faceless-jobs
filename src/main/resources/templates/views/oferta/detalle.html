@@ -1,70 +1,128 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/base :: head">
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 </head>
 
-<body >
-	<nav th:replace="fragments/base :: navbar"></nav><br>
+<body>
+	<nav th:replace="fragments/base :: navbar"></nav>
+	<br>
 	<main class="container content">
-	<div class="text-center">
-		<div class="alert alert-danger col-md-12  text-center align-middle" role="alert" th:text="${error}" th:if="${error!=null&&oferta.estadoOferta.id<=1}" id="div" style="width:300px;margin:auto"></div>
-		<div class="alert alert-warning" th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'" th:if="${oferta.estadoOferta.id>=1&&rol==0}" style="width:300px;margin:10px auto"></div>
-	</div>
-	<div class="col-md-12">
-	<h1 th:text="${oferta.tituloOferta}"></h1>
-	<p th:text="${oferta.empresa.nombreEmpresa}"></p>
-	</div>
-	<div class="col-md-6">
-	<ul>
-  <li th:text="${oferta.provinciaOferta.nombreProvincia}+${','}+${oferta.localidadOferta}+${'(España)'}"></li>
-  <li th:text=" ${'Publicada el' }+' '  + ${oferta.fechaInicioOferta}"></li>
-  <li th:text=" ${'Termina el' }+' '  + ${oferta.fechaFinOferta}"></li>
-     <li th:text="${'Hay'}+' ' +${oferta.numeroVacantesOferta}+' '+${'para esta oferta.'}"></li>
-  <li th:text="${'El Salario es'}+ ' ' +${oferta.salarioOferta}+${'€'}+' '+${'Bruto/mes.'}"></li>
-</ul>
-</div>
-<hr>
-<h5>Requisitos</h5>
-<div th:each=h:${oferta.habilidadOfertaList}>
-<p th:text="${h.habilidad.nombreHabilidad}"></p>
-
-</div>
-<hr>
-	<h5 th:text="${'Descripción'}">></h5>
-	<div class="col-md-12">
-	<textarea th:text="${oferta.descripcionOferta}"class="form-control h-25" rows="3"readonly></textarea>
-	</div>
-	<hr>
-	<div>
-	<p style="font-weight: bold;" th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}">
-	</div>
-	<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">	
-		<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
-		<hr>
-		
-		<div class="col-md-12  text-center align-middle">
-		
-		<input th:type="${btn}" th:if="${oferta.estadoOferta.id==0}" 
-			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
-			class="btn btn-success" id="btn" th:value="${'Inscribirse'}"/>
-		<input th:type="${submit}" th:if="${oferta.estadoOferta.id>=1||btn=='hidden'}" 
-			sec:authorize="hasAnyAuthority('ROLE_CANDIDATO','ROLE_ADMINISTRADOR')"
-			class="btn btn-success disabled" disabled id="btn" th:value="${'Inscribirse'}"/>
-			<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
+		<div class="text-center">
+			<div class="alert alert-danger col-md-12  text-center align-middle"
+				role="alert" th:text="${error}"
+				th:if="${error!=null&&oferta.estadoOferta.id<=1}" id="div">
+			</div>
+			<div class="alert alert-warning"
+				th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'"
+				th:if="${oferta.estadoOferta.id>=1&&rol==0}">
+			</div>
 		</div>
-		
-	</form>
+		<div class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
+			<div class="row">
+				<h1 th:text="${oferta.tituloOferta}" class="col"></h1>
+				<p th:text="${oferta.empresa.nombreEmpresa}" class="col"></p>
+				<p style="font-weight: bold;"
+					th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}"
+					class="col text-center align-middle"></p>
+			</div>
+		</div>
+		<hr>
+		<!-- GRID TODOS LOS DETALLES -->
+		<section class="row">
+			<!-- COLUMNA DE DETALLES -->
+			<div class="col">
+				<h5 class="alert alert-primary">Detalles</h5>
+				<fieldset class="shadow-lg p-3 mb-5 bg-body rounded">
+				<ul>
+					<li>Localización</li>
+					<ul>
+						<li th:text="${oferta.provinciaOferta.nombreProvincia} + ${', '} + ${oferta.localidadOferta} + ${'(España)'}"></li>
+					</ul>
+					<li>Publicada</li>
+					<ul>
+						<li th:text=" ${'Publicada el' } + ' ' + ${oferta.fechaInicioOferta}"></li>
+					</ul>
+					<li>Finalización</li>
+					<ul>
+						<li th:text=" ${'Termina el' } + ' '  + ${oferta.fechaFinOferta}"></li>
+					</ul>
+					<li>Salario</li>
+					<ul>
+						<li	th:text="${'El Salario es'} + ' ' + ${oferta.salarioOferta} + ${'€'} + ' ' + ${'Bruto/mes.'}"></li>
+					</ul>
+				</ul>
+				</fieldset>
+			</div>
+			<!-- COLUMNA DE REQUISITOS -->
+			<div class="col">
+				<h5 class="alert alert-primary">Requisitos</h5>
+				<!-- FILA DE HABILIDADES -->
+				<div class="row">
+					<!-- HABILIDADES DURAS -->
+					<div class="col">
+						<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
+							<thead class="table-info">
+								<tr>
+									<th colspan="3" class="text-center">Conocimientos</th>
+<!-- 									<th>Experiencia</th> -->
+<!-- 									<th>Titulación requerida</th> -->
+								</tr>
+							</thead>
+							<tr th:each="hab : ${oferta.habilidadOfertaList}"
+								th:object="${hab}"
+								th:if="${hab.habilidad.categoriaHabilidad.nombre} == 'Dura'">
+								<td th:text="${hab.habilidad.nombreHabilidad}">Conocimientos</td>
+								<td th:text="${hab.experienciaOferta} + ' ' + meses">Experiencia</td>
+								<td th:if="${hab.isObligatorio}"><i class="fas fa-check-circle text-success" aria-hidden="Si"></i></td>
+								<td th:unless="${hab.isObligatorio}"><i class="fa fa-remove text-danger" aria-hidden="No"></i></td>
+							</tr>
+						</table>
+					</div>
+					<!-- HABILIDADES BLANDAS -->
+					<div class="col">
+					<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
+							<thead class="table-info">
+								<tr>
+									<th class="text-center">Personalidad</th>
+								</tr>
+							</thead>
+							<tr th:each="hab : ${oferta.habilidadOfertaList}"
+								th:object="${hab}"
+								th:if="${hab.habilidad.categoriaHabilidad.nombre} == 'Blanda'">
+								<td th:text="${hab.habilidad.nombreHabilidad}">Conocimientos</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+		<h5 class="alert alert-primary">Descripción</h5>
+		<div class="col-md-12">
+			<textarea th:text="${oferta.descripcionOferta}"
+				class="form-control h-25" rows="4" readonly>
+			</textarea>
+		</div>
+		<form th:action="@{/inscription/save}" th:object="${oferta}" method="post">
+			<input type="hidden" th:value="${idOfertaEmpleo}" th:field="*{idOfertaEmpleo}">
+			<hr>
+			<div class="col-md-12  text-center align-middle">
+				<input th:type="${btn}" th:if="${oferta.estadoOferta.id==0}"
+					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
+					class="btn btn-success" id="btn" th:value="${'Inscribirse'}" />
+				<input
+					th:type="${submit}"
+					th:if="${oferta.estadoOferta.id>=1||btn=='hidden'}"
+					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
+					class="btn btn-success disabled" disabled id="btn"
+					th:value="${'Inscribirse'}" />
+				<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
+			</div>
+
+		</form>
 	</main>
 	<br>
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>
-	<script type="text/javascript">
-	</script>
 </body>
 </html>
-
-
-
-
-
