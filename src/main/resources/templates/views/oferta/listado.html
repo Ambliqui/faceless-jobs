@@ -44,11 +44,11 @@
             	th:text="${'Editar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-success"
-            	th:if="${oferta.estadoOferta.id<=1}">Button</a>
+            	th:if="${oferta.estadoOferta.id==1}">Editar</a>
             <a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Ver Inscritos'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-            	class="btn btn-warning">Button</a>
+            	class="btn btn-warning">Ver Inscritos</a>
             <a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
             	th:text="${'Activar'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
