@@ -16,85 +16,88 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <link th:href="@{/css/style.css}" rel="stylesheet">
 
 </head>
 
 <body>
-
-  <nav th:fragment="navbar" class="navbar navbar-light bg-light static-top">
-    <div class="container">
-      <div class="d-flex flex-row bd-highlight">
-        <a class="navbar-brand fs-3" href="/"><img src="/images/app/LogoFacelessJobs.png" alt="Logo" style="width:80px;">TheFacelessJobs</a>
-      </div>
-      <div class="d-flex flex-row-reverse bd-highlight">
-
-        <span sec:authorize="isAnonymous()">     
-
-        <a class="btn btn-primary ms-3" href="/candidato/login">Entrar</a>
-        <a class="btn btn-light ms-3" href="/candidato/registro">Registrarse</a>
-
-        </span>
-
-        <div sec:authorize="isAuthenticated()">
-    
-
-          
-          
-          <span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
-          <a class="btn btn-danger ms-3" th:href="@{/logout}">Salir</a>
-          <a class="btn btn-primary ms-3" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" th:href="@{/candidato/perfil}">Perfil</a>
-          <a class="btn btn-primary ms-3" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')" th:href="@{/app/empresa/perfil}">Perfil</a>
-      </div>    
-
-
-
-      </div>
-    </div>
-  </nav>
+	<nav th:fragment="navbar"
+		class="navbar navbar-light bg-light static-top">
+		<div class="container">
+			<div class="d-flex flex-row bd-highlight">
+				<a class="navbar-brand fs-3" href="/"><img
+					src="/images/app/LogoFacelessJobs.png" alt="Logo"
+					style="width: 80px;">TheFacelessJobs</a>
+			</div>
+			<div class="d-flex flex-row-reverse bd-highlight">
+				<span sec:authorize="isAnonymous()"> <a
+					class="btn btn-primary ms-3" href="/candidato/login">Entrar</a> <a
+					class="btn btn-light ms-3" href="/candidato/registro">Registrarse</a>
+				</span>
+				<div sec:authorize="isAuthenticated()">
+					<span>Bienvenido</span>&nbsp;<span sec:authentication="name"></span>&nbsp;
+					<a class="btn btn-danger ms-3" th:href="@{/logout}">Salir</a>
+					<a class="btn btn-primary ms-3"
+						sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
+						th:href="@{/candidato/perfil}">Perfil</a>
+					<a class="btn btn-primary ms-3"
+						sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+						th:href="@{/app/empresa/perfil}">Perfil</a>
+				</div>
+			</div>
+		</div>
+	</nav>
 
 
 
-  <footer th:fragment="footer" class="text-center text-white mt-5" style="background-color: #f1f1f1;">
-    <!-- Grid container -->
-    <div class="container pt-4">
-      <!-- Section: Social media -->
-      <section class="mb-4">
-        <!-- Linkedin -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
-          href="https://www.linkedin.com/in/pedro-p%C3%A9rez-banda" role="button" data-mdb-ripple-color="dark"><i
-            class="fab fa-linkedin"></i></a>
-        <!-- Linkedin -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
-          href="https://www.linkedin.com/in/isidoro-ser%C3%A9n-aparicio-736156188/" role="button"
-          data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
-        <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/zepyrshut" role="button"
-          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
-        <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/AntonioJ93" role="button"
-          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
-        <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/Ambliqui" role="button"
-          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
-        <!-- Github -->
-        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/SeinkVfx6898" role="button"
-          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
-      </section>
-      <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
+	<footer th:fragment="footer" class="text-center text-white mt-5"
+		style="background-color: #f1f1f1;">
+		<!-- Grid container -->
+		<div class="container pt-4">
+			<!-- Section: Social media -->
+			<section class="mb-4">
+				<!-- Linkedin -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://www.linkedin.com/in/pedro-p%C3%A9rez-banda"
+					role="button" data-mdb-ripple-color="dark"><i
+					class="fab fa-linkedin"></i></a>
+				<!-- Linkedin -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://www.linkedin.com/in/isidoro-ser%C3%A9n-aparicio-736156188/"
+					role="button" data-mdb-ripple-color="dark"><i
+					class="fab fa-linkedin"></i></a>
+				<!-- Github -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://github.com/zepyrshut" role="button"
+					data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+				<!-- Github -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://github.com/AntonioJ93" role="button"
+					data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+				<!-- Github -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://github.com/Ambliqui" role="button"
+					data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+				<!-- Github -->
+				<a class="btn btn-link btn-floating btn-lg text-dark m-1"
+					href="https://github.com/SeinkVfx6898" role="button"
+					data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+			</section>
+			<!-- Section: Social media -->
+		</div>
+		<!-- Grid container -->
 
-    <!-- Copyright -->
-    
-    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      Hecho con <i class="fas fa-heart"></i> por el equipo de The Faceless Jobs
-    </div>
-    <!-- Copyright -->
-  </footer>
+		<!-- Copyright -->
 
-  <!-- Bootstrap JavaScript Libraries -->
+		<div class="text-center text-dark p-3"
+			style="background-color: rgba(0, 0, 0, 0.2);">
+			Hecho con <i class="fas fa-heart"></i> por el equipo de The Faceless
+			Jobs
+		</div>
+		<!-- Copyright -->
+	</footer>
+
+	<!-- Bootstrap JavaScript Libraries -->
   <th:block th:fragment="script">  
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
       integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
