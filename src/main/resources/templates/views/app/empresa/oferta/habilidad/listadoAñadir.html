@@ -142,24 +142,16 @@
 								</tr>
 							</thead>
 							<tr th:each="habilidad:${habilidadesBlandasAnadidas}">
-								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}"
-									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
-									style="background-color:#ff0000;">
+								<td class="align-middle" th:text="${habilidad.habilidad.nombreHabilidad}">
 								</td>
 									
-								<td class="align-middle" th:text="${habilidad.experienciaOferta}"
-									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
-									style="background-color:#ff0000;">
+								<td class="align-middle" th:text="${habilidad.experienciaOferta}">
 								</td>
 							
-								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'"
-									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
-									style="background-color:#ff0000;">
+								<td class="align-middle" th:text="${habilidad.isObligatorio} ? 'SI' : 'NO'">
 								</td>
 								
-								<td class="align-middle" th:text="${habilidad.baremo}"
-									th:style="${thisHabilidad==habilidad.habilidad ? 'background-color:#32a84e' : ''}"
-									style="background-color:#ff0000;">
+								<td class="align-middle" th:text="${habilidad.baremo}">
 								</td>
 								
 								<td class="align-middle" th:if="${ofertaEmpleo.estadoOferta.id<=1}">
