@@ -18,15 +18,25 @@
 				th:if="${oferta.estadoOferta.id>=1&&rol==0}">
 			</div>
 		</div>
-		<div class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
-			<div class="row">
-				<h1 th:text="${oferta.tituloOferta}" class="col"></h1>
-				<p th:text="${oferta.empresa.nombreEmpresa}" class="col"></p>
-				<p style="font-weight: bold;"
-					th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}"
-					class="col text-center align-middle"></p>
-			</div>
-		</div>
+		<section class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
+			<section class="row">
+				<div class="col-1 align-middle">
+					<img alt="logo" src="/images/empresa/logo/noimage.png" height="100px">	
+				</div>
+				<div class="col align-middle">
+					<h1 th:text="${oferta.tituloOferta}"></h1>	
+					<h5 th:text="${oferta.empresa.nombreEmpresa}"></h5>
+				</div>
+<!-- 				<div class="col align-middle"> -->
+					
+<!-- 				</div> -->
+				<div class="col align-middle">
+					<p style="font-weight: bold;"
+						th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos a esta oferta para'}+' '+${oferta.numeroVacantesOferta}+' '+${'vacantes.'}">
+					</p>
+				</div>	
+			</section>
+		</section>
 		<hr>
 		<!-- GRID TODOS LOS DETALLES -->
 		<section class="row">
