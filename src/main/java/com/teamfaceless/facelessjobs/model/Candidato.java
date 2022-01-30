@@ -61,8 +61,8 @@ public class Candidato implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimientoCandidato;
 
-	// @Column(name = "localidad_candidato")
-	// private String localidadCandidato;
+//	 @Column(name = "localidad_candidato")
+//	 private String localidadCandidato;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato")
 	private List<HabilidadCandidato> habilidadCandidatoList;
@@ -103,5 +103,12 @@ public class Candidato implements Serializable {
 
 		return habilidadCandidato;
 	}
-
+	
+	public int getNumeroFoto() {
+		return (int) Math.floor(Math.random()*5+1);
+	}
+	
+	public String getNombreCompleto() {
+		return this.nombreCandidato + " " + this.apellidosCandidato;
+	}
 }
