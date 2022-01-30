@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.teamfaceless.facelessjobs.enums.EstadoOferta;
 import com.teamfaceless.facelessjobs.model.Habilidad;
@@ -38,7 +39,7 @@ public class ControllerHabilidadOferta {
 	@Autowired
 	private IHabilidadOfertaService habOfeService;
 	
-	@GetMapping("/{idOferta}")
+	@RequestMapping(value="/{idOferta}",method = {RequestMethod.GET,RequestMethod.POST})
 	public String goListado(@PathVariable Integer idOferta,Model model) {
 		
 		OfertaEmpleo ofertaEmpleo = ofeService.findById(idOferta).get();
@@ -169,7 +170,7 @@ public class ControllerHabilidadOferta {
 		
 		habilidadOferta.setObligatorio(Boolean.valueOf(isObligatorio));
 		habOfeService.modify(habilidadOferta);
-		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
+		return "redirect:/app/empresa/oferta/habilidad/"+habilidadOferta.getOfertaEmpleo().getIdOfertaEmpleo();
 	}
 	
 	@GetMapping("/eliminar/{idHabilidad}/{idOferta}")
@@ -181,7 +182,7 @@ public class ControllerHabilidadOferta {
 		
 		habOfeService.delete(habilidadOferta);
 		
-		return "redirect:/app/empresa/oferta/habilidad/desactivar/"+idOferta;
+		return "redirect:/app/empresa/oferta/habilidad/"+idOferta;
 	}
 	
 //	//TODO 
