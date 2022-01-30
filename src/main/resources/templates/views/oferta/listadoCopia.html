@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head th:replace="fragments/base :: head">
+
+
+</head>
+
+<body>
+  <nav th:replace="fragments/base :: navbar"></nav>
+  <h1 th:text="${titulo}" class="text-secondary" style="text-align: center;"></h1>
+  
+  <main class="container content">
+
+ <div class="">
+
+ </div>
+
+    <div class="row m-3">
+    	<div class="card-body text-center">
+		    <a th:href="@{'/app/empresa/oferta/formulario'}"
+	           	th:text="${'Añadir oferta'}"
+	           	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+	           	class="btn btn-success"
+	           	style="width:200px">Button</a>
+        </div>
+        <div class="alert alert-warning" th:text="${msg}"
+           	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+           	style="width:200px;margin:auto"
+           	th:if="${isAviso}"></div>
+      <div th:each="oferta:${ofertas}" class="container">
+        <div class="card">
+          <div class="card-header bg-info text-center"th:text="${oferta.empresa.nombreEmpresa}">Featured</div>
+          <div class="card-header bg-info text-center"th:text="${'Código Oferta = ' + oferta.idOfertaEmpleo}">Featured</div>
+          <div class="card-body text-center">
+          	<p th:if="${oferta.estadoOferta.id>=1}" 
+          		th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="width:200px;margin:auto" class="alert alert-danger"></p>
+            <h5 class="card-title" th:text="${oferta.tituloOferta}">Special title treatment</h5>
+            <p th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos.'}"sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"></p>
+            <p class="recortar-contenido card-text" th:text="${oferta.descripcionOferta}">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Editar'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-success"
+            	th:if="${oferta.estadoOferta.id==1}">Editar</a>
+            <a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Ver Inscritos'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-warning">Ver Inscritos</a>
+            <a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Activar'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-success"
+            	th:if="${oferta.estadoOferta.id==1}">Activar</a>
+            <a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Cerrar Proceso'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-danger"
+            	th:if="${oferta.estadoOferta.id==0}">Cerrar Proceso</a>
+           	<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Ver Habilidades'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-warning">Button</a>
+            	   <a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+            	th:text="${'Detalle'}"
+            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+            	class="btn btn-dark">Button</a>
+          </div>
+          <div class="card-footer text-muted bg-light" th:text="${oferta.fechaInicioOferta}">2 days ago</div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </main>
+  <footer th:replace="fragments/base :: footer"></footer>
+  <th:block th:replace="fragments/base :: script"></th:block>
+</body>
+</html>
