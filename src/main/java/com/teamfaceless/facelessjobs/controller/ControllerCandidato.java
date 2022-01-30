@@ -80,7 +80,7 @@ public class ControllerCandidato {
 
 	}
 
-	@GetMapping("/perfil")
+	@RequestMapping(value="/perfil",method= {RequestMethod.GET,RequestMethod.POST})
 	public String goToCandidateProfile(Model model) {
 
 		Candidato candidato = (Candidato) httpSession.getAttribute("userSession");
