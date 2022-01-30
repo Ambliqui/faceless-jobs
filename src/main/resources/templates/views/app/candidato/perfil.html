@@ -15,20 +15,20 @@
 				<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
 				<section class="row inline-block" style="margin:10px 0">
 					<figure class="col">
-						<a href="/candidato/modify"><img width="200" alt="Datos personales"
+						<a href="/candidato/modify"><img width="200" alt="Datos personales" title="Datos Personales"
 							src="/images/candidato/DatosPersonales.png" role="button" class="rounded-circle">
 						<figcaption>Datos Personales</figcaption>
 						</a>
 					</figure>
 					<figure class="col">
-						<a href="/oferta/listado">
+						<a href="/oferta/listado" title="Mis Ofertas">
 						<img width="200" alt="Mis Ofertas"
 							src="/images/candidato/Ofertas.png" role="button" class="rounded-circle">
 						<figcaption>Mis Ofertas</figcaption>
 						</a>
 					</figure>
 					<figure class="col" style="margin-top:10px">
-						<a th:href="@{'/app/candidato/habilidad/'+${idCandidato}}">				
+						<a th:href="@{'/app/candidato/habilidad/'+${idCandidato}}" title="Mis Habilidades">				
 						<img width="180" alt="Habilidades"
 							src="/images/candidato/Habilidades2.png" role="button" class="rounded-circle" style="margin-bottom:10px">
 						<figcaption>Mis Habilidades</figcaption></a>
