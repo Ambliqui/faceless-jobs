@@ -56,11 +56,16 @@ public class ControllerOferta2 {
 					model.addAttribute("msg", mapaErrores);
 					model.addAttribute("error", "¡YA ESTAS INSCRITO/A A ESTA OFERTA!");
 					model.addAttribute("btn", "hidden");
+				}else if(oferta.get().getEstadoOferta().getId()>=1){
+					model.addAttribute("msg", mapaErrores);
+					model.addAttribute("error", "La oferta está cerrada, No se admiten mas inscripciones");
+					model.addAttribute("btn", "hidden");
 				} else if (iValidations.inscripcionRequisitosNoCoincidentes(oferta.get(), candidato).isPresent()) {
 					model.addAttribute("msg", mapaErrores);
 					model.addAttribute("error", "No cumples los requisitos para inscribirte de esta oferta");
 					model.addAttribute("btn", "hidden");
-				} else {
+				
+				}else {
 					model.addAttribute("btn", "submit");
 				}
 			}

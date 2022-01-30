@@ -11,12 +11,16 @@
 		<div class="text-center">
 			<div class="alert alert-danger col-md-12  text-center align-middle"
 				role="alert" th:text="${error}"
-				th:if="${error!=null&&oferta.estadoOferta.id<=1}" id="div">
+				th:if="${error!=null}" id="div">
 			</div>
-			<div class="alert alert-warning"
-				th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'"
-				th:if="${oferta.estadoOferta.id>=1&&rol==0}">
-			</div>
+<!-- 			<div class="alert alert-warning" -->
+<!-- 				th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'" -->
+<!-- 				th:if="${oferta.estadoOferta.id>=1&&rol==0}"> -->
+<!-- 			</div> -->
+<!-- 			<div class="alert alert-warning" -->
+<!-- 				th:text="'Oferta ' + ${oferta.estadoOferta.texto} + ', no se admiten más inscripciones'" -->
+<!-- 				th:if="${oferta.estadoOferta.id>=1}"> -->
+<!-- 			</div> -->
 		</div>
 		<section class="col-md-12 shadow-lg p-3 mb-5 bg-body rounded" role="alert">
 			<section class="row">
@@ -125,12 +129,12 @@
 				<input th:type="${btn}" th:if="${oferta.estadoOferta.id==0}"
 					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
 					class="btn btn-success" id="btn" th:value="${'Inscribirse'}" />
-				<input
-					th:type="${submit}"
-					th:if="${oferta.estadoOferta.id>=1||btn=='hidden'}"
-					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"
-					class="btn btn-success disabled" disabled id="btn"
-					th:value="${'Inscribirse'}" />
+<!-- 				<input -->
+<!-- 					th:type="${submit}" -->
+<!-- 					th:if="${oferta.estadoOferta.id>=1||btn=='hidden'}" -->
+<!-- 					sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" -->
+<!-- 					class="btn btn-success disabled" disabled id="btn" -->
+<!-- 					th:value="${'Inscribirse'}" /> -->
 				<a href="javascript: history.go(-1)" class="btn btn-primary">Volver</a>
 			</div>
 
