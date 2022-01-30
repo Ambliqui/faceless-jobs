@@ -83,7 +83,7 @@
 						<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
 							<thead class="table-info">
 								<tr>
-									<th colspan="3" class="text-center">Conocimientos</th>
+									<th colspan="3" class="text-center" title="Conocimientos">Conocimientos</th>
 <!-- 									<th>Experiencia</th> -->
 <!-- 									<th>Titulación requerida</th> -->
 								</tr>
@@ -93,8 +93,8 @@
 								th:if="${hab.habilidad.categoriaHabilidad.nombre} == 'Dura'">
 								<td th:text="${hab.habilidad.nombreHabilidad}">Conocimientos</td>
 								<td th:text="${hab.experienciaOferta} + ' ' + meses">Experiencia</td>
-								<td th:if="${hab.isObligatorio}"><i class="fas fa-check-circle text-success" aria-hidden="Si"></i></td>
-								<td th:unless="${hab.isObligatorio}"><i class="fa fa-remove text-danger" aria-hidden="No"></i></td>
+								<td th:if="${hab.isObligatorio}" title="Requerido"><i class="fas fa-check-circle text-success" aria-hidden="Si"></i></td>
+								<td th:unless="${hab.isObligatorio}" title="No requerido"><i class="fa fa-remove text-danger" aria-hidden="No"></i></td>
 							</tr>
 						</table>
 					</div>
@@ -103,7 +103,7 @@
 					<table class="table table-hover shadow-lg p-3 mb-5 bg-body rounded">
 							<thead class="table-info">
 								<tr>
-									<th class="text-center">Personalidad</th>
+									<th class="text-center" title="Personalidad">Personalidad</th>
 								</tr>
 							</thead>
 							<tr th:each="hab : ${oferta.habilidadOfertaList}"
