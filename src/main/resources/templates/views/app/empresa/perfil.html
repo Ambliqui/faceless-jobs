@@ -9,8 +9,8 @@
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
 		<hr>
 		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
-		<nav class="col-2 border border-dark">Esto seria un nav</nav>
-		<section class="col-8 border border-dark text-center">
+		<nav class="col-2 border border-light shadow-lg p-3 mb-5 bg-body rounded"></nav>
+		<section class="col-8 text-center">
 			<section class="row inline-block">
 				<figure class="col">
 					<a href="/app/empresa/modify">
@@ -34,7 +34,8 @@
 				</figure>
 			</section>
 		</section>
-		<aside class="col border border-dark">Esto es el aside</aside>
+		<aside th:replace="fragments/base :: aside" class="col border border-dark"></aside>
+<!-- 		<aside class="col border border-dark">Esto es el aside</aside> -->
 	</main>
 
 	<div class="content"></div>
