@@ -18,7 +18,7 @@ function activarOferta() {
 
     Swal.fire({
         title: "AVISO" ,
-		text: "Una vez publicada la oferta no se podrán modificar los datos y/o las habilidades.",
+		text: "Una vez publicada la oferta no se podrán modificar los datos, requisitos y/o habilidades de la misma.",
 		icon: "warning",
 		//html: "",
 		confirmButtonText: "Publicar",

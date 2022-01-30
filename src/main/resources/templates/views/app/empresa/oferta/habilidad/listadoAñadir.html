@@ -13,15 +13,21 @@
 		
 		
 	    <hr>
+	    <div class="container content">
+		    <div class="text-center">
+				<div class="alert alert-warning col-md-12  text-center align-middle"
+					role="alert" th:text="${errorMsg}"
+					th:if="${errorType==4}" id="div">
+				</div>
+			</div>
+	    </div>
 		<section class="row">
 			<div class="col-2" th:if="${ofertaEmpleo.estadoOferta.id==1}"></div>
-			<div class="card row col-2" style="height: fit-content; padding:1%;margin-top: 3%;" th:if="${ofertaEmpleo.estadoOferta.id==1}">
-				
+			<div class="card row col-2 shadow p-3 mb-5 bg-body rounded" style="height: fit-content; padding:1%;margin-top: 3%;" th:if="${ofertaEmpleo.estadoOferta.id==1}">
 				<div th:switch="${errorType}">
 				    <p th:case="0" hidden=true/>
 				    <p th:case="1" th:text="${errorMsg}" class="alert alert-warning"/>
 				    <p th:case="2" th:text="${errorMsg}" class="alert alert-danger"/>
-				    <p th:case="4" th:text="${errorMsg}" class="alert alert-warning"/>
 				</div>
 				<form th:action="@{/app/empresa/oferta/habilidad/guardar}" th:object="${habilidadOferta}" method="POST">
 					<label for="habilidad">Habilidad: </label>
