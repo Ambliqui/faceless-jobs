@@ -1,5 +1,6 @@
 package com.teamfaceless.facelessjobs.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.teamfaceless.facelessjobs.enums.EstadoOferta;
 import com.teamfaceless.facelessjobs.model.Candidato;
 import com.teamfaceless.facelessjobs.model.Empresa;
+import com.teamfaceless.facelessjobs.model.InscripcionOferta;
+import com.teamfaceless.facelessjobs.model.InscripcionOfertaPK;
 import com.teamfaceless.facelessjobs.model.OfertaEmpleo;
 import com.teamfaceless.facelessjobs.model.Rol;
 import com.teamfaceless.facelessjobs.services.ICandidatoService;
 import com.teamfaceless.facelessjobs.services.IEmpresaService;
 import com.teamfaceless.facelessjobs.services.IHabilidadOfertaService;
+import com.teamfaceless.facelessjobs.services.IInscriptionService;
 import com.teamfaceless.facelessjobs.services.IOfertaService;
 import com.teamfaceless.facelessjobs.services.IProvinciaService;
 import com.teamfaceless.facelessjobs.services.IRolService;
@@ -56,6 +60,8 @@ public class ControllerOferta {
 	private HttpSession httpSession;
 	@Autowired
 	private IHabilidadOfertaService habOfeService;
+	@Autowired
+	private IInscriptionService insService;
 
 	@GetMapping("/listado")
 	public String goListado(Model model, Authentication auth) {
@@ -68,7 +74,14 @@ public class ControllerOferta {
 
 		} else if (rol.getNombre().equals("ROLE_CANDIDATO")) {
 			Candidato candidato = candidatoService.findByEmail(email).get();
-			model.addAttribute("ofertas", ofertaService.findOfertaByidCandidato(candidato.getIdCandidato()));
+			model.addAttribute("idCandidato", candidato.getIdCandidato());
+			List<OfertaEmpleo> ofertaList = ofertaService.findOfertaByidCandidato(candidato.getIdCandidato());
+			model.addAttribute("ofertas", ofertaList);
+			List<InscripcionOferta> inscripcionList = new ArrayList<>();
+			for (OfertaEmpleo oferta : ofertaList) {
+				inscripcionList.add(insService.findByInscripcionOfertaPK(new InscripcionOfertaPK(oferta.getIdOfertaEmpleo(), candidato.getIdCandidato())));
+			}
+			model.addAttribute("inscripciones", inscripcionList);
 			model.addAttribute("titulo", "Mis inscripciones");
 		}
 		return "views/oferta/listado";
