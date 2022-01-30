@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -122,5 +123,10 @@ public class ControllerCandidato {
 		return "redirect:/candidato/perfil";
 
 	}
-
+	
+	@RequestMapping(value="/detalle/{idCandidato}",method={RequestMethod.GET,RequestMethod.POST})
+	public String detalleCandidato(@PathVariable Integer idCandidato,Model model) {
+		model.addAttribute("candidato", candidatoService.buscarPorId(idCandidato).get());
+		return "/views/candidato/detalle";
+	}
 }
