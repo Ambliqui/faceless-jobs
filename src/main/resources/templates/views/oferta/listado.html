@@ -18,91 +18,98 @@
 					sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
 					class="btn btn-success" style="width: 200px">Button</a>
 			</div>
-			<div class="alert alert-warning" th:text="${msg}"
-				sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-				style="width: 200px; margin: auto" th:if="${isAviso}"></div>
-			<div th:each="oferta:${ofertas}" class="container">
-			
-			<!-- ------------------ -->
-			<!-- ESTO ES UNA OFERTA -->
-			<!-- ------------------ -->
-				<div class="card shadow mb-5 bg-body rounded">
-					<!-- SI ESTÁ RECHAZADO/CERRADA -->
-					<div class="card-header bg-danger bg-gradient text-center row" th:if="${oferta.estadoOferta.id==2}" style="margin:0;">
-						<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
-						<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
-						<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
-					</div>
-					<!-- SI ESTÁ ACEPTADO/ABIERTA -->
-					<div class="card-header bg-success bg-gradient text-center row" th:if="${oferta.estadoOferta.id==0}" style="margin:0;">
-						<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
-						<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
-						<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
-					</div>
-					<!-- SI ESTÁ PENDIENTE/DESACTIVADA -->
-					<div class="card-header bg-warning bg-gradient text-center row" th:if="${oferta.estadoOferta.id==1}" style="margin:0;">
-						<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
-						<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
-						<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<!-- INFORMACION -->
-							<div class="col-10">
-								<h3 th:text="${oferta.empresa.nombreEmpresa}" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" />
-								<p><b>Localización: </b><span th:text="${oferta.provinciaOferta.nombreProvincia}" /></p>
-								<p><b>Salario: </b><span th:text="${oferta.salarioOferta} + ' €'" /></p>
-								<p th:text="${oferta.descripcionOferta}" />
+			<div class="row">
+				<div class="col-2">
+					Meter aqui los filtros
+				</div>
+				<div class="col-8">
+					<div th:each="oferta:${ofertas}" class="container">
+					
+					<!-- ------------------ -->
+					<!-- ESTO ES UNA OFERTA -->
+					<!-- ------------------ -->
+						<div class="card shadow mb-5 bg-body rounded">
+							<!-- SI ESTÁ RECHAZADO/CERRADA -->
+							<div class="card-header bg-danger bg-gradient text-center row" th:if="${oferta.estadoOferta.id==2}" style="margin:0;">
+								<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
+								<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
+								<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
 							</div>
-							<!-- BOTONERA -->
-							<div class="col text-center">
-								<a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Editar'}"
-									style="border: solid 1px black; width: 100%"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Editar</a>
-								<a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Ver Inscritos'}"
-									style="border: solid 1px black; width: 100%"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									class="btn btn-warning">Ver Inscritos</a>
-								<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Ver Habilidades'}"
-									style="border: solid 1px black; width: 100%"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									class="btn btn-warning">Ver Habilidades</a>
-								<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Detalle'}"
-									style="border: solid 1px black; width: 100%"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									class="btn btn-dark">Detalle</a>
-								<a href="javascript: history.go(-1)" class="btn btn-primary" style="border: solid 1px black; width: 100%">Volver</a>
+							<!-- SI ESTÁ ACEPTADO/ABIERTA -->
+							<div class="card-header bg-success bg-gradient text-center row" th:if="${oferta.estadoOferta.id==0}" style="margin:0;">
+								<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
+								<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
+								<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
+							</div>
+							<!-- SI ESTÁ PENDIENTE/DESACTIVADA -->
+							<div class="card-header bg-warning bg-gradient text-center row" th:if="${oferta.estadoOferta.id==1}" style="margin:0;">
+								<span class="col" th:text="${oferta.tituloOferta}" style="font-weight: bolder;text-align: left;"/>
+								<span class="col" th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
+								<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<!-- INFORMACION -->
+									<div class="col-8">
+										<h3 th:text="${oferta.empresa.nombreEmpresa}" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" />
+										<p><b>Localización: </b><span th:text="${oferta.provinciaOferta.nombreProvincia}" /></p>
+										<p><b>Salario: </b><span th:text="${oferta.salarioOferta} + ' €'" /></p>
+										<p th:text="${oferta.descripcionOferta}" />
+									</div>
+									<!-- BOTONERA -->
+									<div class="col text-center">
+										<a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Editar'}"
+											style="border: solid 1px black; width: 100%"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Editar</a>
+										<a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Ver Inscritos'}"
+											style="border: solid 1px black; width: 100%"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											class="btn btn-warning">Ver Inscritos</a>
+										<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Ver Habilidades'}"
+											style="border: solid 1px black; width: 100%"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											class="btn btn-warning">Ver Habilidades</a>
+										<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Detalle'}"
+											style="border: solid 1px black; width: 100%"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											class="btn btn-dark">Detalle</a>
+										<a href="javascript: history.go(-1)" class="btn btn-primary" style="border: solid 1px black; width: 100%">Volver</a>
+									</div>
+								</div>
+								<!-- PIE DEL CUERPO -->
+								<div class="row">
+									<div class="col-4"></div>
+									<div class="col-4 text-center">
+										<a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Activar'}"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											style="border: solid 1px black; width: 100%"
+											class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a>
+										<a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
+											th:text="${'Cerrar Proceso'}"
+											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+											style="border: solid 1px black; width: 100%"
+											class="btn btn-danger" th:if="${oferta.estadoOferta.id==0}">Cerrar Proceso</a>
+									</div>
+									<div class="col-4"></div>
+								</div>
+							</div>
+							<div class="card-footer text-muted bg-light" style="position: relative;bottom:0px;">
+								<span th:text="'Fecha de finalización: ' + ${oferta.fechaFinOfertaOrdenada}" style="float: left;font-weight:bolder;"/>
+								<span th:text="${oferta.inscripcionOfertaList.size} + ' inscritos para ' + ${oferta.numeroVacantesOferta} + ' puestos'" style="float: right;font-weight:bolder;"/>
 							</div>
 						</div>
-						<!-- PIE DEL CUERPO -->
-						<div class="row">
-							<div class="col-5"></div>
-							<div class="col-2 text-center">
-								<a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Activar'}"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									style="border: solid 1px black; width: 100%"
-									class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a>
-								<a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
-									th:text="${'Cerrar Proceso'}"
-									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-									style="border: solid 1px black; width: 100%"
-									class="btn btn-danger" th:if="${oferta.estadoOferta.id==0}">Cerrar Proceso</a>
-							</div>
-							<div class="col-5"></div>
-						</div>
-					</div>
-					<div class="card-footer text-muted bg-light" style="position: relative;bottom: -24px;">
-						<span th:text="'Fecha de finalización: ' + ${oferta.fechaFinOfertaOrdenada}" style="float: left;font-weight:bolder;"/>
-						<span th:text="${oferta.inscripcionOfertaList.size} + ' inscritos para ' + ${oferta.numeroVacantesOferta} + ' puestos'" style="float: right;font-weight:bolder;"/>
+						<br>
 					</div>
 				</div>
-				<br>
+				<div class="col-2">
+				Aquí la publciidad
+				</div>
 			</div>
 		</div>
 	</main>
