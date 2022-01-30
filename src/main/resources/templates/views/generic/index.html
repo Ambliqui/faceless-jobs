@@ -8,63 +8,49 @@
 
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
+	
+	<main class="container content">
 	<h1 class="text-center align-middle text-secondary mt-3 display-3">Ofertas
 		de empleo disponibles</h1>
 		<h5 th:text="${msgError}" class="form-text text-danger" style="text-align: center;"></h5>
 	<hr>
-	<main class="container content">
-		<section class="row text-center">
-			<div class="col-3">
+		<section class="row">
+			<!-- SECCION FILTRO -->
+			<section class="col-2 border border-light shadow-lg p-3 mb-5 bg-body rounded">
+			<h5 class="alert alert-primary text-center">Buscador</h5>
 			<form action="/" method="get">
 					<div class="form-group">
-						<label for="tituloOferta">Título</label> <input type="text"
-							class="form-control" id="tituloOferta" th:value="${tituloOferta}" placeholder="Título..."
-							name="titulo">
-					</div>
-					<!--  
-					<div class="form-group">
-						<label for="palabraClave">Palabra clave</label> <input type="text"
-							class="form-control" id="palabraClave"
-							placeholder="Palabra clave..." name="descripcion">
-					</div>
-
-					<div class="form-group">
-						<label for="provincia">Provincia</label> <select
-							class="form-control" id="provincia" name="provincia">
-							<option th:each="p:${provincias}" th:value="${p.nombreProvincia}"
-								th:text="${p.nombreProvincia}"></option>
-						</select>
+						<label for="tituloOferta">Título</label>
+						<input id="tituloOferta"
+							type="text"
+							name="titulo"
+							th:value="${tituloOferta}"
+							placeholder="Título..." 
+							class="form-control">
 					</div>
 					<div class="form-group">
-						<label for="sector">Sector</label> <select class="form-control"
-							id="sector" name="sector">
-							<option th:each="s:${sectores}"
-								th:value="${s.nombreSectorLaboral}"
-								th:text="${s.nombreSectorLaboral}"></option>
-						</select>
-					
+						<label for="salario">Salario Minimo</label>
+						<input id="salario" 
+							type="number"
+							th:value="${salarioOferta}"
+							name="salarioMinimo"
+							min="0"
+							placeholder="Salario minimo..." 
+							class="form-control">
 					</div>
-						-->
-					<div class="form-group">
-						<label for="salario">Salario Minimo</label> <input type="number"
-						min="0" class="form-control" id="salario"
-							placeholder="Salario minimo..." th:value="${salarioOferta}" name="salarioMinimo">
-					</div>
-
-					<br>
-					<div class="text-align-center">
-					<button type="submit" class="btn btn-primary">Filtrar</button>
-					<button type="submit" formaction="/limpiarFiltro" class="btn btn-dark">Ver todas</button>
-					
+					<hr>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary">Filtrar</button>
+						<button type="submit" formaction="/limpiarFiltro" class="btn btn-dark">Ver todas</button>
 					</div>
 				</form>
-			
-			</div>
-			<div class="col-7 row inline-block">
+			</section>
+			<!-- Fin Filtros -->
+			<!-- SECCION TARJETA OFERTA -->
+			<section class="col-8 row inline-block">
 				<div th:each="oferta:${ofertas}" class="col-6">
-					<div class="card text-center">
-						<header class="card-header"
-							th:text="${oferta.empresa.nombreEmpresa}"></header>
+					<div class="card text-center shadow-lg p-3 mb-5 bg-body rounded">
+						<header class="card-header"	th:text="${oferta.empresa.nombreEmpresa}"></header>
 						<div class="card-body">
 							<h5 class="card-title" th:text="${oferta.tituloOferta}"></h5>
 							<p class="recortar-contenido card-text"
@@ -73,11 +59,20 @@
 								class="btn btn-primary">Detalle</a>
 						</div>
 						<footer class="card-footer text-muted"
-							th:text="${oferta.fechaInicioOferta}"></footer>
+							th:text="${oferta.fechaInicioOfertaOrdenada}">
+						</footer>
 					</div>
-					<br>
 				</div>
-			</div>
+			</section>
+			<!-- Fin Tarjeta -->
+			<!-- SECCION PUBLICIDAD -->
+			<aside class="col border border-light shadow-lg p-3 mb-5 bg-body rounded text-center">
+				<h5 class="alert alert-primary text-center">Publicidad</h5>
+				<img alt="publi1" src="/images/app/DatosEmpresariales.png" height="100px">
+				<img alt="publi2" src="/images/app/publicidad/arelance1.png" height="150px">
+				<img alt="publi3" src="/images/app/publicidad/arelance2.png" height="100px">
+				<img alt="publi4" src="/images/app/ParadiseRent.png" height="150px">
+			</aside>
 		</section>
 	</main>
 
