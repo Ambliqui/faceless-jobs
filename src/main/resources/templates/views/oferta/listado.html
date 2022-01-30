@@ -8,13 +8,9 @@
 
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
-
 	<main class="container content">
-
-		<h1 th:text="${titulo}" class="text-secondary"
-			style="text-align: center;"></h1>
+		<h1 th:text="${titulo}" class="text-secondary text-center"></h1>
 		<hr>
-		
 		<div class="row m-3">
 			<div class="card-body text-center">
 				<a th:href="@{'/app/empresa/oferta/formulario'}"
@@ -50,51 +46,62 @@
 						<span class="col" th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="font-weight: bolder;text-align: right;"/>
 					</div>
 					<div class="card-body">
-						<div class="text-center" style="float: right;display: inline-grid;">
-							<a
-								th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Editar'}" style="border: solid 1px black"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Editar</a>
-							<a
-								th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Ver Inscritos'}" style="border: solid 1px black"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-warning">Ver Inscritos</a>
-							<a
-								th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Ver Habilidades'}" style="border: solid 1px black"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-warning">Ver Habilidades</a>
-							<a
-								th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Detalle'}" style="border: solid 1px black"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-dark">Detalle</a>
+						<div class="row">
+							<!-- INFORMACION -->
+							<div class="col-10">
+								<h3 th:text="${oferta.empresa.nombreEmpresa}" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')" />
+								<p><b>Localización: </b><span th:text="${oferta.provinciaOferta.nombreProvincia}" /></p>
+								<p><b>Salario: </b><span th:text="${oferta.salarioOferta} + ' €'" /></p>
+								<p th:text="${oferta.descripcionOferta}" />
+							</div>
+							<!-- BOTONERA -->
+							<div class="col text-center">
+								<a th:href="@{'/app/empresa/oferta/formularioModificar/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Editar'}"
+									style="border: solid 1px black; width: 100%"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Editar</a>
+								<a th:href="@{'/app/empresa/inscritos/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Ver Inscritos'}"
+									style="border: solid 1px black; width: 100%"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									class="btn btn-warning">Ver Inscritos</a>
+								<a th:href="@{'/app/empresa/oferta/habilidad/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Ver Habilidades'}"
+									style="border: solid 1px black; width: 100%"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									class="btn btn-warning">Ver Habilidades</a>
+								<a th:href="@{'/oferta/detalle/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Detalle'}"
+									style="border: solid 1px black; width: 100%"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									class="btn btn-dark">Detalle</a>
+								<a href="javascript: history.go(-1)" class="btn btn-primary" style="border: solid 1px black; width: 100%">Volver</a>
+							</div>
 						</div>
-						<h3 th:text="${oferta.empresa.nombreEmpresa}" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"/>
-						<p><b>Localización: </b><span th:text="${oferta.provinciaOferta.nombreProvincia}"/></p>
-						<p><b>Salario: </b><span th:text="${oferta.salarioOferta} + ' €'"/></p>
-						<p th:text="${oferta.descripcionOferta}" style="min-height: 70px;"/>
-						<div class="text-center">
-							<a
-								th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Activar'}"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a>
-							<a
-								th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
-								th:text="${'Cerrar Proceso'}"
-								sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-								class="btn btn-danger" th:if="${oferta.estadoOferta.id==0}">Cerrar
-								Proceso</a>
+						<!-- PIE DEL CUERPO -->
+						<div class="row">
+							<div class="col-5"></div>
+							<div class="col-2 text-center">
+								<a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Activar'}"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									style="border: solid 1px black; width: 100%"
+									class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a>
+								<a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
+									th:text="${'Cerrar Proceso'}"
+									sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+									style="border: solid 1px black; width: 100%"
+									class="btn btn-danger" th:if="${oferta.estadoOferta.id==0}">Cerrar Proceso</a>
+							</div>
+							<div class="col-5"></div>
 						</div>
 					</div>
 					<div class="card-footer text-muted bg-light" style="position: relative;bottom: -24px;">
 						<span th:text="'Fecha de finalización: ' + ${oferta.fechaFinOfertaOrdenada}" style="float: left;font-weight:bolder;"/>
 						<span th:text="${oferta.inscripcionOfertaList.size} + ' inscritos para ' + ${oferta.numeroVacantesOferta} + ' puestos'" style="float: right;font-weight:bolder;"/>
 					</div>
-				</t/div>
+				</div>
 				<br>
 			</div>
 		</div>
