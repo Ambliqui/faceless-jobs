@@ -19,9 +19,7 @@
 					class="btn btn-success" style="width: 200px">Button</a>
 			</div>
 			<div class="row">
-				<div class="col-2">
-					Meter aqui los filtros
-				</div>
+				<nav class="col-2 border border-light shadow-lg p-3 mb-5 bg-body rounded"></nav>
 				<div class="col-8">
 					<div th:each="oferta:${ofertas}" class="container">
 					
@@ -81,6 +79,7 @@
 										<a href="javascript: history.go(-1)" class="btn btn-primary" style="border: solid 1px black; width: 100%">Volver</a>
 									</div>
 								</div>
+								<hr>
 								<!-- PIE DEL CUERPO -->
 								<div class="row">
 									<div class="col-4"></div>
@@ -113,9 +112,7 @@
 						<br>
 					</div>
 				</div>
-				<div class="col-2">
-				Aquí la publciidad
-				</div>
+			<aside th:replace="fragments/base :: aside" class="col border border-dark"></aside>
 			</div>
 		</div>
 	</main>
