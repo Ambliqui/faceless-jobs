@@ -66,6 +66,7 @@ public class ControllerHabilidadOferta {
 		 * 	1->Se ha llenado una de las categorías, warning amarillo
 		 * 	2->Se han llenado las dos categorías, warning rojo
 		 *  3->Se ha cerrado la oferta o no se abrir sin agregar al menos una habilidad dura, warning amarillo
+		 *  4->No se puede abrir una oferta sin tener al menos una habilidad dura
 		 */
 		int errorType = 0;
 		
@@ -77,8 +78,12 @@ public class ControllerHabilidadOferta {
 		}
 		else {
 			if(habilidadesDurasAnadidas.size()==0) {
-				errorType=3;
+				errorType=4;
 				errorMsg="Debes agregar al menos una habilidad dura antes de poder activar tu oferta de empleo";
+				listaHabilidadesDurasRestante=habOfeService.findHabilidadesDurasRestantesByOferta(ofertaEmpleo);
+				if(!isMaxBlandas) {
+					listaHabilidadesBlandasRestante=habOfeService.findHabilidadesBlandasRestantesByOferta(ofertaEmpleo);
+				}
 			}
 			else {
 				if(isMaxBlandas&&isMaxDuras) {
