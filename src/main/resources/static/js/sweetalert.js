@@ -14,7 +14,7 @@
 //	});
 //});
 
-function activarOferta() {
+function activarOferta(numberId) {
 
     Swal.fire({
         title: "AVISO" ,
@@ -27,7 +27,7 @@ function activarOferta() {
 		cancelButtonText: 'No publicar'
     }).then((result) => {
         if (result.isConfirmed) {
-        document.getElementById("activarForm").submit();
+        document.getElementById("activarForm"+numberId).submit();
         }
     })
 }

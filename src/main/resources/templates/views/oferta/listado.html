@@ -85,11 +85,17 @@
 								<div class="row">
 									<div class="col-4"></div>
 									<div class="col-4 text-center">
-										<a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}"
-											th:text="${'Activar'}"
-											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-											style="border: solid 1px black; width: 100%"
-											class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a>
+										<form style="visibility:hidden;" th:id="'activarForm'+${oferta.idOfertaEmpleo}" th:action="'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}"></form>
+										<button th:onclick="'activarOferta('+${oferta.idOfertaEmpleo}+')'" th:text="${'Publicar Oferta'}"
+							            	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
+							            	class="btn btn-success" style="border: solid 1px black; width: 100%"
+							            	th:if="${oferta.estadoOferta.id==1}">Publicar Oferta
+							            </button>
+<!-- 										<a th:href="@{'/app/empresa/oferta/activar/' + ${oferta.idOfertaEmpleo}}" -->
+<!-- 											th:text="${'Activar'}" -->
+<!-- 											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')" -->
+<!-- 											style="border: solid 1px black; width: 100%" -->
+<!-- 											class="btn btn-success" th:if="${oferta.estadoOferta.id==1}">Activar</a> -->
 										<a th:href="@{'/app/empresa/oferta/cerrar/' + ${oferta.idOfertaEmpleo}}"
 											th:text="${'Cerrar Proceso'}"
 											sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
@@ -115,5 +121,7 @@
 	</main>
 	<footer th:replace="fragments/base :: footer"></footer>
 	<th:block th:replace="fragments/base :: script"></th:block>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  	<script th:src="@{/js/sweetalert.js}"></script>
 </body>
 </html>

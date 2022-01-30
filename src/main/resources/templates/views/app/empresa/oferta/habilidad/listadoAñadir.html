@@ -186,14 +186,14 @@
 		</section>
 		<hr/>
 		<div class="card-body text-center">
-			<form style="visibility:hidden;" id="activarForm" th:action="'/app/empresa/oferta/habilidad/activar/' + ${ofertaEmpleo.idOfertaEmpleo}">
-				<input type="submit" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
-				class="btn btn-primary btn1" style="margin:auto;width: 200px"
-				th:if="${ofertaEmpleo.estadoOferta.id==1}"
-				value="Publicar Oferta"
-				onclick="confirmar(event)">
+			<form style="visibility:hidden;" id="activarForm1" th:action="'/app/empresa/oferta/habilidad/activar/' + ${ofertaEmpleo.idOfertaEmpleo}">
+<!-- 				<input type="submit" sec:authorize="hasAnyAuthority('ROLE_EMPRESA')" -->
+<!-- 				class="btn btn-primary btn1" style="margin:auto;width: 200px" -->
+<!-- 				th:if="${ofertaEmpleo.estadoOferta.id==1}" -->
+<!-- 				value="Publicar Oferta" -->
+<!-- 				onclick="confirmar(event)"> -->
 			</form>
-			<button onclick="activarOferta()" th:text="${'Publicar Oferta'}"
+			<button onclick="activarOferta(1)" th:text="${'Publicar Oferta'}"
             	sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
             	class="btn btn-primary" style="margin:auto;width: 200px"
             	th:if="${ofertaEmpleo.estadoOferta.id==1}">Publicar Oferta</button>
