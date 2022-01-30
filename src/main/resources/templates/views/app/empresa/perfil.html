@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/base :: head"></head>
+<head th:replace="fragments/base :: head">
+	<meta charset="UTF-8">
+</head>
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 	
-	<main class="row">
+	<main class="container content">
+	<section class="row">
 		<hr>
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
 		<hr>
@@ -36,6 +39,7 @@
 		</section>
 		<aside th:replace="fragments/base :: aside" class="col border border-dark"></aside>
 <!-- 		<aside class="col border border-dark">Esto es el aside</aside> -->
+	</section>
 	</main>
 
 	<div class="content"></div>
