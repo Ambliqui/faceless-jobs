@@ -1,43 +1,43 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-
 <head th:replace="fragments/base :: head">
-
+	<meta charset="UTF-8">
 </head>
-
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
-	<main class="row">
-		<hr>
-		<h1 th:text="${titulo}" class="text-center">Perfil de usuario</h1>
-		<hr>
-		<nav class="col-2 border border-dark">Esto seria un nav</nav>
-		
-		<section class="col-8 border border-dark text-center">
-			<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
-			<section class="row inline-block" style="margin:10px 0">
-				<figure class="col">
-					<a href="/candidato/modify"><img width="200" alt="Datos personales"
-						src="/images/candidato/DatosPersonales.png" role="button" class="rounded-circle">
-					<figcaption>Datos Personales</figcaption>
-					</a>
-				</figure>
-				<figure class="col">
-					<a href="/oferta/listado">
-					<img width="200" alt="Mis Ofertas"
-						src="/images/candidato/Ofertas.png" role="button" class="rounded-circle">
-					<figcaption>Mis Ofertas</figcaption>
-					</a>
-				</figure>
-				<figure class="col" style="margin-top:10px">
-					<a th:href="@{'/app/candidato/habilidad/'+${idCandidato}}">				
-					<img width="180" alt="Habilidades"
-						src="/images/candidato/Habilidades2.png" role="button" class="rounded-circle" style="margin-bottom:10px">
-					<figcaption>Mis Habilidades</figcaption></a>
-				</figure>
+	<main>
+		<section class="row">
+			<hr>
+			<h1 th:text="${titulo}" class="text-center">Perfil de usuario</h1>
+			<hr>
+			<nav class="col-2 border border-light shadow-lg p-3 mb-5 bg-body rounded"></nav>
+			<section class="col-8 text-center">
+				<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
+				<section class="row inline-block" style="margin:10px 0">
+					<figure class="col">
+						<a href="/candidato/modify"><img width="200" alt="Datos personales"
+							src="/images/candidato/DatosPersonales.png" role="button" class="rounded-circle">
+						<figcaption>Datos Personales</figcaption>
+						</a>
+					</figure>
+					<figure class="col">
+						<a href="/oferta/listado">
+						<img width="200" alt="Mis Ofertas"
+							src="/images/candidato/Ofertas.png" role="button" class="rounded-circle">
+						<figcaption>Mis Ofertas</figcaption>
+						</a>
+					</figure>
+					<figure class="col" style="margin-top:10px">
+						<a th:href="@{'/app/candidato/habilidad/'+${idCandidato}}">				
+						<img width="180" alt="Habilidades"
+							src="/images/candidato/Habilidades2.png" role="button" class="rounded-circle" style="margin-bottom:10px">
+						<figcaption>Mis Habilidades</figcaption></a>
+					</figure>
+				</section>
 			</section>
+			<aside th:replace="fragments/base :: aside" class="col border border-dark"></aside>
+	<!-- 		<aside class="col border border-dark">Esto es el aside</aside> -->
 		</section>
-		<aside class="col border border-dark">Esto es el aside</aside>
 	</main>
 	<div class="content"></div>
 	<footer th:replace="fragments/base :: footer"></footer>
