@@ -24,6 +24,10 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.teamfaceless.facelessjobs.enums.EstadoOferta;
+import com.teamfaceless.facelessjobs.services.ICandidatoService;
+import com.teamfaceless.facelessjobs.services.IInscriptionService;
+import com.teamfaceless.facelessjobs.services.impl.CandidatoService;
+import com.teamfaceless.facelessjobs.services.impl.InscriptionService;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -124,4 +128,10 @@ public class OfertaEmpleo implements Serializable {
                 + fechaFinOferta.getYear();
     }
 	
+    public Integer getEstadoIncripcion(int idCandidato) {
+    	IInscriptionService insService = new InscriptionService();
+    	InscripcionOferta inscripcion = insService.findByInscripcionOfertaPK(new InscripcionOfertaPK(this.idOfertaEmpleo, idCandidato));
+    	return inscripcion.getEstadoInscripcion().ordinal();
+    }
+    
 }

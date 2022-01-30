@@ -26,20 +26,33 @@
 				sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
 				style="width: 200px; margin: auto" th:if="${isAviso}"></div>
 			<div th:each="oferta:${ofertas}" class="container">
-				<div class="card">
-					<div class="card-header bg-info text-center"
-						th:text="${oferta.empresa.nombreEmpresa}">Empresa</div>
-					<div class="card-header bg-info text-center"
-						th:text="${'Código Oferta = ' + oferta.idOfertaEmpleo}">Codigo</div>
-					<div class="card-body text-center">
-						<p th:if="${oferta.estadoOferta.id>=1}"
-							th:text="'Oferta ' + ${oferta.estadoOferta.texto}"
-							style="width: 200px; margin: auto" class="alert alert-danger"></p>
-						<h5 class="card-title" th:text="${oferta.tituloOferta}">Special
-							title treatment</h5>
-						<p
-							th:text="${oferta. inscripcionOfertaList.size}+' '+${'inscritos.'}"
-							sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"></p>
+			
+			<!-- ------------------ -->
+			<!-- ESTO ES UNA OFERTA -->
+			<!-- ------------------ -->
+				<div class="card shadow mb-5 bg-body rounded">
+					<!-- SI ESTÁ RECHAZADO/CERRADA -->
+					<div class="card-header bg-danger bg-gradient text-center" th:if="${oferta.estadoOferta.id==2}">
+						<span th:text="${oferta.tituloOferta}" style="float: left;font-weight: bolder;"/>
+						<span th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="float: right; font-weight: bolder;"/>
+						<span th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
+					</div>
+					<!-- SI ESTÁ ACEPTADO/ABIERTA -->
+					<div class="card-header bg-success bg-gradient text-center" th:if="${oferta.estadoOferta.id==0}">
+						<span th:text="${oferta.tituloOferta}" style="float: left;font-weight: bolder;"/>
+						<span th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="float: right; font-weight: bolder;"/>
+						<span th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;">
+					</div>
+					<!-- SI ESTÁ PENDIENTE/DESACTIVADA -->
+					<div class="card-header bg-warning bg-gradient text-center" th:if="${oferta.estadoOferta.id==1}">
+						<span th:text="${oferta.tituloOferta}" style="float: left;font-weight: bolder;"/>
+						<span th:text="'Código oferta: ' + ${oferta.idOfertaEmpleo}" style="float: right; font-weight: bolder;"/>
+						<span th:text="'Oferta ' + ${oferta.estadoOferta.texto}" style="font-weight: bolder;"/>
+					</div>
+					<div class="card-body">
+						<h3 th:text="${oferta.empresa.nombreEmpresa}" sec:authorize="hasAnyAuthority('ROLE_CANDIDATO')"/>
+						<p><b>Localización: </b><span th:text="${oferta.provinciaOferta.nombreProvincia}"/></p>
+						<p><b>Salario: </b><span th:text="${oferta.salarioOferta} + ' €'"/></p>
 						<p class="recortar-contenido card-text"
 							th:text="${oferta.descripcionOferta}">With supporting text
 							below as a natural lead-in to additional content.</p>
@@ -72,9 +85,11 @@
 							sec:authorize="hasAnyAuthority('ROLE_EMPRESA')"
 							class="btn btn-dark">Button</a>
 					</div>
-					<div class="card-footer text-muted bg-light"
-						th:text="${oferta.fechaInicioOferta}">2 days ago</div>
-				</div>
+					<div class="card-footer text-muted bg-light" style="position: relative;bottom: -24px;">
+						<span th:text="'Fecha de finalización: ' + ${oferta.fechaFinOfertaOrdenada}" style="float: left;font-weight:bolder;"/>
+						<span th:text="${oferta.inscripcionOfertaList.size} + ' inscritos para ' + ${oferta.numeroVacantesOferta} + ' puestos'" style="float: right;font-weight:bolder;"/>
+					</div>
+				</t/div>
 				<br>
 			</div>
 		</div>
