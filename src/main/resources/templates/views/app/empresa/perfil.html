@@ -11,7 +11,9 @@
 		<h1 th:text="${titulo}" class="text-center">Perfil de Empresa</h1>
 		<hr>
 		<h3 class="text-success text-center" th:if="${msg}" th:text="${msg}"></h3>
-		<nav class="col-2 border border-light shadow-lg p-3 mb-5 bg-body rounded"></nav>
+		<nav class="col-2 text-center border border-light shadow-lg p-3 mb-5 bg-body rounded">
+			<a href="javascript: history.go(-1)" class="btn btn-primary" style="width : 100%">Volver</a>
+		</nav>
 		<section class="col-8 text-center">
 			<section class="row inline-block">
 				<figure class="col">
