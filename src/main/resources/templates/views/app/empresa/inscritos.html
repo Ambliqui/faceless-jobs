@@ -6,7 +6,7 @@
 <body>
 	<nav th:replace="fragments/base :: navbar"></nav>
 	<hr>
-	<h1 class="text-center">Inscritos Oferta</h1>
+	<h1 class="text-center" th:text="'Inscritos Oferta '+${oferta.tituloOferta}">Inscritos Oferta XXX</h1>
 	
 	<hr>
 	
@@ -103,7 +103,9 @@
 					</div>
 				</div>
 			</div>
-<!-- Panel de seleccionados -->
+			<!--
+			PANEL DE SELECCIONADOS
+			-->
 			<div class="tab-pane fade" id="nav-seleccionados" role="tabpanel" aria-labelledby="nav-seleccionados-tab">
 				<table class="table table-hover table-bordered sortable">
 				<thead class="table-dark">
@@ -125,6 +127,7 @@
 				<tr th:each="insc : ${inscritos}"
 					th:object="${insc}"
 					th:if="${insc.estadoInscripcion.texto} == 'En_Proceso'">
+					<a th:href="'/candidato/detalle/'+${insc.idCandidato.charAt(0)}" class="stretched-link" th:if="${oferta.estadoOferta.id==2}"></a>
 					<td th:text="${insc.idCandidato}"
 						th:style="${insc.estadoInscripcion.texto=='Descartado'} ? 'color:white;background-color:grey;'"						
 						></td>
