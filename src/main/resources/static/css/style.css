@@ -18,3 +18,7 @@ body {
   white-space:nowrap;
   text-overflow: ellipsis;
 }
+
+.display-flex {
+  display: flex;
+}
