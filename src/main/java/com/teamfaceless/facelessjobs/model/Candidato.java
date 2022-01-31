@@ -22,11 +22,14 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.teamfaceless.facelessjobs.enums.MedioFavorito;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 
 @Data
 @NoArgsConstructor
@@ -77,6 +80,10 @@ public class Candidato implements Serializable {
 	@JoinColumn(name = "provincia_candidato", referencedColumnName = "id_provincia")
 	@ManyToOne
 	private Provincia provinciaCandidato;
+	
+	@Default
+	@Column(name="medio_favorito", columnDefinition = "integer default 0")
+	private MedioFavorito medioFavorito=MedioFavorito.CORREO;
 
 	public String codificarNombre() {
 		String nombreClave = String.valueOf(idCandidato) + nombreCandidato.substring(0, 1);

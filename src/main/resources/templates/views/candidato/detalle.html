@@ -43,6 +43,11 @@
 						<ul>
 							<li th:text=" ${candidato.telefonoCandidato}"></li>
 						</ul>
+						
+						<li><i class="fas fa-comments text-primary" aria-hidden="No"></i><strong> Vía de comunicación preferente</strong></li>
+						<ul>
+							<li th:text=" ${candidato.medioFavorito.dato}"></li>
+						</ul>
 					</ul>
 				</fieldset>
 			</div>
