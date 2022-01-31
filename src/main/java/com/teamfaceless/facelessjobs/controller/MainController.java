@@ -188,6 +188,7 @@ private ISectorService sectorService;
                         httpSession.setAttribute("userSession", candidato.get());
                         httpSession.setAttribute("credencialSession", credencial.get());
                         httpSession.setAttribute("rol", 0);
+                        httpSession.setAttribute("usuario", candidato.get().getNombreCandidato());
                         return "redirect:/";
                     }
                 }
@@ -202,6 +203,7 @@ private ISectorService sectorService;
                         httpSession.setAttribute("userSession", empresa.get());
                         httpSession.setAttribute("credencialSession", credencial.get());
                         httpSession.setAttribute("rol", 1);
+                        httpSession.setAttribute("usuario", empresa.get().getNombreEmpresa());
                         return "redirect:/";
                     }
                 }
